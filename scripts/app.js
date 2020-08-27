@@ -89,7 +89,16 @@ function init(){
       character.disappear(tempYPosition, tempXPosition)
       character.appear()
     } else {
-      console.log('cant move here!')
+      if (direction === 'right'){
+        character.xPos = character.xPos - 1
+      } else if (direction === 'left') {
+        character.xPos = character.xPos + 1
+      } else if (direction === 'up') {
+        character.yPos = character.yPos + 1
+      } else if (direction === 'down') {
+        character.yPos = character.yPos - 1
+      }
+
     }
 
 
@@ -100,7 +109,7 @@ function init(){
   playerOne.appear()
 
   setTimeout(() => {
-    playerOne.moveRight()
+    playerOne.moveLeft()
   }, 4000)
 
 
