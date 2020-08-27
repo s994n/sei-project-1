@@ -18,7 +18,7 @@ function init(){
     ['*','O','O','O','O','O','O','O','O','*'],
     ['*','O','O','O','O','O','O','O','O','*'],
     ['*','O','O','O','O','O','O','O','O','*'],
-    ['*','O','O','O','O','O','O','O','O','*'],
+    ['*','O','O','O','O','O','O','O','B','*'],
     ['*','*','*','*','*','*','*','*','*','*']]
 
 
@@ -82,12 +82,13 @@ function init(){
   }
 
   function mover(character, direction, tempXPosition, tempYPosition){
-    
-    console.log(cells[character.yPos][character.xPos].dataset.appearance)
-    
+
     if (cells[character.yPos][character.xPos].dataset.appearance === 'O'){
       character.disappear(tempYPosition, tempXPosition)
       character.appear()
+    } else if (cells[character.yPos][character.xPos].dataset.appearance === 'B') {
+      console.log('Game over!!')
+      return
     } else {
       if (direction === 'right'){
         character.xPos = character.xPos - 1
@@ -98,7 +99,6 @@ function init(){
       } else if (direction === 'down') {
         character.yPos = character.yPos - 1
       }
-
     }
 
 
