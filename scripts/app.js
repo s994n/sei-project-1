@@ -41,44 +41,47 @@ function init(){
       this.xPos = xPos
       this.yPos = yPos
     }
-
     appear(){
       cells[this.yPos][this.xPos].classList.add('player')
     }
-
     disappear(yPos, xPos){
       cells[yPos][xPos].classList.remove('player')
     }
-
     moveRight(){
       const tempXPosition = this.xPos
       const tempYPosition = this.yPos
       this.xPos = this.xPos + 1
       mover(this, 'right', tempXPosition, tempYPosition)
     }
-
-
     moveLeft(){
       const tempXPosition = this.xPos
       const tempYPosition = this.yPos
       this.xPos = this.xPos - 1
       mover(this, 'left', tempXPosition, tempYPosition)
     }
-
     moveUp(){
       const tempXPosition = this.xPos
       const tempYPosition = this.yPos
       this.yPos = this.yPos - 1
       mover(this, 'up', tempXPosition, tempYPosition)
     }
-
     moveDown(){
       const tempXPosition = this.xPos
       const tempYPosition = this.yPos
       this.yPos = this.yPos + 1
       mover(this, 'down', tempXPosition, tempYPosition)
     }
+  }
 
+
+  class Enemy extends Player {
+    constructor(xPos, yPos){
+      super(xPos, yPos)
+    }
+
+    locateCharacter(character){
+      console.log(character.yPos, character.xPos)
+    }
   }
 
   function mover(character, direction, tempXPosition, tempYPosition){
@@ -100,16 +103,20 @@ function init(){
         character.yPos = character.yPos - 1
       }
     }
-
-
   }
 
 
   const playerOne = new Player(1,1)
   playerOne.appear()
 
+  const enemyOne = new Enemy(8,8)
+  enemyOne.appear()
+
   setTimeout(() => {
-    playerOne.moveLeft()
+    enemyOne.moveUp()
+    enemyOne.locateCharacter(playerOne)
+    playerOne.moveRight()
+    enemyOne.locateCharacter(playerOne)
   }, 4000)
 
 
