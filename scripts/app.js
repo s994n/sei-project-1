@@ -43,20 +43,34 @@ function init(){
     }
 
     appear(){
-      cells[this.xPos][this.yPos].classList.add('player')
+      cells[this.yPos][this.xPos].classList.add('player')
     }
 
-    disappear(){
-      cells[this.xPos][this.yPos].classList.remove('player')
+    disappear(yPos, xPos){
+      cells[yPos][xPos].classList.remove('player')
+    }
+
+    moveRight(){
+      const tempXPosition = this.xPos
+      const tempYPosition = this.yPos
+      this.xPos = this.xPos + 1
+      mover(this, 'right', tempXPosition, tempYPosition)
     }
 
   }
 
+  function mover(character, direction, tempXPosition, tempYPosition){
+    character.disappear(tempYPosition, tempXPosition)
+    character.appear()
+  }
 
-  const playerOne = new Player(0,0)
+
+  const playerOne = new Player(1,1)
   playerOne.appear()
 
-  
+  setTimeout(() => {
+    playerOne.moveRight()
+  }, 4000)
 
 
 }
