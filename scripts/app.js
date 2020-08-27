@@ -80,7 +80,7 @@ function init(){
     }
 
     locateCharacter(character){
-      console.log(character.yPos, character.xPos)
+      return [character.yPos, character.xPos]
     }
 
     checkRight(){
@@ -101,6 +101,21 @@ function init(){
     checkDown(){
       const checkedDown = this.yPos + 1
       return [checkedDown, this.xPos]
+    }
+
+    decideDirection(character){
+      const checkedRight = this.checkRight()
+      const checkedLeft = this.checkLeft()
+      const checkedUp = this.checkUp()
+      const checkedDown = this.checkDown()
+      const characterPosition = this.locateCharacter(character)
+      
+      //>>>>>>>>>>>>>>>> REFACTOR >>>>>>>>>>>>>>>>>
+      const rightWeight = Math.abs(characterPosition[0] - checkedRight[0]) + Math.abs(characterPosition[1] - checkedRight[1])
+      const leftWeight = Math.abs(characterPosition[0] - checkedLeft[0]) + Math.abs(characterPosition[1] - checkedLeft[1])
+      const upWeight = Math.abs(characterPosition[0] - checkedUp[0]) + Math.abs(characterPosition[1] - checkedUp[1])
+      const downWeight = Math.abs(characterPosition[0] - checkedDown[0]) + Math.abs(characterPosition[1] - checkedDown[1])
+      console.log(rightWeight, leftWeight, upWeight, downWeight)
     }
 
 
@@ -124,6 +139,8 @@ function init(){
       } else if (direction === 'down') {
         character.yPos = character.yPos - 1
       }
+      // >>>>>>>>>>>>>>>>> return true for while not moved on enemy class
+
     }
   }
 
@@ -135,11 +152,13 @@ function init(){
   enemyOne.appear()
 
   setTimeout(() => {
-    enemyOne.moveUp()
-    enemyOne.locateCharacter(playerOne)
     playerOne.moveRight()
     enemyOne.locateCharacter(playerOne)
-    console.log(enemyOne.checkRight(),enemyOne.checkLeft(),enemyOne.checkUp(),enemyOne.checkDown())
+    enemyOne.decideDirection(playerOne)
+
+
+    playerOne.moveRight()
+    enemyOne.decideDirection(playerOne)
   }, 4000)
 
 
