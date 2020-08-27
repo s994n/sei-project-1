@@ -82,8 +82,17 @@ function init(){
   }
 
   function mover(character, direction, tempXPosition, tempYPosition){
-    character.disappear(tempYPosition, tempXPosition)
-    character.appear()
+    
+    console.log(cells[character.yPos][character.xPos].dataset.appearance)
+    
+    if (cells[character.yPos][character.xPos].dataset.appearance === 'O'){
+      character.disappear(tempYPosition, tempXPosition)
+      character.appear()
+    } else {
+      console.log('cant move here!')
+    }
+
+
   }
 
 
@@ -91,7 +100,7 @@ function init(){
   playerOne.appear()
 
   setTimeout(() => {
-    playerOne.moveDown()
+    playerOne.moveRight()
   }, 4000)
 
 
