@@ -57,6 +57,28 @@ function init(){
       mover(this, 'right', tempXPosition, tempYPosition)
     }
 
+
+    moveLeft(){
+      const tempXPosition = this.xPos
+      const tempYPosition = this.yPos
+      this.xPos = this.xPos - 1
+      mover(this, 'left', tempXPosition, tempYPosition)
+    }
+
+    moveUp(){
+      const tempXPosition = this.xPos
+      const tempYPosition = this.yPos
+      this.yPos = this.yPos - 1
+      mover(this, 'up', tempXPosition, tempYPosition)
+    }
+
+    moveDown(){
+      const tempXPosition = this.xPos
+      const tempYPosition = this.yPos
+      this.yPos = this.yPos + 1
+      mover(this, 'down', tempXPosition, tempYPosition)
+    }
+
   }
 
   function mover(character, direction, tempXPosition, tempYPosition){
@@ -69,7 +91,7 @@ function init(){
   playerOne.appear()
 
   setTimeout(() => {
-    playerOne.moveRight()
+    playerOne.moveDown()
   }, 4000)
 
 
