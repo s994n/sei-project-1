@@ -82,6 +82,28 @@ function init(){
     locateCharacter(character){
       console.log(character.yPos, character.xPos)
     }
+
+    checkRight(){
+      const checkedRight = this.xPos + 1
+      return [this.yPos, checkedRight]
+    }
+
+    checkLeft(){
+      const checkedLeft = this.xPos - 1
+      return [this.yPos, checkedLeft]
+    }
+
+    checkUp(){
+      const checkedUp = this.yPos - 1
+      return [checkedUp, this.xPos]
+    }
+
+    checkDown(){
+      const checkedDown = this.yPos + 1
+      return [checkedDown, this.xPos]
+    }
+
+
   }
 
   function mover(character, direction, tempXPosition, tempYPosition){
@@ -117,6 +139,7 @@ function init(){
     enemyOne.locateCharacter(playerOne)
     playerOne.moveRight()
     enemyOne.locateCharacter(playerOne)
+    console.log(enemyOne.checkRight(),enemyOne.checkLeft(),enemyOne.checkUp(),enemyOne.checkDown())
   }, 4000)
 
 
