@@ -36,3 +36,7 @@ body {
 div[data-appearance='*']{
   background-color: red;
 }
+
+div.player{
+  background-color: blue
+}
