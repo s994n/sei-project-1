@@ -43,9 +43,11 @@ function init(){
     }
 
     appear(){
-      console.log(this.xPos, this.yPos, cells)
-      console.log(cells[this.xPos][this.yPos])
       cells[this.xPos][this.yPos].classList.add('player')
+    }
+
+    disappear(){
+      cells[this.xPos][this.yPos].classList.remove('player')
     }
 
   }
@@ -53,7 +55,9 @@ function init(){
 
   const playerOne = new Player(0,0)
   playerOne.appear()
+
   
+
 
 }
 
