@@ -124,21 +124,21 @@ function init(){
       while (tempXPosition === this.xPos && tempYPosition === this.yPos){
         const directionToCheck = orderToChoose[count][1]
         if (directionToCheck === 'right'){
-          console.log('moving right!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
+          // console.log('moving right!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
           this.moveRight()
-          console.log('MOVED right!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
+          // console.log('MOVED right!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
         } else if (directionToCheck === 'left') {
-          console.log('moving left!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
+          // console.log('moving left!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
           this.moveLeft()
-          console.log('MOVED left!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
+          // console.log('MOVED left!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
         } else if (directionToCheck === 'up') {
-          console.log('moving up!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
+          // console.log('moving up!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
           this.moveUp()
-          console.log('MOVED up!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
+          // console.log('MOVED up!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
         } else if (directionToCheck === 'down') {
-          console.log('moving down!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
+          // console.log('moving down!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
           this.moveDown()
-          console.log('MOVED down!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
+          // console.log('MOVED down!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
         }
         count++
       }
@@ -189,6 +189,8 @@ function init(){
     playerOne.moveRight()
     enemyOne.decideDirection(playerOne)
 
+    playerOne.moveDown()
+    enemyOne.decideDirection(playerOne)
 
   }, 4000)
 
