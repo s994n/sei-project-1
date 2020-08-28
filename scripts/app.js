@@ -209,6 +209,7 @@ function init(){
       if (isEnemy){
         console.log(character.yPos, character.locateCharacter(playerOne)[0], character.xPos, character.locateCharacter(playerOne)[1])
         if (character.yPos === character.locateCharacter(playerOne)[0] && character.xPos === character.locateCharacter(playerOne)[1] ){
+          adjustCoords(direction, character)
           endGame(character)
           return
         }           
@@ -219,15 +220,20 @@ function init(){
       console.log('Game over!!')
       return
     } else {
-      if (direction === 'right'){
-        character.xPos = character.xPos - 1
-      } else if (direction === 'left') {
-        character.xPos = character.xPos + 1
-      } else if (direction === 'up') {
-        character.yPos = character.yPos + 1
-      } else if (direction === 'down') {
-        character.yPos = character.yPos - 1
-      }
+      adjustCoords(direction, character)
+    }
+  }
+
+
+  function adjustCoords(direction, character){
+    if (direction === 'right'){
+      character.xPos = character.xPos - 1
+    } else if (direction === 'left') {
+      character.xPos = character.xPos + 1
+    } else if (direction === 'up') {
+      character.yPos = character.yPos + 1
+    } else if (direction === 'down') {
+      character.yPos = character.yPos - 1
     }
   }
 
