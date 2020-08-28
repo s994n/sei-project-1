@@ -199,10 +199,7 @@ function init(){
 
       }
 
-
-
     }
-
 
   }
 
@@ -237,14 +234,48 @@ function init(){
 
 
   const playerOne = new Player(1,1, 'playerOne')
-  playerOne.appear()
-
+  
   const enemyOne = new Enemy(14,13, 'Captain')
   const enemyTwo = new Enemy(14,14, 'Engineer')
   const enemyThree = new Enemy(15,13, 'Weapons')
   const enemyFour = new Enemy(15,14, 'Navigation')
   
+  let captainTimer
+  let engineerTimer
+  let weaponsTimer
+  let navigationTimer
+
+
+  function playGame(){
+
+    document.addEventListener('keyup', handleKey)
+
+    playerOne.appear()
+    enemyOne.appear()
+    enemyTwo.appear()
+    enemyThree.appear()
+    enemyFour.appear()
+
+    setTimeout(() => {
+
+      captainTimer = setInterval(() => {
+        enemyOne.decideDirection(playerOne)
+      }, 400)
+      engineerTimer = setInterval(() => {
+      enemyTwo.decideDirection(playerOne)
+      }, 500)
+      weaponsTimer = setInterval(() => {
+      enemyThree.decideDirection(playerOne)
+      }, 300)
+      navigationTimer = setInterval(() => {
+      enemyFour.decideDirection(playerOne)
+      }, 750)
+
+    }, 2000)
+
+  }
   
+
   function endGame(){
     clearInterval(captainTimer)
     clearInterval(engineerTimer)
@@ -252,38 +283,14 @@ function init(){
     clearInterval(navigationTimer)
   }
   
+
   
-  enemyOne.appear()
-  enemyTwo.appear()
-  enemyThree.appear()
-  enemyFour.appear()
-
-  let captainTimer
-  let engineerTimer
-  let weaponsTimer
-  let navigationTimer
-
-  setTimeout(() => {
-
-   captainTimer = setInterval(() => {
-      enemyOne.decideDirection(playerOne)
-    }, 400)
-    engineerTimer = setInterval(() => {
-      enemyTwo.decideDirection(playerOne)
-    }, 500)
-    weaponsTimer = setInterval(() => {
-      enemyThree.decideDirection(playerOne)
-    }, 300)
-    navigationTimer = setInterval(() => {
-      enemyFour.decideDirection(playerOne)
-    }, 750)
-
-  }, 4000)
 
 
   // Listen for user input and handle it
-
-  document.addEventListener('keyup', handleKey)
+  const startButton = document.querySelector('.start')
+  startButton.addEventListener('click', playGame)
+  
 
   function handleKey(event){ 
     console.log(event.code)
