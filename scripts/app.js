@@ -67,13 +67,15 @@ function init(){
     for (let x = 0; x < splitInputArr[1].length; x++){
       const cell = document.createElement('div')
       cell.setAttribute('data-appearance',`${splitInputArr[y][x]}`)
+      if (cell.dataset.appearance === 'o'){
+        cell.innerHTML = "<span class='dot'></span>"
+      }
       grid.appendChild(cell)
       cellsSubArray.push(cell)
     }
     cells.push(cellsSubArray)
   }
 
-  // console.log(cells)
 
 
   class Player {
@@ -93,6 +95,7 @@ function init(){
       const tempYPosition = this.yPos
       this.xPos = this.xPos + 1
       mover(this, 'right', tempXPosition, tempYPosition, isEnemy)
+      console.log(cells[this.yPos][this.xPos].children[0])
     }
     moveLeft(isEnemy = false){
       const tempXPosition = this.xPos
@@ -172,10 +175,8 @@ function init(){
       const tempYPosition = this.yPos
       let count = 0
       while (tempXPosition === this.xPos && tempYPosition === this.yPos){
-        console.log(orderToChoose[count][1])
         const directionToCheck = orderToChoose[count][1]
         if (directionToCheck === 'right' && this.lastMove !== 'left'){
-          // console.log('moving right!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
           this.moveRight(true)
           this.lastMove = 'right'
           // console.log('MOVED right!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
@@ -207,7 +208,6 @@ function init(){
 
     if (cells[character.yPos][character.xPos].dataset.appearance === 'o'){
       if (isEnemy){
-        console.log(character.yPos, character.locateCharacter(playerOne)[0], character.xPos, character.locateCharacter(playerOne)[1])
         if (character.yPos === character.locateCharacter(playerOne)[0] && character.xPos === character.locateCharacter(playerOne)[1] ){
           adjustCoords(direction, character)
           endGame(character)
@@ -293,7 +293,6 @@ function init(){
   
 
   function reset(characterThatCaught){
-    console.log(characterThatCaught.name)
     characterThatCaught.disappear(characterThatCaught.yPos, characterThatCaught.xPos)
     playerOne.disappear(playerOne.yPos, playerOne.xPos)
     enemyOne.disappear(enemyOne.yPos, enemyOne.xPos)
@@ -323,8 +322,6 @@ function init(){
   
 
   function handleKey(event){ 
-    console.log(event.code)
-    
     switch (event.code){
       case 'ArrowRight':
         playerOne.moveRight()  
