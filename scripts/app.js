@@ -171,29 +171,31 @@ function init(){
       const tempYPosition = this.yPos
       let count = 0
       while (tempXPosition === this.xPos && tempYPosition === this.yPos){
+        console.log(orderToChoose[count][1])
         const directionToCheck = orderToChoose[count][1]
-        if (directionToCheck === 'right'){
+        if (directionToCheck === 'right' && this.lastMove !== 'left'){
           // console.log('moving right!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
           this.moveRight()
           this.lastMove = 'right'
           // console.log('MOVED right!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
-        } else if (directionToCheck === 'left') {
+        } else if (directionToCheck === 'left' && this.lastMove !== 'right') {
           // console.log('moving left!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
           this.moveLeft()
           this.lastMove = 'left'
           // console.log('MOVED left!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
-        } else if (directionToCheck === 'up') {
+        } else if (directionToCheck === 'up' && this.lastMove !== 'down') {
           // console.log('moving up!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
           this.moveUp()
           this.lastMove = 'up'
           // console.log('MOVED up!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
-        } else if (directionToCheck === 'down') {
+        } else if (directionToCheck === 'down' && this.lastMove !== 'up') {
           // console.log('moving down!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
           this.moveDown()
           this.lastMove = 'down'
           // console.log('MOVED down!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
         }
         count++
+
       }
 
 
@@ -241,14 +243,12 @@ function init(){
 
   setTimeout(() => {
 
-    enemyOne.decideDirection(playerOne)
-
-    // setInterval(() => {
-    //   enemyOne.decideDirection(playerOne)
-    // }, 500)
-    // setInterval(() => {
-    //   enemyTwo.decideDirection(playerOne)
-    // }, 500)
+    setInterval(() => {
+      enemyOne.decideDirection(playerOne)
+    }, 500)
+    setInterval(() => {
+      enemyTwo.decideDirection(playerOne)
+    }, 300)
 
   }, 4000)
 
