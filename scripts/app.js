@@ -117,6 +117,15 @@ function init(){
   class Enemy extends Player {
     constructor(xPos, yPos){
       super(xPos, yPos)
+      this._lastMove = null
+    }
+
+    set lastMove(lastMove){
+      this._lastMove = lastMove
+    }
+
+    get lastMove(){
+      return this._lastMove
     }
 
     locateCharacter(character){
@@ -166,18 +175,22 @@ function init(){
         if (directionToCheck === 'right'){
           // console.log('moving right!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
           this.moveRight()
+          this.lastMove = 'right'
           // console.log('MOVED right!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
         } else if (directionToCheck === 'left') {
           // console.log('moving left!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
           this.moveLeft()
+          this.lastMove = 'left'
           // console.log('MOVED left!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
         } else if (directionToCheck === 'up') {
           // console.log('moving up!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
           this.moveUp()
+          this.lastMove = 'up'
           // console.log('MOVED up!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
         } else if (directionToCheck === 'down') {
           // console.log('moving down!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
           this.moveDown()
+          this.lastMove = 'down'
           // console.log('MOVED down!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
         }
         count++
@@ -228,12 +241,14 @@ function init(){
 
   setTimeout(() => {
 
-    setInterval(() => {
-      enemyOne.decideDirection(playerOne)
-    }, 500)
-    setInterval(() => {
-      enemyTwo.decideDirection(playerOne)
-    }, 500)
+    enemyOne.decideDirection(playerOne)
+
+    // setInterval(() => {
+    //   enemyOne.decideDirection(playerOne)
+    // }, 500)
+    // setInterval(() => {
+    //   enemyTwo.decideDirection(playerOne)
+    // }, 500)
 
   }, 4000)
 
