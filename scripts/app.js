@@ -111,11 +111,40 @@ function init(){
       const characterPosition = this.locateCharacter(character)
       
       //>>>>>>>>>>>>>>>> REFACTOR >>>>>>>>>>>>>>>>>
-      const rightWeight = Math.abs(characterPosition[0] - checkedRight[0]) + Math.abs(characterPosition[1] - checkedRight[1])
-      const leftWeight = Math.abs(characterPosition[0] - checkedLeft[0]) + Math.abs(characterPosition[1] - checkedLeft[1])
-      const upWeight = Math.abs(characterPosition[0] - checkedUp[0]) + Math.abs(characterPosition[1] - checkedUp[1])
-      const downWeight = Math.abs(characterPosition[0] - checkedDown[0]) + Math.abs(characterPosition[1] - checkedDown[1])
-      console.log(rightWeight, leftWeight, upWeight, downWeight)
+      const rightWeight = [Math.abs(characterPosition[0] - checkedRight[0]) + Math.abs(characterPosition[1] - checkedRight[1]), 'right']
+      const leftWeight = [Math.abs(characterPosition[0] - checkedLeft[0]) + Math.abs(characterPosition[1] - checkedLeft[1]), 'left']
+      const upWeight = [Math.abs(characterPosition[0] - checkedUp[0]) + Math.abs(characterPosition[1] - checkedUp[1]), 'up']
+      const downWeight = [Math.abs(characterPosition[0] - checkedDown[0]) + Math.abs(characterPosition[1] - checkedDown[1]), 'down']
+      
+      const orderToChoose = [rightWeight, leftWeight, upWeight, downWeight].sort((a, b) => a[0] - b[0] )
+      
+      const tempXPosition = this.xPos
+      const tempYPosition = this.yPos
+      let count = 0
+      while (tempXPosition === this.xPos && tempYPosition === this.yPos){
+        const directionToCheck = orderToChoose[count][1]
+        if (directionToCheck === 'right'){
+          console.log('moving right!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
+          this.moveRight()
+          console.log('MOVED right!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
+        } else if (directionToCheck === 'left') {
+          console.log('moving left!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
+          this.moveLeft()
+          console.log('MOVED left!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
+        } else if (directionToCheck === 'up') {
+          console.log('moving up!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
+          this.moveUp()
+          console.log('MOVED up!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
+        } else if (directionToCheck === 'down') {
+          console.log('moving down!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
+          this.moveDown()
+          console.log('MOVED down!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
+        }
+        count++
+      }
+
+
+
     }
 
 
@@ -159,6 +188,8 @@ function init(){
 
     playerOne.moveRight()
     enemyOne.decideDirection(playerOne)
+
+
   }, 4000)
 
 
