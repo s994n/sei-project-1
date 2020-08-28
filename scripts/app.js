@@ -190,13 +190,18 @@ function init(){
   playerOne.appear()
 
   const enemyOne = new Enemy(8,8)
+  const enemyTwo = new Enemy(8,7)
   enemyOne.appear()
+  enemyTwo.appear()
 
   setTimeout(() => {
     playerOne.moveRight()
-    console.time('timeToDecideAndMove')
-    enemyOne.decideDirection(playerOne)
-    console.timeEnd('timeToDecideAndMove')
+    setInterval(() => {
+      enemyOne.decideDirection(playerOne)
+    }, 500)
+    setInterval(() => {
+      enemyTwo.decideDirection(playerOne)
+    }, 1000)
 
   }, 4000)
 
