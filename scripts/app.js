@@ -95,25 +95,34 @@ function init(){
       const tempYPosition = this.yPos
       this.xPos = this.xPos + 1
       mover(this, 'right', tempXPosition, tempYPosition, isEnemy)
-      console.log(cells[this.yPos][this.xPos].children[0])
+      this.checkEatDot(isEnemy)
     }
     moveLeft(isEnemy = false){
       const tempXPosition = this.xPos
       const tempYPosition = this.yPos
       this.xPos = this.xPos - 1
       mover(this, 'left', tempXPosition, tempYPosition, isEnemy)
+      this.checkEatDot(isEnemy)
     }
     moveUp(isEnemy = false){
       const tempXPosition = this.xPos
       const tempYPosition = this.yPos
       this.yPos = this.yPos - 1
       mover(this, 'up', tempXPosition, tempYPosition, isEnemy)
+      this.checkEatDot(isEnemy)
     }
     moveDown(isEnemy = false){
       const tempXPosition = this.xPos
       const tempYPosition = this.yPos
       this.yPos = this.yPos + 1
       mover(this, 'down', tempXPosition, tempYPosition, isEnemy)
+      this.checkEatDot(isEnemy)
+    }
+
+    checkEatDot(isEnemy){
+      if (isEnemy === false && cells[this.yPos][this.xPos].children[0].classList.contains('dot')){
+        cells[this.yPos][this.xPos].children[0].classList.remove('dot')
+      }
     }
   }
 
