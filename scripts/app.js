@@ -193,8 +193,10 @@ function init(){
   enemyOne.appear()
 
   setTimeout(() => {
-    enemyOne.locateCharacter(playerOne)
+    playerOne.moveRight()
+    console.time('timeToDecideAndMove')
     enemyOne.decideDirection(playerOne)
+    console.timeEnd('timeToDecideAndMove')
 
   }, 4000)
 
