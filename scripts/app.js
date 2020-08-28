@@ -77,9 +77,10 @@ function init(){
 
 
   class Player {
-    constructor(yPos, xPos){
+    constructor(yPos, xPos, name){
       this.xPos = xPos
       this.yPos = yPos
+      this.name = name
     }
     appear(){
       cells[this.yPos][this.xPos].classList.add('player')
@@ -87,36 +88,36 @@ function init(){
     disappear(yPos, xPos){
       cells[yPos][xPos].classList.remove('player')
     }
-    moveRight(){
+    moveRight(isEnemy = false){
       const tempXPosition = this.xPos
       const tempYPosition = this.yPos
       this.xPos = this.xPos + 1
-      mover(this, 'right', tempXPosition, tempYPosition)
+      mover(this, 'right', tempXPosition, tempYPosition, isEnemy)
     }
-    moveLeft(){
+    moveLeft(isEnemy = false){
       const tempXPosition = this.xPos
       const tempYPosition = this.yPos
       this.xPos = this.xPos - 1
-      mover(this, 'left', tempXPosition, tempYPosition)
+      mover(this, 'left', tempXPosition, tempYPosition, isEnemy)
     }
-    moveUp(){
+    moveUp(isEnemy = false){
       const tempXPosition = this.xPos
       const tempYPosition = this.yPos
       this.yPos = this.yPos - 1
-      mover(this, 'up', tempXPosition, tempYPosition)
+      mover(this, 'up', tempXPosition, tempYPosition, isEnemy)
     }
-    moveDown(){
+    moveDown(isEnemy = false){
       const tempXPosition = this.xPos
       const tempYPosition = this.yPos
       this.yPos = this.yPos + 1
-      mover(this, 'down', tempXPosition, tempYPosition)
+      mover(this, 'down', tempXPosition, tempYPosition, isEnemy)
     }
   }
 
 
   class Enemy extends Player {
-    constructor(xPos, yPos){
-      super(xPos, yPos)
+    constructor(xPos, yPos, name){
+      super(xPos, yPos, name)
       this._lastMove = null
     }
 
@@ -175,22 +176,22 @@ function init(){
         const directionToCheck = orderToChoose[count][1]
         if (directionToCheck === 'right' && this.lastMove !== 'left'){
           // console.log('moving right!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
-          this.moveRight()
+          this.moveRight(true)
           this.lastMove = 'right'
           // console.log('MOVED right!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
         } else if (directionToCheck === 'left' && this.lastMove !== 'right') {
           // console.log('moving left!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
-          this.moveLeft()
+          this.moveLeft(true)
           this.lastMove = 'left'
           // console.log('MOVED left!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
         } else if (directionToCheck === 'up' && this.lastMove !== 'down') {
           // console.log('moving up!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
-          this.moveUp()
+          this.moveUp(true)
           this.lastMove = 'up'
           // console.log('MOVED up!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
         } else if (directionToCheck === 'down' && this.lastMove !== 'up') {
           // console.log('moving down!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
-          this.moveDown()
+          this.moveDown(true)
           this.lastMove = 'down'
           // console.log('MOVED down!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
         }
@@ -205,9 +206,12 @@ function init(){
 
   }
 
-  function mover(character, direction, tempXPosition, tempYPosition){
+  function mover(character, direction, tempXPosition, tempYPosition, isEnemy){
 
     if (cells[character.yPos][character.xPos].dataset.appearance === 'o'){
+      if (!isEnemy){
+        console.log(character.name)
+      }
       character.disappear(tempYPosition, tempXPosition)
       character.appear()
     } else if (cells[character.yPos][character.xPos].dataset.appearance === 'B') {
@@ -223,19 +227,17 @@ function init(){
       } else if (direction === 'down') {
         character.yPos = character.yPos - 1
       }
-      // >>>>>>>>>>>>>>>>> return true for while not moved on enemy class
-
     }
   }
 
 
-  const playerOne = new Player(1,1)
+  const playerOne = new Player(1,1, 'Simon')
   playerOne.appear()
 
-  const enemyOne = new Enemy(14,13)
-  const enemyTwo = new Enemy(14,14)
-  const enemyThree = new Enemy(15,13)
-  const enemyFour = new Enemy(15,14)
+  const enemyOne = new Enemy(14,13, 'Captain')
+  const enemyTwo = new Enemy(14,14, 'Engineer')
+  const enemyThree = new Enemy(15,13, 'Weapons')
+  const enemyFour = new Enemy(15,14, 'Navigation')
   enemyOne.appear()
   enemyTwo.appear()
   enemyThree.appear()
@@ -246,9 +248,9 @@ function init(){
     setInterval(() => {
       enemyOne.decideDirection(playerOne)
     }, 500)
-    setInterval(() => {
-      enemyTwo.decideDirection(playerOne)
-    }, 300)
+    // setInterval(() => {
+    //   enemyTwo.decideDirection(playerOne)
+    // }, 300)
 
   }, 4000)
 
