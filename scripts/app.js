@@ -68,6 +68,7 @@ function init(){
       const cell = document.createElement('div')
       cell.setAttribute('data-appearance',`${splitInputArr[y][x]}`)
       if (cell.dataset.appearance === 'o'){
+        // eslint-disable-next-line quotes
         cell.innerHTML = "<span class='dot'></span>"
       }
       grid.appendChild(cell)
@@ -79,10 +80,11 @@ function init(){
 
 
   class Player {
-    constructor(yPos, xPos, name){
+    constructor(yPos, xPos, name, score = 0){
       this.xPos = xPos
       this.yPos = yPos
       this.name = name
+      this.score = score
     }
     appear(){
       cells[this.yPos][this.xPos].classList.add(`${this.name}`)
@@ -122,8 +124,13 @@ function init(){
     checkEatDot(isEnemy){
       if (isEnemy === false && cells[this.yPos][this.xPos].children[0].classList.contains('dot')){
         cells[this.yPos][this.xPos].children[0].classList.remove('dot')
+        this.score += 10
+        scoreDisplay.textContent = playerOne.score
+        console.log(this.score)
       }
     }
+
+
   }
 
 
@@ -262,7 +269,7 @@ function init(){
   function playGame(){
 
     document.addEventListener('keyup', handleKey)
-
+    
     playerOne.appear()
     enemyOne.appear()
     enemyTwo.appear()
@@ -347,6 +354,10 @@ function init(){
     }
 
   }
+
+  // score display
+ const scoreDisplay = document.querySelector('.score')
+
 
 
 
