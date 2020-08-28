@@ -209,8 +209,7 @@ function init(){
       if (isEnemy){
         console.log(character.yPos, character.locateCharacter(playerOne)[0], character.xPos, character.locateCharacter(playerOne)[1])
         if (character.yPos === character.locateCharacter(playerOne)[0] && character.xPos === character.locateCharacter(playerOne)[1] ){
-          endGame()
-          alert(`Oh no, you got caught by ${character.name}`)
+          endGame(character)
           return
         }           
       } 
@@ -234,7 +233,6 @@ function init(){
 
 
   const playerOne = new Player(1,1, 'playerOne')
-  
   const enemyOne = new Enemy(14,13, 'Captain')
   const enemyTwo = new Enemy(14,14, 'Engineer')
   const enemyThree = new Enemy(15,13, 'Weapons')
@@ -276,19 +274,45 @@ function init(){
   }
   
 
-  function endGame(){
+  function endGame(character){
     clearInterval(captainTimer)
     clearInterval(engineerTimer)
     clearInterval(weaponsTimer)
     clearInterval(navigationTimer)
+    alert(`Oh no, you got caught by ${character.name}`)
+    resetButton.addEventListener('click', () => {
+      reset(character)
+    }) 
   }
   
 
-  
+  function reset(characterThatCaught){
+    console.log(characterThatCaught.name)
+    characterThatCaught.disappear(characterThatCaught.yPos, characterThatCaught.xPos)
+    playerOne.disappear(playerOne.yPos, playerOne.xPos)
+    enemyOne.disappear(enemyOne.yPos, enemyOne.xPos)
+    enemyTwo.disappear(enemyTwo.yPos, enemyTwo.xPos)
+    enemyThree.disappear(enemyThree.yPos, enemyThree.xPos)
+    enemyFour.disappear(enemyFour.yPos, enemyFour.xPos)
+
+    playerOne.xPos = 1
+    playerOne.yPos = 1
+    enemyOne.xPos = 13
+    enemyOne.yPos = 14
+    enemyTwo.xPos = 14
+    enemyTwo.yPos = 14
+    enemyThree.xPos = 13
+    enemyThree.yPos = 15
+    enemyFour.xPos = 14
+    enemyFour.yPos = 14
+  }
 
 
   // Listen for user input and handle it
   const startButton = document.querySelector('.start')
+  const resetButton = document.querySelector('.reset')
+  
+
   startButton.addEventListener('click', playGame)
   
 
