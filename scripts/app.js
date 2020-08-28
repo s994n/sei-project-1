@@ -214,11 +214,11 @@ function init(){
         if (character.yPos === character.locateCharacter(playerOne)[0] && character.xPos === character.locateCharacter(playerOne)[1] ){
           endGame()
           alert('Game over!')
-        } else {
-          character.disappear(tempYPosition, tempXPosition)
-          character.appear()
-          }
+          return
+        }           
       } 
+      character.disappear(tempYPosition, tempXPosition)
+      character.appear()
     } else if (cells[character.yPos][character.xPos].dataset.appearance === 'B') {
       console.log('Game over!!')
       return
@@ -247,6 +247,9 @@ function init(){
   
   function endGame(){
     clearInterval(captainTimer)
+    clearInterval(engineerTimer)
+    clearInterval(weaponsTimer)
+    clearInterval(navigationTimer)
   }
   
   
@@ -256,16 +259,24 @@ function init(){
   enemyFour.appear()
 
   let captainTimer
-
+  let engineerTimer
+  let weaponsTimer
+  let navigationTimer
 
   setTimeout(() => {
 
    captainTimer = setInterval(() => {
       enemyOne.decideDirection(playerOne)
+    }, 400)
+    engineerTimer = setInterval(() => {
+      enemyTwo.decideDirection(playerOne)
     }, 500)
-    // setInterval(() => {
-    //   enemyTwo.decideDirection(playerOne)
-    // }, 300)
+    weaponsTimer = setInterval(() => {
+      enemyThree.decideDirection(playerOne)
+    }, 300)
+    navigationTimer = setInterval(() => {
+      enemyFour.decideDirection(playerOne)
+    }, 750)
 
   }, 4000)
 
