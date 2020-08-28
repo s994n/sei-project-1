@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 
 
 
@@ -7,49 +8,76 @@ function init(){
   const grid = document.querySelector('.grid')
   const cells = []
   
-  console.log(grid)
 
   // const inputArr = 
-  // [['*','*','*','*','*','*','*','*','*','*'],
-  //   ['*','O','O','O','O','O','O','O','O','*'],
-  //   ['*','O','O','O','O','O','O','O','O','*'],
-  //   ['*','O','O','O','O','O','O','O','O','*'],
-  //   ['*','O','O','O','O','O','O','O','O','*'],
-  //   ['*','O','O','O','O','O','O','O','O','*'],
-  //   ['*','O','O','O','O','O','O','O','O','*'],
-  //   ['*','O','O','O','O','O','O','O','O','*'],
-  //   ['*','O','O','O','O','O','O','O','B','*'],
-  //   ['*','*','*','*','*','*','*','*','*','*']]
+  // [['XXXXXXXXXX'],
+  //  ['XooooooooX'],
+  //  ['XooooooooX'],
+  //  ['XooooooooX'],
+  //  ['XooooooooX'],
+  //  ['XooooooooX'],
+  //  ['XooooooooX'],
+  //  ['XooooooooX'],
+  //  ['XooooooooX'],
+  //  ['XooooooooX'],
+  //  ['XXXXXXXXXX']
+  // ]
+  
 
+  const inputArr =
+[
+  ['XXXXXXXXXXXXXXXXXXXXXXXXXXXX'],
+  ['XooooooooooooXXooooooooooooX'],
+  ['XoXXXXoXXXXXoXXoXXXXXoXXXXoX'],
+  ['XoXXXXoXXXXXoXXoXXXXXoXXXXoX'],
+  ['XoXXXXoXXXXXoXXoXXXXXoXXXXoX'],
+  ['XooooooooooooooooooooooooooX'],
+  ['XoXXXXoXXoXXXXXXXXoXXoXXXXoX'],
+  ['XoXXXXoXXoXXXXXXXXoXXoXXXXoX'],
+  ['XooooooXXooooXXooooXXooooooX'],
+  ['XXXXXXoXXXXXoXXoXXXXXoXXXXXX'],
+  ['XXXXXXoXXXXXoXXoXXXXXoXXXXXX'],
+  ['XXXXXXoXXooooooooooXXoXXXXXX'],
+  ['XXXXXXoXXoXXXooXXXoXXoXXXXXX'],
+  ['XXXXXXoXXoXooooooXoXXoXXXXXX'],
+  ['ooooooooooXooooooXoooooooooo'],
+  ['XXXXXXoXXoXooooooXoXXoXXXXXX'],
+  ['XXXXXXoXXoXXXXXXXXoXXoXXXXXX'],
+  ['XXXXXXoXXooooooooooXXoXXXXXX'],
+  ['XXXXXXoXXoXXXXXXXXoXXoXXXXXX'],
+  ['XXXXXXoXXoXXXXXXXXoXXoXXXXXX'],
+  ['XooooooooooooXXooooooooooooX'],
+  ['XoXXXXoXXXXXoXXoXXXXXoXXXXoX'],
+  ['XoXXXXoXXXXXoXXoXXXXXoXXXXoX'],
+  ['XoooXXooooooooooooooooXXoooX'],
+  ['XXXoXXoXXoXXXXXXXXoXXoXXoXXX'],
+  ['XXXoXXoXXoXXXXXXXXoXXoXXoXXX'],
+  ['XooooooXXooooXXooooXXooooooX'],
+  ['XoXXXXXXXXXXoXXoXXXXXXXXXXoX'],
+  ['XoXXXXXXXXXXoXXoXXXXXXXXXXoX'],
+  ['XooooooooooooooooooooooooooX'],
+  ['XXXXXXXXXXXXXXXXXXXXXXXXXXXX']
+]
 
-  const inputArr = 
-    [['*','*','*','*','*','*','*','*','*','*'],
-      ['*','O','O','O','O','O','O','O','O','*'],
-      ['*','O','*','*','O','*','*','O','O','*'],
-      ['*','O','*','*','O','*','*','O','O','*'],
-      ['*','O','*','*','O','*','*','O','O','*'],
-      ['*','O','*','*','O','*','*','O','O','*'],
-      ['*','O','O','O','O','O','O','O','O','*'],
-      ['*','O','O','O','O','O','O','O','O','*'],
-      ['*','O','O','O','O','O','O','O','B','*'],
-      ['*','*','*','*','*','*','*','*','*','*']]
+  const splitInputArr = inputArr.map(subArr => subArr.join('').split(''))
+ 
 
-
-
-  for (let y = 0; y < inputArr.length; y++){
+  for (let y = 0; y < splitInputArr.length; y++){
     const cellsSubArray = []
-    for (let x = 0; x < inputArr[1].length; x++){
+    for (let x = 0; x < splitInputArr[1].length; x++){
       const cell = document.createElement('div')
-      cell.setAttribute('data-appearance',`${inputArr[x][y]}`)
+      cell.setAttribute('data-appearance',`${splitInputArr[y][x]}`)
       grid.appendChild(cell)
       cellsSubArray.push(cell)
     }
     cells.push(cellsSubArray)
   }
 
+  // console.log(cells)
+
 
   class Player {
-    constructor(xPos, yPos){
+    constructor(yPos, xPos){
       this.xPos = xPos
       this.yPos = yPos
     }
@@ -164,7 +192,7 @@ function init(){
 
   function mover(character, direction, tempXPosition, tempYPosition){
 
-    if (cells[character.yPos][character.xPos].dataset.appearance === 'O'){
+    if (cells[character.yPos][character.xPos].dataset.appearance === 'o'){
       character.disappear(tempYPosition, tempXPosition)
       character.appear()
     } else if (cells[character.yPos][character.xPos].dataset.appearance === 'B') {
@@ -189,19 +217,23 @@ function init(){
   const playerOne = new Player(1,1)
   playerOne.appear()
 
-  const enemyOne = new Enemy(8,8)
-  const enemyTwo = new Enemy(8,7)
+  const enemyOne = new Enemy(14,13)
+  const enemyTwo = new Enemy(14,14)
+  const enemyThree = new Enemy(15,13)
+  const enemyFour = new Enemy(15,14)
   enemyOne.appear()
   enemyTwo.appear()
+  enemyThree.appear()
+  enemyFour.appear()
 
   setTimeout(() => {
-    playerOne.moveRight()
+
     setInterval(() => {
       enemyOne.decideDirection(playerOne)
     }, 500)
     setInterval(() => {
       enemyTwo.decideDirection(playerOne)
-    }, 1000)
+    }, 500)
 
   }, 4000)
 

@@ -29,11 +29,11 @@ body {
 .grid div {
   border: 1px solid lightgrey;
   flex-grow: 1;
-  height: 10%;
-  width: 10%;
+  height: 3.2%;
+  width: 3.5%;
 }
 
-div[data-appearance='*']{
+div[data-appearance='X']{
   background-color: red;
 }
 
