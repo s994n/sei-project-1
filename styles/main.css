@@ -37,6 +37,22 @@ div[data-appearance='X']{
   background-color: red;
 }
 
-div.player{
+div.playerOne{
   background-color: blue
+}
+
+div.Captain{
+  background-color: rgb(187, 0, 250)
+}
+
+div.Engineer{
+  background-color: rgb(0, 250, 100)
+}
+
+div.Weapons{
+  background-color: rgb(250, 129, 0)
+}
+
+div.Navigation{
+  background-color: rgb(250, 0, 129)
 }

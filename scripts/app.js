@@ -83,10 +83,10 @@ function init(){
       this.name = name
     }
     appear(){
-      cells[this.yPos][this.xPos].classList.add('player')
+      cells[this.yPos][this.xPos].classList.add(`${this.name}`)
     }
     disappear(yPos, xPos){
-      cells[yPos][xPos].classList.remove('player')
+      cells[yPos][xPos].classList.remove(`${this.name}`)
     }
     moveRight(isEnemy = false){
       const tempXPosition = this.xPos
@@ -213,7 +213,7 @@ function init(){
         console.log(character.yPos, character.locateCharacter(playerOne)[0], character.xPos, character.locateCharacter(playerOne)[1])
         if (character.yPos === character.locateCharacter(playerOne)[0] && character.xPos === character.locateCharacter(playerOne)[1] ){
           endGame()
-          alert('Game over!')
+          alert(`Oh no, you got caught by ${character.name}`)
           return
         }           
       } 
@@ -236,7 +236,7 @@ function init(){
   }
 
 
-  const playerOne = new Player(1,1, 'Simon')
+  const playerOne = new Player(1,1, 'playerOne')
   playerOne.appear()
 
   const enemyOne = new Enemy(14,13, 'Captain')
