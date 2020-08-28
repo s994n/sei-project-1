@@ -9,18 +9,30 @@ function init(){
   
   console.log(grid)
 
-  const inputArr = 
-  [['*','*','*','*','*','*','*','*','*','*'],
-    ['*','O','O','O','O','O','O','O','O','*'],
-    ['*','O','O','O','O','O','O','O','O','*'],
-    ['*','O','O','O','O','O','O','O','O','*'],
-    ['*','O','O','O','O','O','O','O','O','*'],
-    ['*','O','O','O','O','O','O','O','O','*'],
-    ['*','O','O','O','O','O','O','O','O','*'],
-    ['*','O','O','O','O','O','O','O','O','*'],
-    ['*','O','O','O','O','O','O','O','B','*'],
-    ['*','*','*','*','*','*','*','*','*','*']]
+  // const inputArr = 
+  // [['*','*','*','*','*','*','*','*','*','*'],
+  //   ['*','O','O','O','O','O','O','O','O','*'],
+  //   ['*','O','O','O','O','O','O','O','O','*'],
+  //   ['*','O','O','O','O','O','O','O','O','*'],
+  //   ['*','O','O','O','O','O','O','O','O','*'],
+  //   ['*','O','O','O','O','O','O','O','O','*'],
+  //   ['*','O','O','O','O','O','O','O','O','*'],
+  //   ['*','O','O','O','O','O','O','O','O','*'],
+  //   ['*','O','O','O','O','O','O','O','B','*'],
+  //   ['*','*','*','*','*','*','*','*','*','*']]
 
+
+  const inputArr = 
+    [['*','*','*','*','*','*','*','*','*','*'],
+      ['*','O','O','O','O','O','O','O','O','*'],
+      ['*','O','*','*','O','*','*','O','O','*'],
+      ['*','O','*','*','O','*','*','O','O','*'],
+      ['*','O','*','*','O','*','*','O','O','*'],
+      ['*','O','*','*','O','*','*','O','O','*'],
+      ['*','O','O','O','O','O','O','O','O','*'],
+      ['*','O','O','O','O','O','O','O','O','*'],
+      ['*','O','O','O','O','O','O','O','B','*'],
+      ['*','*','*','*','*','*','*','*','*','*']]
 
 
 
@@ -181,18 +193,36 @@ function init(){
   enemyOne.appear()
 
   setTimeout(() => {
-    playerOne.moveRight()
     enemyOne.locateCharacter(playerOne)
     enemyOne.decideDirection(playerOne)
 
-
-    playerOne.moveRight()
-    enemyOne.decideDirection(playerOne)
-
-    playerOne.moveDown()
-    enemyOne.decideDirection(playerOne)
-
   }, 4000)
+
+
+  // Listen for user input and handle it
+
+  document.addEventListener('keyup', handleKey)
+
+  function handleKey(event){ 
+    console.log(event.code)
+    
+    switch (event.code){
+      case 'ArrowRight':
+        playerOne.moveRight()  
+        break
+      case 'ArrowLeft':
+        playerOne.moveLeft()  
+        break  
+      case 'ArrowUp':
+        playerOne.moveUp()  
+        break
+      case 'ArrowDown':
+        playerOne.moveDown()  
+        break
+    }
+
+  }
+
 
 
 }
