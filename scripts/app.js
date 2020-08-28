@@ -209,11 +209,16 @@ function init(){
   function mover(character, direction, tempXPosition, tempYPosition, isEnemy){
 
     if (cells[character.yPos][character.xPos].dataset.appearance === 'o'){
-      if (!isEnemy){
-        console.log(character.name)
-      }
-      character.disappear(tempYPosition, tempXPosition)
-      character.appear()
+      if (isEnemy){
+        console.log(character.yPos, character.locateCharacter(playerOne)[0], character.xPos, character.locateCharacter(playerOne)[1])
+        if (character.yPos === character.locateCharacter(playerOne)[0] && character.xPos === character.locateCharacter(playerOne)[1] ){
+          endGame()
+          alert('Game over!')
+        } else {
+          character.disappear(tempYPosition, tempXPosition)
+          character.appear()
+          }
+      } 
     } else if (cells[character.yPos][character.xPos].dataset.appearance === 'B') {
       console.log('Game over!!')
       return
@@ -238,14 +243,24 @@ function init(){
   const enemyTwo = new Enemy(14,14, 'Engineer')
   const enemyThree = new Enemy(15,13, 'Weapons')
   const enemyFour = new Enemy(15,14, 'Navigation')
+  
+  
+  function endGame(){
+    clearInterval(captainTimer)
+  }
+  
+  
   enemyOne.appear()
   enemyTwo.appear()
   enemyThree.appear()
   enemyFour.appear()
 
+  let captainTimer
+
+
   setTimeout(() => {
 
-    setInterval(() => {
+   captainTimer = setInterval(() => {
       enemyOne.decideDirection(playerOne)
     }, 500)
     // setInterval(() => {
