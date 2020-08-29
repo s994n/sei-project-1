@@ -141,6 +141,7 @@ function init(){
         cells[this.yPos][this.xPos].children[0].classList.remove('big-dot')
         this.score += 50
         scoreDisplay.textContent = playerOne.score
+        bigDotTriggerFlee()
       }
     }
 
@@ -320,20 +321,15 @@ function init(){
 
     }, 2000)
 
-    setTimeout(() => {
-      enemyOne.mode = 'flee'
-      enemyTwo.mode = 'flee'
-      enemyThree.mode = 'flee'
-      enemyFour.mode = 'flee'
-    }, 4000)
+    // setTimeout(() => {
+    //   enemyOne.mode = 'flee'
+    //   enemyTwo.mode = 'flee'
+    //   enemyThree.mode = 'flee'
+    //   enemyFour.mode = 'flee'
+    // }, 4000)
 
 
-    setTimeout(() => {
-      enemyOne.mode = 'chase'
-      enemyTwo.mode = 'chase'
-      enemyThree.mode = 'chase'
-      enemyFour.mode = 'chase'
-    }, 8000)
+
 
     const enemyOneTimerId = detectModeChange(enemyOne)
     const enemyTwoTimerId = detectModeChange(enemyTwo)
@@ -419,6 +415,22 @@ function init(){
         enemy.decideDirection(playerOne)
       }, 300)
     }
+  }
+
+//helper function that will be called by playerOne when encountering a big dot, triggers all enemies to flee for set time
+  function bigDotTriggerFlee(){
+    enemyOne.mode = 'flee'
+    enemyTwo.mode = 'flee'
+    enemyThree.mode = 'flee'
+    enemyFour.mode = 'flee'
+
+
+    setTimeout(() => {
+      enemyOne.mode = 'chase'
+      enemyTwo.mode = 'chase'
+      enemyThree.mode = 'chase'
+      enemyFour.mode = 'chase'
+    }, 5000)
   }
 
 
