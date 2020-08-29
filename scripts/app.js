@@ -261,7 +261,7 @@ function init(){
         if (character.yPos === character.locateCharacter(playerOne)[0] &&
           character.xPos === character.locateCharacter(playerOne)[1]){
             if (character.mode === 'flee'){
-              alert('Drugged!')
+              console.log('wrong detection!')
             } else {
               // adjustCoords(direction, character)
               // endGame(character)
@@ -304,7 +304,10 @@ function init(){
   let engineerTimer
   let weaponsTimer
   let navigationTimer
-
+  let captainTimerFlee
+  let engineerTimerFlee
+  let weaponsTimerFlee
+  let navigationTimerFlee
 
   function playGame(){
 
@@ -316,22 +319,24 @@ function init(){
     enemyThree.appear()
     enemyFour.appear()
 
-    setTimeout(() => {
+    runGameChase(enemyOne)
+    runGameChase(enemyTwo)
+    runGameChase(enemyThree)
+    runGameChase(enemyFour)
 
-      captainTimer = setInterval(() => {
-        enemyOne.decideDirection(playerOne)
-      }, 700)
-      engineerTimer = setInterval(() => {
-      enemyTwo.decideDirection(playerOne)
-      }, 1000)
-      weaponsTimer = setInterval(() => {
-      enemyThree.decideDirection(playerOne)
-      }, 1500)
-      navigationTimer = setInterval(() => {
-      enemyFour.decideDirection(playerOne)
-      }, 2000)
-
-    }, 2000)
+      // captainTimer = setInterval(() => {
+      //   enemyOne.decideDirection(playerOne)
+      // }, 700)
+      // engineerTimer = setInterval(() => {
+      // enemyTwo.decideDirection(playerOne)
+      // }, 1000)
+      // weaponsTimer = setInterval(() => {
+      // enemyThree.decideDirection(playerOne)
+      // }, 1500)
+      // navigationTimer = setInterval(() => {
+      // enemyFour.decideDirection(playerOne)
+      // }, 2000)
+      
 
     // setTimeout(() => {
     //   enemyOne.mode = 'flee'
@@ -356,9 +361,19 @@ function init(){
   function detectCollision(enemy){
     const collisionId = setInterval(() => {
       if (enemy.locateCharacter(playerOne)[0] === enemy.yPos && enemy.locateCharacter(playerOne)[1] === enemy.xPos){
-        clearInterval(collisionId)
-        endGame(enemy)
-      }
+        if (enemy.mode === 'flee'){
+          if (enemy === enemyOne){
+            console.log(`Caught! ${enemy}`)
+            clearInterval(captainTimer)
+            clearInterval(collisionId)
+            resetDrugged(enemy)
+          }
+        } else {
+          clearInterval(collisionId)
+          endGame(enemy)
+        }
+
+      } 
     }, 200)
   }
 
@@ -366,11 +381,24 @@ function init(){
     let currentEnemyMode = enemy.mode
     const enemyCheckerId = setInterval(() => {
       if (currentEnemyMode !== enemy.mode){
-        const timerId = determineTimerId(enemy)
-        clearInterval(timerId)
-        handleModeChange(enemy, timerId)
+        if (enemy.mode === 'flee'){
+          console.log('everyone flee!')
+          clearInterval(captainTimer)
+          clearInterval(engineerTimer)
+          clearInterval(weaponsTimer)
+          clearInterval(navigationTimer)
+        } else if (enemy.mode === 'chase') {
+          console.log('everyone chase!')
+          clearInterval(captainTimerFlee)
+          clearInterval(engineerTimerFlee)
+          clearInterval(weaponsTimerFlee)
+          clearInterval(navigationTimerFlee)
+        }
+        console.log('handling mode change')
+        handleModeChange(enemy)
       }
-      currentEnemyMode = enemy.mode  
+      currentEnemyMode = enemy.mode
+       
     }, 50)
     return enemyCheckerId
   }
@@ -391,7 +419,6 @@ function init(){
 
 
   function handleModeChange(enemy){
-    
     if (enemy.mode === 'flee'){
       runGameFlee(enemy)
     } else if (enemy.mode === 'chase'){
@@ -401,42 +428,42 @@ function init(){
 
   function runGameFlee(enemy){
     if (enemy === enemyOne){
-      captainTimer = setInterval(() => {
+      captainTimerFlee = setInterval(() => {
         enemy.decideDirection(playerOne)
       }, 1000)
     } else if (enemy === enemyTwo){
-      engineerTimer = setInterval(() => {
+      engineerTimerFlee = setInterval(() => {
         enemy.decideDirection(playerOne)
       }, 1000)
     } else if (enemy === enemyThree){
-      weaponsTimer = setInterval(() => {
+      weaponsTimerFlee = setInterval(() => {
         enemy.decideDirection(playerOne)
       }, 1000)
     } else if (enemy === enemyFour){
-      navigationTimer = setInterval(() => {
+      navigationTimerFlee = setInterval(() => {
         enemy.decideDirection(playerOne)
       }, 1000)
     }
   }
 
   function runGameChase(enemy){
-    console.log('running in chase mode!')
+    console.log(`${enemy} running in chase mode!`)
     if (enemy === enemyOne){
       captainTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 700)
+      }, 400)
     } else if (enemy === enemyTwo){
       engineerTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 1000)
+      }, 400)
     } else if (enemy === enemyThree){
       weaponsTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 1500)
+      }, 400)
     } else if (enemy === enemyFour){
       navigationTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 2000)
+      }, 400)
     }
   }
 
@@ -467,6 +494,19 @@ function init(){
     }) 
   }
   
+
+// reset enemy caught when player has big-dot power. Enemy sent back to home position
+  function resetDrugged(enemy){
+    console.log('resetting with drug!')
+    enemy.disappear(enemy.yPos, enemy.xPos)
+    enemy.yPos = 14
+    enemy.xPos = 13
+    setTimeout(() => {
+      enemy.appear()
+      runGameChase(enemy)
+    }, 2000)
+  }
+
 
   // reset all characters to original position. The character that caught the player will have y or x coord off by one, so needs to be 
   // explicitly targeted in function 
