@@ -535,9 +535,11 @@ function init(){
   }
   
 
-// reset enemy caught when player has big-dot power. Enemy sent back to home position
+// reset enemy caught when player has big-dot power. Enemy sent back to home position. Score increased
   function resetDrugged(enemy){
     console.log(`resetting ${enemy.name} with drug!`)
+    playerOne.score += 400
+    scoreDisplay.textContent = playerOne.score
     enemy.disappear(enemy.yPos, enemy.xPos)
     enemy.yPos = 14
     enemy.xPos = 13
