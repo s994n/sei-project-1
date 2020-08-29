@@ -354,12 +354,15 @@ function init(){
 
 
     enemyOneTimerId = detectModeChange(enemyOne)
-    // enemyTwoTimerId = detectModeChange(enemyTwo)
-    // enemyThreeTimerId = detectModeChange(enemyThree)
-    // enemyFourTimerId = detectModeChange(enemyFour)
+    enemyTwoTimerId = detectModeChange(enemyTwo)
+    enemyThreeTimerId = detectModeChange(enemyThree)
+    enemyFourTimerId = detectModeChange(enemyFour)
 
 
     detectCollision(enemyOne)
+    detectCollision(enemyTwo)
+    detectCollision(enemyThree)
+    detectCollision(enemyFour)
     
   }
 
@@ -370,16 +373,39 @@ function init(){
       if (enemy.locateCharacter(playerOne)[0] === enemy.yPos && enemy.locateCharacter(playerOne)[1] === enemy.xPos){
         if (enemy.mode === 'flee'){
           if (enemy === enemyOne){
-            console.log(`caught ${enemy}, clearing timer IDs. decideDirection: ${captainTimer}, detectModeChange: ${enemyOneTimerId}`)
+            // console.log(`caught ${enemy}, clearing timer IDs. decideDirection: ${captainTimer}, detectModeChange: ${enemyOneTimerId}`)
             clearInterval(captainTimer)
             captainTimer = null            
             clearInterval(captainTimerFlee)
             captainTimerFlee = null
             clearInterval(enemyOneTimerId)
             enemyOneTimerId = null
-            console.log(`CLEARED timer IDs. decideDirection: ${captainTimer}, detectModeChange: ${enemyOneTimerId}`)
+            // console.log(`CLEARED timer IDs. decideDirection: ${captainTimer}, detectModeChange: ${enemyOneTimerId}`)
             resetDrugged(enemy)
-            
+          } else if (enemy === enemyTwo) {
+            clearInterval(engineerTimer)
+            engineerTimer = null            
+            clearInterval(engineerTimerFlee)
+            engineerTimerFlee = null
+            clearInterval(enemyTwoTimerId)
+            enemyTwoTimerId = null
+            resetDrugged(enemy)
+          } else if (enemy === enemyThree) {
+            clearInterval(weaponsTimer)
+            weaponsTimer = null            
+            clearInterval(weaponsTimerFlee)
+            weaponsTimerFlee = null
+            clearInterval(enemyThreeTimerId)
+            enemyThreeTimerId = null
+            resetDrugged(enemy)
+          } else if (enemy === enemyFour) {
+            clearInterval(navigationTimer)
+            navigationTimer = null            
+            clearInterval(navigationTimerFlee)
+            navigationTimerFlee = null
+            clearInterval(enemyFourTimerId)
+            enemyFourTimerId = null
+            resetDrugged(enemy)
           }
         } else {
           clearInterval(collisionId)
@@ -519,7 +545,16 @@ function init(){
       enemy.appear()
       enemy.mode = 'chase'
       runGameChase(enemy)
-      enemyOneTimerId = detectModeChange(enemy)
+      if (enemy === enemyOne){
+        enemyOneTimerId = detectModeChange(enemy)
+      } else if (enemy === enemyTwo){
+        enemyTwoTimerId = detectModeChange(enemy)
+      } else if (enemy === enemyThree){
+        enemyThreeTimerId = detectModeChange(enemy)
+      } else if (enemy === enemyFour){
+        enemyFourTimerId = detectModeChange(enemy)
+      }
+      
     }, 2000)
     
 
