@@ -59,17 +59,26 @@ function init(){
   ['XXXXXXXXXXXXXXXXXXXXXXXXXXXX']
 ]
 
-  const splitInputArr = inputArr.map(subArr => subArr.join('').split(''))
- 
 
+//map the input array to a new array with each letter of inputArr as an individual array element
+  const splitInputArr = inputArr.map(subArr => subArr.join('').split('')) 
   for (let y = 0; y < splitInputArr.length; y++){
     const cellsSubArray = []
     for (let x = 0; x < splitInputArr[1].length; x++){
       const cell = document.createElement('div')
       cell.setAttribute('data-appearance',`${splitInputArr[y][x]}`)
+      
       if (cell.dataset.appearance === 'o'){
-        // eslint-disable-next-line quotes
-        cell.innerHTML = "<span class='dot'></span>"
+        if ((y === 1 && x === 1) ||
+        (y === 1 && x === splitInputArr[0].length - 2) || 
+        (y === splitInputArr.length - 2 && x === 1) ||
+        (y === splitInputArr.length - 2 && x === splitInputArr[0].length - 2)){
+          // eslint-disable-next-line quotes
+          cell.innerHTML = "<span class='big-dot'></span>"
+        } else {
+          // eslint-disable-next-line quotes
+          cell.innerHTML = "<span class='dot'></span>"
+        }
       }
       grid.appendChild(cell)
       cellsSubArray.push(cell)
@@ -78,7 +87,8 @@ function init(){
   }
 
 
-
+// define a class of Player, which will be instantiated as playerOne
+// Player will be parent class of Enemy class
   class Player {
     constructor(yPos, xPos, name, score = 0){
       this.xPos = xPos
@@ -120,16 +130,19 @@ function init(){
       mover(this, 'down', tempXPosition, tempYPosition, isEnemy)
       this.checkEatDot(isEnemy)
     }
-
+//A method to check whether the cell that the player inhabits contains either a dot or a big-dot class
+// if dot or big-dot classes are present, score is increased accordingly
     checkEatDot(isEnemy){
       if (isEnemy === false && cells[this.yPos][this.xPos].children[0].classList.contains('dot')){
         cells[this.yPos][this.xPos].children[0].classList.remove('dot')
         this.score += 10
         scoreDisplay.textContent = playerOne.score
-        console.log(this.score)
+      } else if (isEnemy === false && cells[this.yPos][this.xPos].children[0].classList.contains('big-dot')){
+        cells[this.yPos][this.xPos].children[0].classList.remove('big-dot')
+        this.score += 50
+        scoreDisplay.textContent = playerOne.score
       }
     }
-
 
   }
 
@@ -367,7 +380,7 @@ function init(){
     }
   }
 
-  function runGameFlee(enemy, timerId){
+  function runGameFlee(enemy){
     if (enemy === enemyOne){
       captainTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
