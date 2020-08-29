@@ -198,7 +198,6 @@ function init(){
       if (this.mode !== 'flee'){
         orderToChoose = [rightWeight, leftWeight, upWeight, downWeight].sort((a, b) => a[0] - b[0] )
       } else {
-        console.log(`${this.name} fleeing!`)
         orderToChoose = [rightWeight, leftWeight, upWeight, downWeight].sort((a, b) => b[0] - a[0] )
       }
       
@@ -308,13 +307,11 @@ function init(){
 
     }, 2000)
 
-    setTimeout(() => {
-      enemyThree.mode = 'flee'
-      enemyOne.mode = 'flee'
-    }, 6000)
-
   }
+
+
   
+
 
   function endGame(character){
     clearInterval(captainTimer)
@@ -328,6 +325,8 @@ function init(){
   }
   
 
+  // reset all characters to original position. The character that caught the player will have y or x coord off by one, so needs to be 
+  // explicitly targeted in function 
   function reset(characterThatCaught){
     characterThatCaught.disappear(characterThatCaught.yPos, characterThatCaught.xPos)
     playerOne.disappear(playerOne.yPos, playerOne.xPos)
