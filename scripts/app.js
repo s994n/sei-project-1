@@ -223,22 +223,15 @@ function init(){
         if (directionToCheck === 'right' && this.lastMove !== 'left'){
           this.moveRight(true)
           this.lastMove = 'right'
-          // console.log('MOVED right!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
         } else if (directionToCheck === 'left' && this.lastMove !== 'right') {
-          // console.log('moving left!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
           this.moveLeft(true)
           this.lastMove = 'left'
-          // console.log('MOVED left!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
         } else if (directionToCheck === 'up' && this.lastMove !== 'down') {
-          // console.log('moving up!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
           this.moveUp(true)
           this.lastMove = 'up'
-          // console.log('MOVED up!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
         } else if (directionToCheck === 'down' && this.lastMove !== 'up') {
-          // console.log('moving down!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
           this.moveDown(true)
           this.lastMove = 'down'
-          // console.log('MOVED down!', [tempYPosition, tempXPosition], [this.xPos, this.yPos])
         }
         count++
 
@@ -423,8 +416,6 @@ function init(){
     enemyTwo.mode = 'flee'
     enemyThree.mode = 'flee'
     enemyFour.mode = 'flee'
-
-
     setTimeout(() => {
       enemyOne.mode = 'chase'
       enemyTwo.mode = 'chase'
@@ -439,6 +430,7 @@ function init(){
     clearInterval(engineerTimer)
     clearInterval(weaponsTimer)
     clearInterval(navigationTimer)
+
     alert(`Oh no, you got caught by ${character.name}`)
     resetButton.addEventListener('click', () => {
       reset(character)
