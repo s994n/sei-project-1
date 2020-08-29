@@ -413,7 +413,7 @@ function init(){
         }
 
       } 
-    }, 200)
+    }, 40)
   }
 
   function detectModeChange(enemy){
