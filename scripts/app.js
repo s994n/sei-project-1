@@ -309,46 +309,66 @@ function init(){
 
     setTimeout(() => {
       enemyOne.mode = 'flee'
+      enemyTwo.mode = 'flee'
+      enemyThree.mode = 'flee'
+      enemyFour.mode = 'flee'
     }, 4000)
 
 
-    setTimeout(() => {
-      enemyOne.mode = 'chase'
-    }, 6000)
+    // setTimeout(() => {
+    //   enemyOne.mode = 'chase'
+    //   enemyTwo.mode = 'chase'
+    //   enemyThree.mode = 'chase'
+    // }, 8000)
 
-    detectModeChange()
+    const enemyOneTimerId = detectModeChange(enemyOne)
+    const enemyTwoTimerId = detectModeChange(enemyTwo)
+    const enemyThreeTimerId = detectModeChange(enemyThree)
+    const enemyFourTimerId = detectModeChange(enemyFour)
 
   }
 
 
-  function detectModeChange(){
-    let currentEnemyOneMode = enemyOne.mode
-    setInterval(() => {
-      if (currentEnemyOneMode !== enemyOne.mode){
-        console.log('mode change!')
-        handleModeChange()
+  function detectModeChange(enemy){
+    let currentEnemyMode = enemy.mode
+    const enemyCheckerId = setInterval(() => {
+      if (currentEnemyMode !== enemy.mode){
+        const timerId = determineTimerId()
+        handleModeChange(enemy, timerId)
       }
-      currentEnemyOneMode = enemyOne.mode  
+      currentEnemyMode = enemy.mode  
     }, 50)
+    return enemyCheckerId
   }
 
-
-  function handleModeChange(){
-    if (enemyOne.mode === 'flee'){
-      clearInterval(captainTimer)
-      runGameFlee()
-    } else if (enemyOne.mode === 'chase'){
-      clearInterval(captainTimer)
-      runGameChase()
+  function determineTimerId(enemy){
+    if (enemy === enemyOne){
+      return captainTimer
+    } else if (enemy === enemyTwo){
+      return engineerTimer
+    } else if (enemy === enemyThree){
+      return weaponsTimer
+    } else if (enemy === enemyFour){
+      return navigationTimer
     }
   }
 
 
-  function runGameFlee(){
-    console.log('running in flee mode!')
-    captainTimer = setInterval(() => {
-      enemyOne.decideDirection(playerOne)
-    }, 600)
+  function handleModeChange(enemy, timerId){
+    clearInterval(timerId)
+    if (enemy.mode === 'flee'){
+      runGameFlee(enemy)
+    } else if (enemy.mode === 'chase'){
+      runGameChase()
+    }
+  }
+
+  function runGameFlee(enemy){
+    let timerId = determineTimerId(enemy)
+    console.log(`got timer ID: ${timerId} for ${enemy.name}`)
+    // setInterval(() => {
+    //   enemy.decideDirection(playerOne)
+    // }, 1000)
   }
 
   function runGameChase(){
