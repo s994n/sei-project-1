@@ -294,23 +294,69 @@ function init(){
 
       captainTimer = setInterval(() => {
         enemyOne.decideDirection(playerOne)
-      }, 400)
+      }, 300)
       engineerTimer = setInterval(() => {
       enemyTwo.decideDirection(playerOne)
-      }, 500)
+      }, 700)
       weaponsTimer = setInterval(() => {
       enemyThree.decideDirection(playerOne)
-      }, 300)
+      }, 700)
       navigationTimer = setInterval(() => {
       enemyFour.decideDirection(playerOne)
       }, 750)
 
     }, 2000)
 
+    setTimeout(() => {
+      enemyOne.mode = 'flee'
+    }, 4000)
+
+
+    setTimeout(() => {
+      enemyOne.mode = 'chase'
+    }, 6000)
+
+    detectModeChange()
+
   }
 
 
-  
+  function detectModeChange(){
+    let currentEnemyOneMode = enemyOne.mode
+    setInterval(() => {
+      if (currentEnemyOneMode !== enemyOne.mode){
+        console.log('mode change!')
+        handleModeChange()
+      }
+      currentEnemyOneMode = enemyOne.mode  
+    }, 50)
+  }
+
+
+  function handleModeChange(){
+    if (enemyOne.mode === 'flee'){
+      clearInterval(captainTimer)
+      runGameFlee()
+    } else if (enemyOne.mode === 'chase'){
+      clearInterval(captainTimer)
+      runGameChase()
+    }
+  }
+
+
+  function runGameFlee(){
+    console.log('running in flee mode!')
+    captainTimer = setInterval(() => {
+      enemyOne.decideDirection(playerOne)
+    }, 600)
+  }
+
+  function runGameChase(){
+    console.log('running in chase mode!')
+    captainTimer = setInterval(() => {
+      enemyOne.decideDirection(playerOne)
+    }, 300)
+  }
 
 
   function endGame(character){
