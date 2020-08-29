@@ -241,14 +241,29 @@ function init(){
 
   }
 
+
+//helper function responsible for moving (disappearing and appearing) all characters
+// Includes some logic for collision handling, under conditions of chase vs flee for enemies  
   function mover(character, direction, tempXPosition, tempYPosition, isEnemy){
 
     if (cells[character.yPos][character.xPos].dataset.appearance === 'o'){
+      
+      //this checks whether the character (either playerOne or an enemy) has encountered an enemy
       if (isEnemy){
-        if (character.yPos === character.locateCharacter(playerOne)[0] && character.xPos === character.locateCharacter(playerOne)[1] ){
-          adjustCoords(direction, character)
-          endGame(character)
-          return
+        console.log(character.yPos,character.xPos)
+        if (cells[character.yPos][character.xPos].classList.value === 'playerOne'){
+              alert('collision!')
+            }
+        if (character.yPos === character.locateCharacter(playerOne)[0] &&
+          character.xPos === character.locateCharacter(playerOne)[1]){
+            if (character.mode === 'flee'){
+              alert('Drugged!')
+            } else {
+              adjustCoords(direction, character)
+              endGame(character)
+              return
+            }
+
         }           
       } 
       character.disappear(tempYPosition, tempXPosition)
@@ -301,16 +316,16 @@ function init(){
 
       captainTimer = setInterval(() => {
         enemyOne.decideDirection(playerOne)
-      }, 300)
+      }, 700)
       engineerTimer = setInterval(() => {
       enemyTwo.decideDirection(playerOne)
-      }, 700)
+      }, 1000)
       weaponsTimer = setInterval(() => {
       enemyThree.decideDirection(playerOne)
-      }, 700)
+      }, 1500)
       navigationTimer = setInterval(() => {
       enemyFour.decideDirection(playerOne)
-      }, 750)
+      }, 2000)
 
     }, 2000)
 
@@ -394,19 +409,19 @@ function init(){
     if (enemy === enemyOne){
       captainTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 300)
+      }, 700)
     } else if (enemy === enemyTwo){
       engineerTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 300)
+      }, 1000)
     } else if (enemy === enemyThree){
       weaponsTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 300)
+      }, 1500)
     } else if (enemy === enemyFour){
       navigationTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 300)
+      }, 2000)
     }
   }
 
