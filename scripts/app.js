@@ -471,7 +471,7 @@ function init(){
     if (enemy === enemyOne){
       captainTimerFlee = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 2000)
+      }, 1000)
     } else if (enemy === enemyTwo){
       engineerTimerFlee = setInterval(() => {
         enemy.decideDirection(playerOne)
@@ -491,11 +491,11 @@ function init(){
     if (enemy === enemyOne){
       captainTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 400)
+      }, 1000)
     } else if (enemy === enemyTwo){
       engineerTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 1000)
+      }, 400)
     } else if (enemy === enemyThree){
       weaponsTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
