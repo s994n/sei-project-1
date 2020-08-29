@@ -371,6 +371,8 @@ function init(){
             console.log(`caught ${enemy}, clearing timer IDs. decideDirection: ${captainTimer}, detectModeChange: ${enemyOneTimerId}`)
             clearInterval(captainTimer)
             captainTimer = null            
+            clearInterval(captainTimerFlee)
+            captainTimerFlee = null
             clearInterval(enemyOneTimerId)
             enemyOneTimerId = null
             console.log(`CLEARED timer IDs. decideDirection: ${captainTimer}, detectModeChange: ${enemyOneTimerId}`)
@@ -390,7 +392,7 @@ function init(){
     
     let currentEnemyMode = enemy.mode
     const enemyCheckerId = setInterval(() => {
-      console.log(enemy.mode)
+      console.log('should show:', enemy.mode)
       if (currentEnemyMode !== enemy.mode){
         if (enemy.mode === 'flee'){
           clearInterval(captainTimer)
@@ -511,13 +513,18 @@ function init(){
     enemy.disappear(enemy.yPos, enemy.xPos)
     enemy.yPos = 14
     enemy.xPos = 13
-    setTimeout(() => {
-
+    setTimeout (() => {
       enemy.appear()
-      enemyOneTimerId = detectModeChange(enemyOne)
-      console.log(`${enemy.name} reset! Mode: ${enemy.mode}. TimerId: ${enemyOneTimerId}`)
-      runGameChase(enemy)
-    }, 3000)
+    }, 2000)
+    
+
+    // setTimeout(() => {
+
+    //   enemy.appear()
+    //   enemyOneTimerId = detectModeChange(enemyOne)
+    //   console.log(`${enemy.name} reset! Mode: ${enemy.mode}. TimerId: ${enemyOneTimerId}`)
+    //   runGameChase(enemy)
+    // }, 3000)
   }
 
 
