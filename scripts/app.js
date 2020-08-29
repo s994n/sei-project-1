@@ -499,11 +499,11 @@ function init(){
     } else if (enemy === enemyThree){
       weaponsTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 400)
+      }, 1000)
     } else if (enemy === enemyFour){
       navigationTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 1000)
+      }, 400)
     }
   }
 
