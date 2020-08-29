@@ -308,6 +308,10 @@ function init(){
   let engineerTimerFlee
   let weaponsTimerFlee
   let navigationTimerFlee
+  let enemyOneTimerId
+  let enemyTwoTimerId
+  let enemyThreeTimerId
+  let enemyFourTimerId
 
   function playGame(){
 
@@ -348,13 +352,14 @@ function init(){
 
 
 
-    const enemyOneTimerId = detectModeChange(enemyOne)
-    const enemyTwoTimerId = detectModeChange(enemyTwo)
-    const enemyThreeTimerId = detectModeChange(enemyThree)
-    const enemyFourTimerId = detectModeChange(enemyFour)
+    enemyOneTimerId = detectModeChange(enemyOne)
+    // enemyTwoTimerId = detectModeChange(enemyTwo)
+    // enemyThreeTimerId = detectModeChange(enemyThree)
+    // enemyFourTimerId = detectModeChange(enemyFour)
 
 
     detectCollision(enemyOne)
+    
   }
 
 
@@ -363,10 +368,14 @@ function init(){
       if (enemy.locateCharacter(playerOne)[0] === enemy.yPos && enemy.locateCharacter(playerOne)[1] === enemy.xPos){
         if (enemy.mode === 'flee'){
           if (enemy === enemyOne){
-            console.log(`Caught! ${enemy}`)
+            console.log(`caught ${enemy}, clearing timer IDs. decideDirection: ${captainTimer}, detectModeChange: ${enemyOneTimerId}`)
             clearInterval(captainTimer)
-            clearInterval(collisionId)
+            captainTimer = null            
+            clearInterval(enemyOneTimerId)
+            enemyOneTimerId = null
+            console.log(`CLEARED timer IDs. decideDirection: ${captainTimer}, detectModeChange: ${enemyOneTimerId}`)
             resetDrugged(enemy)
+            
           }
         } else {
           clearInterval(collisionId)
@@ -378,23 +387,23 @@ function init(){
   }
 
   function detectModeChange(enemy){
+    
     let currentEnemyMode = enemy.mode
     const enemyCheckerId = setInterval(() => {
+      console.log(enemy.mode)
       if (currentEnemyMode !== enemy.mode){
         if (enemy.mode === 'flee'){
-          console.log('everyone flee!')
           clearInterval(captainTimer)
           clearInterval(engineerTimer)
           clearInterval(weaponsTimer)
           clearInterval(navigationTimer)
         } else if (enemy.mode === 'chase') {
-          console.log('everyone chase!')
+          console.log(enemy.mode, 'clearing flee timers')
           clearInterval(captainTimerFlee)
           clearInterval(engineerTimerFlee)
           clearInterval(weaponsTimerFlee)
           clearInterval(navigationTimerFlee)
         }
-        console.log('handling mode change')
         handleModeChange(enemy)
       }
       currentEnemyMode = enemy.mode
@@ -403,19 +412,21 @@ function init(){
     return enemyCheckerId
   }
 
-  function determineTimerId(enemy){
-    let timerId
-    if (enemy === enemyOne){
-      timerId = captainTimer
-    } else if (enemy === enemyTwo){
-      timerId = engineerTimer
-    } else if (enemy === enemyThree){
-      timerId = weaponsTimer
-    } else if (enemy === enemyFour){
-      timerId = navigationTimer
-    }
-    return timerId
-  }
+
+
+  // function determineTimerId(enemy){
+  //   let timerId
+  //   if (enemy === enemyOne){
+  //     timerId = captainTimer
+  //   } else if (enemy === enemyTwo){
+  //     timerId = engineerTimer
+  //   } else if (enemy === enemyThree){
+  //     timerId = weaponsTimer
+  //   } else if (enemy === enemyFour){
+  //     timerId = navigationTimer
+  //   }
+  //   return timerId
+  // }
 
 
   function handleModeChange(enemy){
@@ -430,7 +441,7 @@ function init(){
     if (enemy === enemyOne){
       captainTimerFlee = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 1000)
+      }, 2000)
     } else if (enemy === enemyTwo){
       engineerTimerFlee = setInterval(() => {
         enemy.decideDirection(playerOne)
@@ -447,7 +458,6 @@ function init(){
   }
 
   function runGameChase(enemy){
-    console.log(`${enemy} running in chase mode!`)
     if (enemy === enemyOne){
       captainTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
@@ -455,15 +465,15 @@ function init(){
     } else if (enemy === enemyTwo){
       engineerTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 400)
+      }, 1000)
     } else if (enemy === enemyThree){
       weaponsTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 400)
+      }, 1000)
     } else if (enemy === enemyFour){
       navigationTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 400)
+      }, 1000)
     }
   }
 
@@ -478,7 +488,7 @@ function init(){
       enemyTwo.mode = 'chase'
       enemyThree.mode = 'chase'
       enemyFour.mode = 'chase'
-    }, 5000)
+    }, 10000)
   }
 
 
@@ -497,14 +507,17 @@ function init(){
 
 // reset enemy caught when player has big-dot power. Enemy sent back to home position
   function resetDrugged(enemy){
-    console.log('resetting with drug!')
+    console.log(`resetting ${enemy.name} with drug!`)
     enemy.disappear(enemy.yPos, enemy.xPos)
     enemy.yPos = 14
     enemy.xPos = 13
     setTimeout(() => {
+
       enemy.appear()
+      enemyOneTimerId = detectModeChange(enemyOne)
+      console.log(`${enemy.name} reset! Mode: ${enemy.mode}. TimerId: ${enemyOneTimerId}`)
       runGameChase(enemy)
-    }, 2000)
+    }, 3000)
   }
 
 
