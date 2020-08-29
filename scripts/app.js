@@ -138,6 +138,7 @@ function init(){
     constructor(xPos, yPos, name){
       super(xPos, yPos, name)
       this._lastMove = null
+      this._mode = 'chase'
     }
 
     set lastMove(lastMove){
@@ -146,6 +147,14 @@ function init(){
 
     get lastMove(){
       return this._lastMove
+    }
+
+    get mode(){
+      return this._mode
+    }
+    
+    set mode(mode){
+      this._mode = mode
     }
 
     locateCharacter(character){
@@ -185,7 +194,13 @@ function init(){
       const upWeight = [Math.abs(characterPosition[0] - checkedUp[0]) + Math.abs(characterPosition[1] - checkedUp[1]), 'up']
       const downWeight = [Math.abs(characterPosition[0] - checkedDown[0]) + Math.abs(characterPosition[1] - checkedDown[1]), 'down']
       
-      const orderToChoose = [rightWeight, leftWeight, upWeight, downWeight].sort((a, b) => a[0] - b[0] )
+      let orderToChoose
+      if (this.mode !== 'flee'){
+        orderToChoose = [rightWeight, leftWeight, upWeight, downWeight].sort((a, b) => a[0] - b[0] )
+      } else {
+        console.log(`${this.name} fleeing!`)
+        orderToChoose = [rightWeight, leftWeight, upWeight, downWeight].sort((a, b) => b[0] - a[0] )
+      }
       
       const tempXPosition = this.xPos
       const tempYPosition = this.yPos
@@ -292,6 +307,11 @@ function init(){
       }, 750)
 
     }, 2000)
+
+    setTimeout(() => {
+      enemyThree.mode = 'flee'
+      enemyOne.mode = 'flee'
+    }, 6000)
 
   }
   
