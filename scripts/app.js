@@ -155,6 +155,7 @@ function init(){
       super(xPos, yPos, name)
       this._lastMove = null
       this._mode = 'chase'
+      this.onBridge = true
     }
 
     set lastMove(lastMove){
@@ -364,6 +365,7 @@ function init(){
 
 
   function detectCollision(enemy){
+    console.log('running detect collision and setting interval!')
     const collisionId = setInterval(() => {
       if (enemy.locateCharacter(playerOne)[0] === enemy.yPos && enemy.locateCharacter(playerOne)[1] === enemy.xPos){
         if (enemy.mode === 'flee'){
@@ -515,6 +517,9 @@ function init(){
     enemy.xPos = 13
     setTimeout (() => {
       enemy.appear()
+      enemy.mode = 'chase'
+      runGameChase(enemy)
+      enemyOneTimerId = detectModeChange(enemy)
     }, 2000)
     
 
