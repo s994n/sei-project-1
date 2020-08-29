@@ -315,11 +315,12 @@ function init(){
     }, 4000)
 
 
-    // setTimeout(() => {
-    //   enemyOne.mode = 'chase'
-    //   enemyTwo.mode = 'chase'
-    //   enemyThree.mode = 'chase'
-    // }, 8000)
+    setTimeout(() => {
+      enemyOne.mode = 'chase'
+      enemyTwo.mode = 'chase'
+      enemyThree.mode = 'chase'
+      enemyFour.mode = 'chase'
+    }, 8000)
 
     const enemyOneTimerId = detectModeChange(enemyOne)
     const enemyTwoTimerId = detectModeChange(enemyTwo)
@@ -362,7 +363,7 @@ function init(){
     if (enemy.mode === 'flee'){
       runGameFlee(enemy)
     } else if (enemy.mode === 'chase'){
-      runGameChase()
+      runGameChase(enemy)
     }
   }
 
@@ -384,14 +385,27 @@ function init(){
         enemy.decideDirection(playerOne)
       }, 1000)
     }
-    
   }
 
-  function runGameChase(){
+  function runGameChase(enemy){
     console.log('running in chase mode!')
-    captainTimer = setInterval(() => {
-      enemyOne.decideDirection(playerOne)
-    }, 300)
+    if (enemy === enemyOne){
+      captainTimer = setInterval(() => {
+        enemy.decideDirection(playerOne)
+      }, 300)
+    } else if (enemy === enemyTwo){
+      engineerTimer = setInterval(() => {
+        enemy.decideDirection(playerOne)
+      }, 300)
+    } else if (enemy === enemyThree){
+      weaponsTimer = setInterval(() => {
+        enemy.decideDirection(playerOne)
+      }, 300)
+    } else if (enemy === enemyFour){
+      navigationTimer = setInterval(() => {
+        enemy.decideDirection(playerOne)
+      }, 300)
+    }
   }
 
 
