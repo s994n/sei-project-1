@@ -147,6 +147,8 @@ function init(){
 
   }
 
+//END of Player class
+
 
   class Enemy extends Player {
     constructor(xPos, yPos, name){
@@ -241,6 +243,8 @@ function init(){
 
   }
 
+// END of Enemy class
+
 
 //helper function responsible for moving (disappearing and appearing) all characters
 // Includes some logic for collision handling, under conditions of chase vs flee for enemies  
@@ -250,17 +254,17 @@ function init(){
       
       //this checks whether the character (either playerOne or an enemy) has encountered an enemy
       if (isEnemy){
-        console.log(character.yPos,character.xPos)
-        if (cells[character.yPos][character.xPos].classList.value === 'playerOne'){
-              alert('collision!')
-            }
+        // console.log(character.yPos,character.xPos)
+        // if (cells[character.yPos][character.xPos].classList.value === 'playerOne'){
+        //       alert('collision!')
+        //     }
         if (character.yPos === character.locateCharacter(playerOne)[0] &&
           character.xPos === character.locateCharacter(playerOne)[1]){
             if (character.mode === 'flee'){
               alert('Drugged!')
             } else {
-              adjustCoords(direction, character)
-              endGame(character)
+              // adjustCoords(direction, character)
+              // endGame(character)
               return
             }
 
@@ -344,8 +348,19 @@ function init(){
     const enemyThreeTimerId = detectModeChange(enemyThree)
     const enemyFourTimerId = detectModeChange(enemyFour)
 
+
+    detectCollision(enemyOne)
   }
 
+
+  function detectCollision(enemy){
+    const collisionId = setInterval(() => {
+      if (enemy.locateCharacter(playerOne)[0] === enemy.yPos && enemy.locateCharacter(playerOne)[1] === enemy.xPos){
+        clearInterval(collisionId)
+        endGame(enemy)
+      }
+    }, 200)
+  }
 
   function detectModeChange(enemy){
     let currentEnemyMode = enemy.mode
