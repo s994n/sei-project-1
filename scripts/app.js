@@ -648,7 +648,7 @@ function init(){
     enemy.disappear(enemy.yPos, enemy.xPos)
     enemy.yPos = 14
     enemy.xPos = 13
-    setTimeout (() => {
+    setTimeout(() => {
       enemy.appear()
       enemy.mode = 'chase'
       runGameChase(enemy)
@@ -726,53 +726,6 @@ function init(){
 
   // score display
  const scoreDisplay = document.querySelector('.score')
-
-
-
-
-  //testing a tranformation
-  const testTransformBox = document.querySelector('.test-transform')
-  document.addEventListener('keyup', transformOnClick)
-
- let tapCount = 0
-  function transformOnClick(){
-    const transform = ["transform", "msTransform", "webkitTransform", "mozTransform", "oTransform"];
-    const transformProperty = getSupportedPropertyName(transform)    
-    
-    tapCount++
-    if (transformProperty) {
-      testTransformBox.style[transformProperty] = `translateY(${tapCount * 100}px)` //translate3d(someValueX, someValueY, 0);
-      console.log(testTransformBox.offsetTop)
-    }
-  }
-
-  function getSupportedPropertyName(properties) {
-      for (let i = 0; i < properties.length; i++) {
-          if (typeof document.body.style[properties[i]] != "undefined") {
-              return properties[i]
-          }
-      }
-      return null
-    }
-  
-    function offset(el) {
-      var rect = el.getBoundingClientRect(),
-      scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
-      scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
-  }
-
-
- const offsetBox = offset(testTransformBox)
- console.log(offsetBox.left, offsetBox.top) 
-    
-    
- var popup = document.querySelector('.popup');
- var rect = popup.getBoundingClientRect();
- 
- console.log("popup.getBoundingClientRect(): \n" + "x: " + rect.left + "\ny: " + rect.top);
-
-
 
 
     
