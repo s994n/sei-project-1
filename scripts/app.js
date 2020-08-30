@@ -109,8 +109,11 @@ function init(){
       const tempXPosition = this.xPos
       const tempYPosition = this.yPos
       if (cells[this.yPos][this.xPos + 1].children.length !== 0) {
+        
         if (cells[this.yPos][this.xPos + 1].children[0].classList.contains('service-tunnel')){
           this.xPos = 0
+        } else {
+          this.xPos = this.xPos + 1
         }
       } else {
         this.xPos = this.xPos + 1
@@ -124,6 +127,8 @@ function init(){
       if (cells[this.yPos][this.xPos - 1].children.length !== 0) {
         if (cells[this.yPos][this.xPos - 1].children[0].classList.contains('service-tunnel')){
           this.xPos = splitInputArr[0].length - 1
+        } else {
+          this.xPos = this.xPos - 1
         }
       } else {
         this.xPos = this.xPos - 1
