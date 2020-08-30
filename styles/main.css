@@ -41,6 +41,10 @@ div[data-appearance='X']{
   background-color: red;
 }
 
+div[data-appearance='o']{
+  background-color: grey;
+}
+
 div.playerOne{
   background-color: blue
 }
