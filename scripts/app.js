@@ -214,7 +214,16 @@ function init(){
       let orderToChoose
       if (this.mode !== 'flee'){
         console.log('chasing!', [rightWeight, leftWeight, upWeight, downWeight])
-        orderToChoose = [rightWeight, leftWeight, upWeight, downWeight].sort((a, b) => a[0] - b[0] )
+        orderToChoose = [rightWeight, leftWeight, upWeight, downWeight].sort((a, b) => {
+          console.log(a, b, a[0] - b[0])
+          if (a[0] - b[0] === 0){
+            const optionsToChoose = [-1, 1]
+            console.log(optionsToChoose[Math.floor(Math.random() * optionsToChoose.length)])
+            return optionsToChoose[Math.floor(Math.random() * optionsToChoose.length)]
+          } else {
+            return a[0] - b[0]
+          } 
+        })
         console.log('Chasing smart!', orderToChoose)
       } else {
         console.log('fleeing!', [rightWeight, leftWeight, upWeight, downWeight])
