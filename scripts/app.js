@@ -151,7 +151,7 @@ function init(){
     }
   }
   
-  generateBoard(boardOne)
+  generateBoard(boardTwo)
 
 
 
@@ -219,8 +219,10 @@ function init(){
 //A method to check whether the cell that the player inhabits contains either a dot or a big-dot class
 // if dot or big-dot classes are present, score is increased accordingly
     checkEatDot(isEnemy){
-      if (isEnemy === false && cells[this.yPos][this.xPos].children[0].classList.contains('dot')){
+      if ((isEnemy === false && cells[this.yPos][this.xPos].children[0].classList.contains('dot')) ||
+      (isEnemy === false && cells[this.yPos][this.xPos].children[0].classList.contains('emergency-dot'))){
         cells[this.yPos][this.xPos].children[0].classList.remove('dot')
+        cells[this.yPos][this.xPos].children[0].classList.remove('emergency-dot')
         this.score += 10
         scoreDisplay.textContent = playerOne.score
       } else if ((isEnemy === false && cells[this.yPos][this.xPos].children[0].classList.contains('big-dot')) ||
