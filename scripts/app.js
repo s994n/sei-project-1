@@ -732,10 +732,19 @@ function init(){
 
   //testing a tranformation
   const testTransformBox = document.querySelector('.test-transform')
-  console.log(testTransformBox)
-  
+  testTransformBox.addEventListener('click', transformOnClick)
+
+ 
+  function transformOnClick(){
+    const transform = ["transform", "msTransform", "webkitTransform", "mozTransform", "oTransform"];
+    const transformProperty = getSupportedPropertyName(transform)    
+    if (transformProperty) {
+      testTransformBox.style[transformProperty] = 'translateX(300px)' //translate3d(someValueX, someValueY, 0);
+    }
+  }
+
   function getSupportedPropertyName(properties) {
-      for (var i = 0; i < properties.length; i++) {
+      for (let i = 0; i < properties.length; i++) {
           if (typeof document.body.style[properties[i]] != "undefined") {
               return properties[i]
           }
@@ -743,14 +752,13 @@ function init(){
       return null
     }
       
-      
-    var transform = ["transform", "msTransform", "webkitTransform", "mozTransform", "oTransform"];
+
   
-    var transformProperty = getSupportedPropertyName(transform)
-      
-    if (transformProperty) {
-      testTransformBox.style[transformProperty] = 'translateX(300px)' //translate3d(someValueX, someValueY, 0);
-    }
+    
+    
+    
+    
+
 
 
 

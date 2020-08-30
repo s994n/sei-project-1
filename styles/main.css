@@ -125,4 +125,6 @@ div.test-transform{
   width: 75px;
   background-color: black;
   border: 1px solid red;
+
+  transition: all 3s;
 }
