@@ -75,6 +75,9 @@ function init(){
         (y === splitInputArr.length - 2 && x === splitInputArr[0].length - 2)){
           // eslint-disable-next-line quotes
           cell.innerHTML = "<span class='big-dot'></span>"
+        } else if (x === 0 || x === splitInputArr[0].length - 1) {
+          // eslint-disable-next-line quotes
+          cell.innerHTML = "<span class='service-tunnel'></span>"
         } else {
           // eslint-disable-next-line quotes
           cell.innerHTML = "<span class='dot'></span>"
@@ -105,14 +108,22 @@ function init(){
     moveRight(isEnemy = false){
       const tempXPosition = this.xPos
       const tempYPosition = this.yPos
-      this.xPos = this.xPos + 1
+      if (cells[this.yPos][this.xPos + 1].children[0].classList.contains('service-tunnel')){
+        this.xPos = 0
+      } else {
+        this.xPos = this.xPos + 1
+      }
       mover(this, 'right', tempXPosition, tempYPosition, isEnemy)
       this.checkEatDot(isEnemy)
     }
     moveLeft(isEnemy = false){
       const tempXPosition = this.xPos
       const tempYPosition = this.yPos
+      if (cells[this.yPos][this.xPos - 1].children[0].classList.contains('service-tunnel')){
+        this.xPos = splitInputArr[0].length - 1
+      } else {
       this.xPos = this.xPos - 1
+      }
       mover(this, 'left', tempXPosition, tempYPosition, isEnemy)
       this.checkEatDot(isEnemy)
     }
@@ -213,20 +224,19 @@ function init(){
       
       let orderToChoose
       if (this.mode !== 'flee'){
-        console.log('chasing!', [rightWeight, leftWeight, upWeight, downWeight])
+        // console.log('chasing!', [rightWeight, leftWeight, upWeight, downWeight])
         orderToChoose = [rightWeight, leftWeight, upWeight, downWeight].sort((a, b) => {
-          console.log(a, b, a[0] - b[0])
+          // console.log(a, b, a[0] - b[0])
           if (a[0] - b[0] === 0){
             const optionsToChoose = [-1, 1]
-            console.log(optionsToChoose[Math.floor(Math.random() * optionsToChoose.length)])
             return optionsToChoose[Math.floor(Math.random() * optionsToChoose.length)]
           } else {
             return a[0] - b[0]
           } 
         })
-        console.log('Chasing smart!', orderToChoose)
+        // console.log('Chasing smart!', orderToChoose)
       } else {
-        console.log('fleeing!', [rightWeight, leftWeight, upWeight, downWeight])
+        // console.log('fleeing!', [rightWeight, leftWeight, upWeight, downWeight])
         orderToChoose = [rightWeight, leftWeight, upWeight, downWeight].sort((a, b) => b[0] - a[0] )
       }
       
@@ -432,7 +442,7 @@ function init(){
     
     let currentEnemyMode = enemy.mode
     const enemyCheckerId = setInterval(() => {
-      console.log('should show:', enemy.mode)
+      // console.log('should show:', enemy.mode)
       if (currentEnemyMode !== enemy.mode){
         if (enemy.mode === 'flee'){
           clearInterval(captainTimer)
@@ -440,7 +450,7 @@ function init(){
           clearInterval(weaponsTimer)
           clearInterval(navigationTimer)
         } else if (enemy.mode === 'chase') {
-          console.log(enemy.mode, 'clearing flee timers')
+          // console.log(enemy.mode, 'clearing flee timers')
           clearInterval(captainTimerFlee)
           clearInterval(engineerTimerFlee)
           clearInterval(weaponsTimerFlee)

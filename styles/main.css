@@ -76,3 +76,9 @@ div span.big-dot{
   border-radius: 50%;
   display: inline-block;
 }
+
+div span.service-tunnel {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+}
