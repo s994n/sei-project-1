@@ -73,6 +73,22 @@ div span.dot{
   display: inline-block;
 }
 
+div span.emergency-dot{
+  height: 7px;
+  width: 7px;
+  background-color: chartreuse;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+div span.pill-dot{
+  height: 10px;
+  width: 10px;
+  background-color: pink;
+  border-radius: 50%;
+  display: inline-block;
+}
+
 div span.big-dot{
   height: 10px;
   width: 10px;
@@ -86,3 +102,13 @@ div span.service-tunnel {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.3);
 }
+
+div.passageway-light{
+  background-color: white;
+}
+
+div.passageway-dark{
+  background-color: black;
+}
+
+

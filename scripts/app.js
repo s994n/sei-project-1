@@ -24,7 +24,44 @@ function init(){
   // ]
   
 
-  const inputArr =
+  const boardOne =
+[
+  ['XXXXXXXXXXXXXXXXXXXXXXXXXXXX'],
+  ['XooooooooooooXXooooooooooooX'],
+  ['XoXXXXoXXXXXoXXoXXXXXoXXXXoX'],
+  ['XoXXXXoXXXXXoXXoXXXXXoXXXXoX'],
+  ['XoXXXXoXXXXXoXXoXXXXXoXXXXoX'],
+  ['XooooooooooooooooooooooooooX'],
+  ['XoXXXXoXXoXXXXXXXXoXXoXXXXoX'],
+  ['XoXXXXoXXoXXXXXXXXoXXoXXXXoX'],
+  ['XooooooXXooooXXooooXXooooooX'],
+  ['XXXXXXoXXXXXoXXoXXXXXoXXXXXX'],
+  ['XXXXXXoXXXXXoXXoXXXXXoXXXXXX'],
+  ['XXXXXXoXXooooooooooXXoXXXXXX'],
+  ['XXXXXXoXXoXXXooXXXoXXoXXXXXX'],
+  ['XXXXXXoXXoXooooooXoXXoXXXXXX'],
+  ['ooooooooooXooooooXoooooooooo'],
+  ['XXXXXXoXXoXooooooXoXXoXXXXXX'],
+  ['XXXXXXoXXoXXXXXXXXoXXoXXXXXX'],
+  ['XXXXXXoXXooooooooooXXoXXXXXX'],
+  ['XXXXXXoXXoXXXXXXXXoXXoXXXXXX'],
+  ['XXXXXXoXXoXXXXXXXXoXXoXXXXXX'],
+  ['XooooooooooooXXooooooooooooX'],
+  ['XoXXXXoXXXXXoXXoXXXXXoXXXXoX'],
+  ['XoXXXXoXXXXXoXXoXXXXXoXXXXoX'],
+  ['XoooXXooooooooooooooooXXoooX'],
+  ['XXXoXXoXXoXXXXXXXXoXXoXXoXXX'],
+  ['XXXoXXoXXoXXXXXXXXoXXoXXoXXX'],
+  ['XooooooXXooooXXooooXXooooooX'],
+  ['XoXXXXXXXXXXoXXoXXXXXXXXXXoX'],
+  ['XoXXXXXXXXXXoXXoXXXXXXXXXXoX'],
+  ['XooooooooooooooooooooooooooX'],
+  ['XXXXXXXXXXXXXXXXXXXXXXXXXXXX']
+]
+
+
+
+  const boardTwo =
 [
   ['XXXXXXXXXXXXXXXXXXXXXXXXXXXX'],
   ['XooooooooooooXXooooooooooooX'],
@@ -61,33 +98,60 @@ function init(){
 
 
 //map the input array to a new array with each letter of inputArr as an individual array element
-  const splitInputArr = inputArr.map(subArr => subArr.join('').split('')) 
-  for (let y = 0; y < splitInputArr.length; y++){
-    const cellsSubArray = []
-    for (let x = 0; x < splitInputArr[1].length; x++){
-      const cell = document.createElement('div')
-      cell.setAttribute('data-appearance',`${splitInputArr[y][x]}`)
-      
-      if (cell.dataset.appearance === 'o'){
-        if ((y === 1 && x === 1) ||
-        (y === 1 && x === splitInputArr[0].length - 2) || 
-        (y === splitInputArr.length - 2 && x === 1) ||
-        (y === splitInputArr.length - 2 && x === splitInputArr[0].length - 2)){
-          // eslint-disable-next-line quotes
-          cell.innerHTML = "<span class='big-dot'></span>"
-        } else if (x === 0 || x === splitInputArr[0].length - 1) {
-          // eslint-disable-next-line quotes
-          cell.innerHTML = "<span class='service-tunnel'></span>"
-        } else {
-          // eslint-disable-next-line quotes
-          cell.innerHTML = "<span class='dot'></span>"
+  function generateBoard(inputBoard){
+    const splitInputArr = inputBoard.map(subArr => subArr.join('').split('')) 
+    for (let y = 0; y < splitInputArr.length; y++){
+      const cellsSubArray = []
+      for (let x = 0; x < splitInputArr[1].length; x++){
+        const cell = document.createElement('div')
+        cell.setAttribute('data-appearance',`${splitInputArr[y][x]}`)
+        
+        //To allow styling and behavior of all passageways
+        if (cell.dataset.appearance === 'o'){
+          
+          //To include dots, big dots, pills and service passages
+          if ((y === 1 && x === 1) ||
+          (y === 1 && x === splitInputArr[0].length - 2) || 
+          (y === splitInputArr.length - 2 && x === 1) ||
+          (y === splitInputArr.length - 2 && x === splitInputArr[0].length - 2)){
+            if (inputBoard === boardOne){
+            // eslint-disable-next-line quotes
+              cell.innerHTML = "<span class='pill-dot'></span>"
+            } else if (inputBoard === boardTwo){
+              // eslint-disable-next-line quotes
+              cell.innerHTML = "<span class='big-dot'></span>"
+              } 
+          } else if (x === 0 || x === splitInputArr[0].length - 1) {
+            // eslint-disable-next-line quotes
+            cell.innerHTML = "<span class='service-tunnel'></span>"
+          } else {
+              if (inputBoard === boardOne){
+                // eslint-disable-next-line quotes
+                  cell.innerHTML = "<span class='dot'></span>"
+                }
+            if (inputBoard === boardTwo){
+            // eslint-disable-next-line quotes
+              cell.innerHTML = "<span class='emergency-dot'></span>"
+              }
+          }
+
+          if (inputBoard === boardOne){
+            cell.classList.add('passageway-light')
+          } else if (inputBoard === boardTwo) {
+            cell.classList.add('passageway-dark')
+          }
+
+
         }
+        grid.appendChild(cell)
+        cellsSubArray.push(cell)
       }
-      grid.appendChild(cell)
-      cellsSubArray.push(cell)
+      cells.push(cellsSubArray)
     }
-    cells.push(cellsSubArray)
   }
+
+  generateBoard(boardTwo)
+
 
 
 // define a class of Player, which will be instantiated as playerOne
@@ -126,7 +190,7 @@ function init(){
       const tempYPosition = this.yPos
       if (cells[this.yPos][this.xPos - 1].children.length !== 0) {
         if (cells[this.yPos][this.xPos - 1].children[0].classList.contains('service-tunnel')){
-          this.xPos = splitInputArr[0].length - 1
+          this.xPos = cells[0].length - 1
         } else {
           this.xPos = this.xPos - 1
         }
