@@ -105,7 +105,8 @@ function init(){
       for (let x = 0; x < splitInputArr[1].length; x++){
         const cell = document.createElement('div')
         cell.setAttribute('data-appearance',`${splitInputArr[y][x]}`)
-        
+        cell.style.height = `${100 / splitInputArr.length}%`
+        cell.style.width = `${100 / splitInputArr[0].length}%`
         //To allow styling and behavior of all passageways
         if (cell.dataset.appearance === 'o'){
           
