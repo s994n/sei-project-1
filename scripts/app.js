@@ -151,7 +151,7 @@ function init(){
     }
   }
   
-  generateBoard(boardTwo)
+  generateBoard(boardOne)
 
 
 
@@ -223,8 +223,10 @@ function init(){
         cells[this.yPos][this.xPos].children[0].classList.remove('dot')
         this.score += 10
         scoreDisplay.textContent = playerOne.score
-      } else if (isEnemy === false && cells[this.yPos][this.xPos].children[0].classList.contains('big-dot')){
+      } else if ((isEnemy === false && cells[this.yPos][this.xPos].children[0].classList.contains('big-dot')) ||
+      (isEnemy === false && cells[this.yPos][this.xPos].children[0].classList.contains('pill-dot'))){
         cells[this.yPos][this.xPos].children[0].classList.remove('big-dot')
+        cells[this.yPos][this.xPos].children[0].classList.remove('pill-dot')
         this.score += 50
         scoreDisplay.textContent = playerOne.score
         bigDotTriggerFlee()
