@@ -213,8 +213,11 @@ function init(){
       
       let orderToChoose
       if (this.mode !== 'flee'){
+        console.log('chasing!', [rightWeight, leftWeight, upWeight, downWeight])
         orderToChoose = [rightWeight, leftWeight, upWeight, downWeight].sort((a, b) => a[0] - b[0] )
+        console.log('Chasing smart!', orderToChoose)
       } else {
+        console.log('fleeing!', [rightWeight, leftWeight, upWeight, downWeight])
         orderToChoose = [rightWeight, leftWeight, upWeight, downWeight].sort((a, b) => b[0] - a[0] )
       }
       
@@ -528,6 +531,14 @@ function init(){
     clearInterval(weaponsTimer)
     clearInterval(navigationTimer)
 
+    clearInterval(enemyOneTimerId)
+    enemyOneTimerId = null
+    clearInterval(enemyTwoTimerId)
+    enemyTwoTimerId = null
+    clearInterval(enemyThreeTimerId)
+    enemyThreeTimerId = null
+    clearInterval(enemyFourTimerId)
+    enemyFourTimerId = null
     alert(`Oh no, you got caught by ${character.name}`)
     resetButton.addEventListener('click', () => {
       reset(character)
