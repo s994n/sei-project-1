@@ -108,8 +108,10 @@ function init(){
     moveRight(isEnemy = false){
       const tempXPosition = this.xPos
       const tempYPosition = this.yPos
-      if (cells[this.yPos][this.xPos + 1].children[0].classList.contains('service-tunnel')){
-        this.xPos = 0
+      if (cells[this.yPos][this.xPos + 1].children.length !== 0) {
+        if (cells[this.yPos][this.xPos + 1].children[0].classList.contains('service-tunnel')){
+          this.xPos = 0
+        }
       } else {
         this.xPos = this.xPos + 1
       }
@@ -119,10 +121,12 @@ function init(){
     moveLeft(isEnemy = false){
       const tempXPosition = this.xPos
       const tempYPosition = this.yPos
-      if (cells[this.yPos][this.xPos - 1].children[0].classList.contains('service-tunnel')){
-        this.xPos = splitInputArr[0].length - 1
+      if (cells[this.yPos][this.xPos - 1].children.length !== 0) {
+        if (cells[this.yPos][this.xPos - 1].children[0].classList.contains('service-tunnel')){
+          this.xPos = splitInputArr[0].length - 1
+        }
       } else {
-      this.xPos = this.xPos - 1
+        this.xPos = this.xPos - 1
       }
       mover(this, 'left', tempXPosition, tempYPosition, isEnemy)
       this.checkEatDot(isEnemy)
@@ -244,6 +248,7 @@ function init(){
       const tempYPosition = this.yPos
       let count = 0
       while (tempXPosition === this.xPos && tempYPosition === this.yPos){
+        console.log('mover:', this.name, 'count:', count)
         const directionToCheck = orderToChoose[count][1]
         if (directionToCheck === 'right' && this.lastMove !== 'left'){
           this.moveRight(true)
@@ -257,10 +262,13 @@ function init(){
         } else if (directionToCheck === 'down' && this.lastMove !== 'up') {
           this.moveDown(true)
           this.lastMove = 'down'
+        } else {
+          console.log('throwing error?')
         }
         count++
 
       }
+      console.log('count outside while loop:', count)
 
     }
 
@@ -513,19 +521,19 @@ function init(){
     if (enemy === enemyOne){
       captainTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 1000)
+      }, 2000)
     } else if (enemy === enemyTwo){
       engineerTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 1000)
+      }, 2000)
     } else if (enemy === enemyThree){
       weaponsTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 1000)
+      }, 2000)
     } else if (enemy === enemyFour){
       navigationTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 400)
+      }, 2000)
     }
   }
 
