@@ -143,8 +143,7 @@ function init(){
     }
   }
   
-  generateBoard(boardOne)
-
+  generateBoard(boardTwo.reverse())
 
 
 // define a class of Player, which will be instantiated as playerOne
