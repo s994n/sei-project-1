@@ -1,5 +1,8 @@
+
+
 * {
   box-sizing: border-box;
+
 }
 
 body {
@@ -45,23 +48,28 @@ div[data-appearance='o']{
   background-color: grey;
 }
 
-div.playerOne{
+div.passageway-light.playerOne,
+div.passageway-dark.playerOne{
   background-color: blue
 }
 
-div.Captain{
+div.passageway-light.Captain,
+div.passageway-dark.Captain{
   background-color: rgb(187, 0, 250)
 }
 
-div.Engineer{
+div.passageway-light.Engineer,
+div.passageway-dark.Engineer{
   background-color: rgb(0, 250, 100)
 }
 
-div.Weapons{
+div.passageway-light.Weapons,
+div.passageway-dark.Weapons{
   background-color: rgb(250, 129, 0)
 }
 
-div.Navigation{
+div.passageway-light.Navigation,
+div.passageway-dark.Navigation{
   background-color: rgb(250, 0, 129)
 }
 
@@ -110,5 +118,3 @@ div.passageway-light{
 div.passageway-dark{
   background-color: black;
 }
-
-

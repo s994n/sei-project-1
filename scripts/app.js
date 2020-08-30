@@ -137,6 +137,7 @@ function init(){
 
           if (inputBoard === boardOne){
             cell.classList.add('passageway-light')
+
           } else if (inputBoard === boardTwo) {
             cell.classList.add('passageway-dark')
           }
@@ -149,7 +150,7 @@ function init(){
       cells.push(cellsSubArray)
     }
   }
-
+  
   generateBoard(boardTwo)
 
 
@@ -165,6 +166,7 @@ function init(){
     }
     appear(){
       cells[this.yPos][this.xPos].classList.add(`${this.name}`)
+      console.log(cells)
     }
     disappear(yPos, xPos){
       cells[yPos][xPos].classList.remove(`${this.name}`)
@@ -449,7 +451,7 @@ function init(){
     //   enemyFour.mode = 'flee'
     // }, 4000)
 
-
+    console.log(cells)
 
 
     enemyOneTimerId = detectModeChange(enemyOne)
