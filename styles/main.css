@@ -50,7 +50,7 @@ div[data-appearance='o']{
 
 div.passageway-light.playerOne,
 div.passageway-dark.playerOne{
-  background-color: blue
+  background-color: blue;
 }
 
 div.passageway-light.Captain,
@@ -118,4 +118,11 @@ div.passageway-light{
 
 div.passageway-dark{
   background-color: black;
+}
+
+div.test-transform{
+  height: 75px;
+  width: 75px;
+  background-color: black;
+  border: 1px solid red;
 }

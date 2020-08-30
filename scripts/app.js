@@ -158,6 +158,7 @@ function init(){
     appear(){
       cells[this.yPos][this.xPos].classList.add(`${this.name}`)
       console.log(cells)
+      
     }
     disappear(yPos, xPos){
       cells[yPos][xPos].classList.remove(`${this.name}`)
@@ -725,6 +726,32 @@ function init(){
 
   // score display
  const scoreDisplay = document.querySelector('.score')
+
+
+
+
+  //testing a tranformation
+  const testTransformBox = document.querySelector('.test-transform')
+  console.log(testTransformBox)
+  
+  function getSupportedPropertyName(properties) {
+      for (var i = 0; i < properties.length; i++) {
+          if (typeof document.body.style[properties[i]] != "undefined") {
+              return properties[i]
+          }
+      }
+      return null
+    }
+      
+      
+    var transform = ["transform", "msTransform", "webkitTransform", "mozTransform", "oTransform"];
+  
+    var transformProperty = getSupportedPropertyName(transform)
+      
+    if (transformProperty) {
+      testTransformBox.style[transformProperty] = 'translateX(300px)' //translate3d(someValueX, someValueY, 0);
+    }
+
 
 
 
