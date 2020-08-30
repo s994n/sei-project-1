@@ -26,37 +26,30 @@ function init(){
 
   const boardOne =
 [
-  ['XXXXXXXXXXXXXXXXXXXXXXXXXXXX'],
-  ['XooooooooooooXXooooooooooooX'],
-  ['XoXXXXoXXXXXoXXoXXXXXoXXXXoX'],
-  ['XoXXXXoXXXXXoXXoXXXXXoXXXXoX'],
-  ['XoXXXXoXXXXXoXXoXXXXXoXXXXoX'],
-  ['XooooooooooooooooooooooooooX'],
-  ['XoXXXXoXXoXXXXXXXXoXXoXXXXoX'],
-  ['XoXXXXoXXoXXXXXXXXoXXoXXXXoX'],
-  ['XooooooXXooooXXooooXXooooooX'],
-  ['XXXXXXoXXXXXoXXoXXXXXoXXXXXX'],
-  ['XXXXXXoXXXXXoXXoXXXXXoXXXXXX'],
-  ['XXXXXXoXXooooooooooXXoXXXXXX'],
-  ['XXXXXXoXXoXXXooXXXoXXoXXXXXX'],
-  ['XXXXXXoXXoXooooooXoXXoXXXXXX'],
-  ['ooooooooooXooooooXoooooooooo'],
-  ['XXXXXXoXXoXooooooXoXXoXXXXXX'],
-  ['XXXXXXoXXoXXXXXXXXoXXoXXXXXX'],
-  ['XXXXXXoXXooooooooooXXoXXXXXX'],
-  ['XXXXXXoXXoXXXXXXXXoXXoXXXXXX'],
-  ['XXXXXXoXXoXXXXXXXXoXXoXXXXXX'],
-  ['XooooooooooooXXooooooooooooX'],
-  ['XoXXXXoXXXXXoXXoXXXXXoXXXXoX'],
-  ['XoXXXXoXXXXXoXXoXXXXXoXXXXoX'],
-  ['XoooXXooooooooooooooooXXoooX'],
-  ['XXXoXXoXXoXXXXXXXXoXXoXXoXXX'],
-  ['XXXoXXoXXoXXXXXXXXoXXoXXoXXX'],
-  ['XooooooXXooooXXooooXXooooooX'],
-  ['XoXXXXXXXXXXoXXoXXXXXXXXXXoX'],
-  ['XoXXXXXXXXXXoXXoXXXXXXXXXXoX'],
-  ['XooooooooooooooooooooooooooX'],
-  ['XXXXXXXXXXXXXXXXXXXXXXXXXXXX']
+  ['XXXXXXXXXXXXXXXXXXXXXXXXXX'],
+  ['XoooooooooooXXoooooooooooX'],
+  ['XoXXXoXXXXXoXXoXXXXXoXXXoX'],
+  ['XooooooooooooooooooooooooX'],
+  ['XoXXXoXXoXXXXXXXXoXXoXXXoX'],
+  ['XoooooXXooooXXooooXXoooooX'],
+  ['XXXXXoXXXXXoXXoXXXXXoXXXXX'],
+  ['XXXXXoXXooooooooooXXoXXXXX'],
+  ['XXXXXoXXoXXXooXXXoXXoXXXXX'],
+  ['XXXXXoXXoXooooooXoXXoXXXXX'],
+  ['oooooooooXooooooXooooooooo'],
+  ['XXXXXoXXoXooooooXoXXoXXXXX'],
+  ['XXXXXoXXoXXXXXXXXoXXoXXXXX'],
+  ['XXXXXoXXooooooooooXXoXXXXX'],
+  ['XXXXXoXXoXXXXXXXXoXXoXXXXX'],
+  ['XoooooooooooXXoooooooooooX'],
+  ['XoXXXoXXXXXoXXoXXXXXoXXXoX'],
+  ['XoooXooooooooooooooooXoooX'],
+  ['XXXoXoXXoXXXXXXXXoXXoXoXXX'],
+  ['XXXoXoXXoXXXXXXXXoXXoXoXXX'],
+  ['XoooooXXooooXXooooXXoooooX'],
+  ['XoXXXXXXXXXoXXoXXXXXXXXXoX'],
+  ['XooooooooooooooooooooooooX'],
+  ['XXXXXXXXXXXXXXXXXXXXXXXXXX']
 ]
 
 
@@ -152,7 +145,7 @@ function init(){
     }
   }
   
-  generateBoard(boardTwo)
+  generateBoard(boardOne)
 
 
 
