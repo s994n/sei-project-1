@@ -178,45 +178,6 @@ function init(){
 
   function playGame(){
     
-    clearInterval(collisionIdOne)
-    collisionIdOne = null
-    clearInterval(collisionIdTwo)
-    collisionIdTwo = null
-    clearInterval(collisionIdThree)
-    collisionIdThree = null
-    clearInterval(collisionIdFour)
-    collisionIdFour = null
-    
-    clearInterval(captainTimer)
-    captainTimer = null
-    clearInterval(engineerTimer)
-    engineerTimer = null
-    clearInterval(weaponsTimer)
-    weaponsTimer = null
-    clearInterval(navigationTimer)
-    navigationTimer = null
-
-    clearInterval(captainTimerFlee)
-    captainTimerFlee = null
-    clearInterval(engineerTimerFlee)
-    engineerTimerFlee = null
-    clearInterval(weaponsTimerFlee)
-    weaponsTimerFlee = null
-    clearInterval(navigationTimerFlee)
-    navigationTimerFlee = null
-
-    clearInterval(enemyOneTimerId)
-    enemyOneTimerId = null
-    clearInterval(enemyTwoTimerId)
-    enemyTwoTimerId = null
-    clearInterval(enemyThreeTimerId)
-    enemyThreeTimerId = null
-    clearInterval(enemyFourTimerId)
-    enemyFourTimerId = null
-
-
-
-
     startContainer.classList.add('hide')
     gridWrapper.style.display = 'flex'
     newBoard = true
@@ -254,11 +215,11 @@ function init(){
     
 
 
-    console.log(`collisionId, for ${enemyOne.name}: ${collisionIdOne}`)
-    console.log(`collisionId, for ${enemyTwo.name}: ${collisionIdTwo}`)
-    console.log(`collisionId, for ${enemyThree.name}: ${collisionIdThree}`)
-    console.log(`collisionId, for ${enemyFour.name}: ${collisionIdFour}`)
-    console.log(`captain timer, detecting captain move: ${captainTimer}`)
+    // console.log(`collisionId, for ${enemyOne.name}: ${collisionIdOne}`)
+    // console.log(`collisionId, for ${enemyTwo.name}: ${collisionIdTwo}`)
+    // console.log(`collisionId, for ${enemyThree.name}: ${collisionIdThree}`)
+    // console.log(`collisionId, for ${enemyFour.name}: ${collisionIdFour}`)
+    // console.log(`captain timer, detecting captain move: ${captainTimer}`)
     // clearInterval(captainTimer)
     // clearInterval(engineerTimer)
     // clearInterval(weaponsTimer)
@@ -680,53 +641,10 @@ function init(){
     
     console.log(`clearing all collission Ids: ${collisionId}`)
     
-    
     for (let i = 1; i < 9999; i++){
-      window.clearInterval(i);
+      window.clearInterval(i)
     }
     
-
-
-    clearInterval(collisionIdOne)
-    collisionIdOne = null
-    clearInterval(collisionIdTwo)
-    collisionIdTwo = null
-    clearInterval(collisionIdThree)
-    collisionIdThree = null
-    clearInterval(collisionIdFour)
-    collisionIdFour = null
-    
-    clearInterval(captainTimer)
-    captainTimer = null
-    clearInterval(engineerTimer)
-    engineerTimer = null
-    clearInterval(weaponsTimer)
-    weaponsTimer = null
-    clearInterval(navigationTimer)
-    navigationTimer = null
-
-    clearInterval(captainTimerFlee)
-    captainTimerFlee = null
-    clearInterval(engineerTimerFlee)
-    engineerTimerFlee = null
-    clearInterval(weaponsTimerFlee)
-    weaponsTimerFlee = null
-    clearInterval(navigationTimerFlee)
-    navigationTimerFlee = null
-
-    clearInterval(enemyOneTimerId)
-    enemyOneTimerId = null
-    clearInterval(enemyTwoTimerId)
-    enemyTwoTimerId = null
-    clearInterval(enemyThreeTimerId)
-    enemyThreeTimerId = null
-    clearInterval(enemyFourTimerId)
-    enemyFourTimerId = null
-
-    console.log('collision timers:', collisionIdOne, collisionIdTwo, collisionIdThree, collisionIdFour)
-    console.log('Char move chase timers:', captainTimer, engineerTimer, weaponsTimer, navigationTimer)
-    console.log('Char move flee timers:', captainTimerFlee, engineerTimerFlee, weaponsTimerFlee, navigationTimerFlee)
-    console.log('mode change timers:', enemyOneTimerId, enemyTwoTimerId, enemyThreeTimerId, enemyFourTimerId)
 
     alert(`Oh no, you got caught by ${character.name}`)
     
