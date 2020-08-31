@@ -633,7 +633,7 @@ function init(){
       enemyTwo.mode = 'chase'
       enemyThree.mode = 'chase'
       enemyFour.mode = 'chase'
-    }, 10000)
+    }, 5000)
   }
 
 
@@ -676,7 +676,7 @@ function init(){
         enemyFourTimerId = detectModeChange(enemy)
       }
       
-    }, 2000)
+    }, 1500)
     
 
   }
