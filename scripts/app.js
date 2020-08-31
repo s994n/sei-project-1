@@ -223,7 +223,7 @@ function init(){
       } else {
         this.xPos = this.xPos + 1
       }
-      mover(this, 'right', tempXPosition, tempYPosition, isEnemy)
+      this.mover(this, 'right', tempXPosition, tempYPosition, isEnemy)
       this.checkEatDot(isEnemy)
     }
     moveLeft(isEnemy = false){
@@ -238,21 +238,21 @@ function init(){
       } else {
         this.xPos = this.xPos - 1
       }
-      mover(this, 'left', tempXPosition, tempYPosition, isEnemy)
+      this.mover(this, 'left', tempXPosition, tempYPosition, isEnemy)
       this.checkEatDot(isEnemy)
     }
     moveUp(isEnemy = false){
       const tempXPosition = this.xPos
       const tempYPosition = this.yPos
       this.yPos = this.yPos - 1
-      mover(this, 'up', tempXPosition, tempYPosition, isEnemy)
+      this.mover(this, 'up', tempXPosition, tempYPosition, isEnemy)
       this.checkEatDot(isEnemy)
     }
     moveDown(isEnemy = false){
       const tempXPosition = this.xPos
       const tempYPosition = this.yPos
       this.yPos = this.yPos + 1
-      mover(this, 'down', tempXPosition, tempYPosition, isEnemy)
+      this.mover(this, 'down', tempXPosition, tempYPosition, isEnemy)
       this.checkEatDot(isEnemy)
     }
 //A method to check whether the cell that the player inhabits contains either a dot or a big-dot class
@@ -273,6 +273,29 @@ function init(){
         bigDotTriggerFlee()
       }
     }
+
+    //helper function responsible for moving (disappearing and appearing) all characters
+// Includes some logic for collision handling, under conditions of chase vs flee for enemies  
+    mover(character, direction, tempXPosition, tempYPosition, isEnemy){
+      if (cells[character.yPos][character.xPos].dataset.appearance === 'o'){
+        //this checks whether the character (either playerOne or an enemy) has encountered an enemy
+        if (isEnemy){
+          if (character.yPos === character.locateCharacter(playerOne)[0] &&
+            character.xPos === character.locateCharacter(playerOne)[1]){
+              if (character.mode === 'flee'){
+                console.error('wrong detection happening!')
+              } else {
+                return
+              }
+          }           
+        } 
+        character.disappear(tempYPosition, tempXPosition)
+        character.appear()
+      } else {
+        adjustCoords(direction, character)
+      }
+    }
+
 
   }
 
@@ -391,39 +414,7 @@ function init(){
 // END of Enemy class
 
 
-//helper function responsible for moving (disappearing and appearing) all characters
-// Includes some logic for collision handling, under conditions of chase vs flee for enemies  
-  function mover(character, direction, tempXPosition, tempYPosition, isEnemy){
 
-    if (cells[character.yPos][character.xPos].dataset.appearance === 'o'){
-      
-      //this checks whether the character (either playerOne or an enemy) has encountered an enemy
-      if (isEnemy){
-        // console.log(character.yPos,character.xPos)
-        // if (cells[character.yPos][character.xPos].classList.value === 'playerOne'){
-        //       alert('collision!')
-        //     }
-        if (character.yPos === character.locateCharacter(playerOne)[0] &&
-          character.xPos === character.locateCharacter(playerOne)[1]){
-            if (character.mode === 'flee'){
-              console.log('wrong detection!')
-            } else {
-              // adjustCoords(direction, character)
-              // endGame(character)
-              return
-            }
-
-        }           
-      } 
-      character.disappear(tempYPosition, tempXPosition)
-      character.appear()
-    } else if (cells[character.yPos][character.xPos].dataset.appearance === 'B') {
-      console.log('Game over!!')
-      return
-    } else {
-      adjustCoords(direction, character)
-    }
-  }
 
 
   function adjustCoords(direction, character){
