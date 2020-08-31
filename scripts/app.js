@@ -580,6 +580,7 @@ function init(){
       if (currentEnemyMode !== enemy.mode){
         if (enemy.mode === 'flee'){
           if (enemy === enemyOne){
+            console.log(captainTimerFlee)
             clearInterval(captainTimer)
           } else if (enemy === enemyTwo){
             clearInterval(engineerTimer)
@@ -619,9 +620,11 @@ function init(){
 
   function runGameFlee(enemy){
     if (enemy === enemyOne){
+      console.log(captainTimerFlee)
       captainTimerFlee = setInterval(() => {
         enemy.decideDirection(playerOne)
       }, 1000)
+      console.log(captainTimerFlee)
     } else if (enemy === enemyTwo){
       engineerTimerFlee = setInterval(() => {
         enemy.decideDirection(playerOne)
