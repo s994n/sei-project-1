@@ -1,7 +1,9 @@
 
-
-
 function init(){
+
+
+
+
 
   const startContainer = document.querySelector('.start-container')
   const gridWrapper = document.querySelector('.grid-wrapper')
@@ -12,7 +14,10 @@ function init(){
   startButton.addEventListener('click', playGame)
   
   let currentBoard = null
-  let cells = [] 
+  let newBoard = null
+  let cells = []
+  let dotCount = 0
+
   
 
   gridWrapper.style.display = 'none'
@@ -82,7 +87,7 @@ function init(){
 
 
   //map the input array to a new array with each letter of inputArr as an individual array element
-  function generateBoard(inputBoard){
+  function generateBoard(inputBoard, newBoard){
     const splitInputArr = inputBoard.map(subArr => subArr.join('').split('')) 
     for (let y = 0; y < splitInputArr.length; y++){
       const cellsSubArray = []
@@ -91,72 +96,41 @@ function init(){
         cell.setAttribute('data-appearance',`${splitInputArr[y][x]}`)
         cell.style.height = `${100 / splitInputArr.length}%`
         cell.style.width = `${100 / splitInputArr[0].length}%`
-        //To allow styling and behavior of all passageways
+        //Allows for passageway styling
         if (cell.dataset.appearance === 'o'){
-          
-          //To include dots, big dots, pills and service passages
-          // if ((y === 1 && x === 1) ||
-          // (y === 1 && x === splitInputArr[0].length - 2) || 
-          // (y === splitInputArr.length - 2 && x === 1) ||
-          // (y === splitInputArr.length - 2 && x === splitInputArr[0].length - 2)){
-          //   if (inputBoard === boardOne){
-          //   // eslint-disable-next-line quotes
-          //     cell.innerHTML = "<span class='pill-dot'></span>"
-          //   } else if (inputBoard === boardTwo){
-          //     // eslint-disable-next-line quotes
-          //     cell.innerHTML = "<span class='big-dot'></span>"
-          //   } 
-          // } else if (x === 0 || x === splitInputArr[0].length - 1) {
-          //   // eslint-disable-next-line quotes
-          //   cell.innerHTML = "<span class='service-tunnel'></span>"
-          // } else {
-          //   if (inputBoard === boardOne){
-          //     // eslint-disable-next-line quotes
-          //     cell.innerHTML = "<span class='dot'></span>"
-          //   }
-          //   if (inputBoard === boardTwo){
-          //   // eslint-disable-next-line quotes
-          //     cell.innerHTML = "<span class='emergency-dot'></span>"
-          //   }
-          // }
-
           if (inputBoard === boardOne){
             cell.classList.add('passageway-light')
-
           } else if (inputBoard === boardTwo) {
             cell.classList.add('passageway-dark')
           }
-
         }
         grid.appendChild(cell)
         cellsSubArray.push(cell)
       }
       cells.push(cellsSubArray)
     }
-    addDots(inputBoard)
+    addDots(inputBoard, newBoard)
   }
   
   
   //generateBoard(boardTwo.reverse())
 
 
-  function addDots(inputBoard){
+  function addDots(inputBoard, newBoard){
 
     for (let y = 0; y < cells.length; y++){
       for (let x = 0; x < cells[1].length; x++){
-
         //To allow styling and behavior of all passageways
         if (cells[y][x].dataset.appearance === 'o'){
-          console.log(cells[y][x])
           //To include dots, big dots, pills and service passages
           if ((y === 1 && x === 1) ||
           (y === 1 && x === cells[0].length - 2) || 
           (y === cells.length - 2 && x === 1) ||
           (y === cells.length - 2 && x === cells[0].length - 2)){
-            if (inputBoard === boardOne){
+            if (inputBoard === boardOne && newBoard){
             // eslint-disable-next-line quotes
               cells[y][x].innerHTML = "<span class='pill-dot'></span>"
-            } else if (inputBoard === boardTwo){
+            } else if (inputBoard === boardTwo && newBoard){
               // eslint-disable-next-line quotes
               cells[y][x].innerHTML = "<span class='big-dot'></span>"
             } 
@@ -167,17 +141,18 @@ function init(){
             if (inputBoard === boardOne){
               // eslint-disable-next-line quotes
               cells[y][x].innerHTML = "<span class='dot'></span>"
+              dotCount++
             }
             if (inputBoard === boardTwo){
             // eslint-disable-next-line quotes
               cells[y][x].innerHTML = "<span class='emergency-dot'></span>"
+              dotCount++
             }
           }
         }
       }
     }
   }
-
 
 
   // Declare timers
@@ -194,22 +169,66 @@ function init(){
   let enemyTwoTimerId
   let enemyThreeTimerId
   let enemyFourTimerId
+  let collisionIdOne
+  let collisionIdTwo
+  let collisionIdThree
+  let collisionIdFour
 
   const timers[]
 
 
   function playGame(){
     
+    clearInterval(collisionIdOne)
+    collisionIdOne = null
+    clearInterval(collisionIdTwo)
+    collisionIdTwo = null
+    clearInterval(collisionIdThree)
+    collisionIdThree = null
+    clearInterval(collisionIdFour)
+    collisionIdFour = null
+    
+    clearInterval(captainTimer)
+    captainTimer = null
+    clearInterval(engineerTimer)
+    engineerTimer = null
+    clearInterval(weaponsTimer)
+    weaponsTimer = null
+    clearInterval(navigationTimer)
+    navigationTimer = null
+
+    clearInterval(captainTimerFlee)
+    captainTimerFlee = null
+    clearInterval(engineerTimerFlee)
+    engineerTimerFlee = null
+    clearInterval(weaponsTimerFlee)
+    weaponsTimerFlee = null
+    clearInterval(navigationTimerFlee)
+    navigationTimerFlee = null
+
+    clearInterval(enemyOneTimerId)
+    enemyOneTimerId = null
+    clearInterval(enemyTwoTimerId)
+    enemyTwoTimerId = null
+    clearInterval(enemyThreeTimerId)
+    enemyThreeTimerId = null
+    clearInterval(enemyFourTimerId)
+    enemyFourTimerId = null
+
+
+
+
     startContainer.classList.add('hide')
     gridWrapper.style.display = 'flex'
+    newBoard = true
+    
     if (currentBoard !== boardOne){
       currentBoard = boardOne
-      generateBoard(boardOne)
+      generateBoard(boardOne, newBoard)
     } else {
       currentBoard = boardTwo
-      generateBoard(boardTwo)
+      generateBoard(boardTwo, newBoard)
     }
-    console.log(`Playing now, current board: ${currentBoard}. Cells length generated: ${cells.length}`)
 
     document.addEventListener('keyup', handleKey)
     
@@ -229,11 +248,38 @@ function init(){
     enemyThreeTimerId = detectModeChange(enemyThree)
     enemyFourTimerId = detectModeChange(enemyFour)
 
-    detectCollision(enemyOne)
-    detectCollision(enemyTwo)
-    detectCollision(enemyThree)
-    detectCollision(enemyFour)
+    collisionIdOne = detectCollision(enemyOne)
+    collisionIdTwo = detectCollision(enemyTwo)
+    collisionIdThree = detectCollision(enemyThree)
+    collisionIdFour = detectCollision(enemyFour)
     
+
+
+    console.log(`collisionId, for ${enemyOne.name}: ${collisionIdOne}`)
+    console.log(`collisionId, for ${enemyTwo.name}: ${collisionIdTwo}`)
+    console.log(`collisionId, for ${enemyThree.name}: ${collisionIdThree}`)
+    console.log(`collisionId, for ${enemyFour.name}: ${collisionIdFour}`)
+    console.log(`captain timer, detecting captain move: ${captainTimer}`)
+    // clearInterval(captainTimer)
+    // clearInterval(engineerTimer)
+    // clearInterval(weaponsTimer)
+    // clearInterval(navigationTimer)
+
+    // clearInterval(captainTimerFlee)
+    // clearInterval(engineerTimerFlee)
+    // clearInterval(weaponsTimerFlee)
+    // clearInterval(navigationTimerFlee)
+
+    // clearInterval(enemyOneTimerId)
+    // enemyOneTimerId = null
+    // clearInterval(enemyTwoTimerId)
+    // enemyTwoTimerId = null
+    // clearInterval(enemyThreeTimerId)
+    // enemyThreeTimerId = null
+    // clearInterval(enemyFourTimerId)
+    // enemyFourTimerId = null
+
+
   }
 
 
@@ -307,6 +353,11 @@ function init(){
         cells[this.yPos][this.xPos].children[0].classList.remove('emergency-dot')
         this.score += 10
         scoreDisplay.textContent = playerOne.score
+
+        dotCount--
+        if (dotCount === 0){
+          addDots(currentBoard, false)
+        }
       } else if ((isEnemy === false && cells[this.yPos][this.xPos].children[0].classList.contains('big-dot')) ||
       (isEnemy === false && cells[this.yPos][this.xPos].children[0].classList.contains('pill-dot'))){
         cells[this.yPos][this.xPos].children[0].classList.remove('big-dot')
@@ -516,11 +567,12 @@ function init(){
             resetDrugged(enemy)
           }
         } else {
-          endGame(enemy, collisionId)
+          endGame(enemy)
         }
 
-      } 
+      }   
     }, 40)
+    return collisionId
   }
 
   function detectModeChange(enemy){
@@ -529,15 +581,26 @@ function init(){
     const enemyCheckerId = setInterval(() => {
       if (currentEnemyMode !== enemy.mode){
         if (enemy.mode === 'flee'){
-          clearInterval(captainTimer)
-          clearInterval(engineerTimer)
-          clearInterval(weaponsTimer)
-          clearInterval(navigationTimer)
+          if (enemy === enemyOne){
+            console.log(captainTimerFlee)
+            clearInterval(captainTimer)
+          } else if (enemy === enemyTwo){
+            clearInterval(engineerTimer)
+          } else if (enemy === enemyThree){
+            clearInterval(weaponsTimer)
+          } else if (enemy === enemyFour){
+            clearInterval(navigationTimer)
+          }
         } else if (enemy.mode === 'chase') {
-          clearInterval(captainTimerFlee)
-          clearInterval(engineerTimerFlee)
-          clearInterval(weaponsTimerFlee)
-          clearInterval(navigationTimerFlee)
+          if (enemy === enemyOne){
+            clearInterval(captainTimerFlee)
+          } else if (enemy === enemyTwo){
+            clearInterval(engineerTimerFlee)
+          } else if (enemy === enemyThree){
+            clearInterval(weaponsTimerFlee)
+          } else if (enemy === enemyFour){
+            clearInterval(navigationTimerFlee)
+          }
         }
         handleModeChange(enemy)
       }
@@ -559,9 +622,11 @@ function init(){
 
   function runGameFlee(enemy){
     if (enemy === enemyOne){
+      console.log(captainTimerFlee)
       captainTimerFlee = setInterval(() => {
         enemy.decideDirection(playerOne)
       }, 1000)
+      console.log(captainTimerFlee)
     } else if (enemy === enemyTwo){
       engineerTimerFlee = setInterval(() => {
         enemy.decideDirection(playerOne)
@@ -581,19 +646,19 @@ function init(){
     if (enemy === enemyOne){
       captainTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 500)
+      }, 350)
     } else if (enemy === enemyTwo){
       engineerTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 500)
+      }, 350)
     } else if (enemy === enemyThree){
       weaponsTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 500)
+      }, 350)
     } else if (enemy === enemyFour){
       navigationTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 500)
+      }, 350)
     }
   }
 
@@ -613,17 +678,35 @@ function init(){
 
 
   function endGame(character, collisionId){
-    clearInterval(collisionId)
+    
+    console.log(`clearing all collission Ids: ${collisionId}`)
+
+    clearInterval(collisionIdOne)
+    collisionIdOne = null
+    clearInterval(collisionIdTwo)
+    collisionIdTwo = null
+    clearInterval(collisionIdThree)
+    collisionIdThree = null
+    clearInterval(collisionIdFour)
+    collisionIdFour = null
     
     clearInterval(captainTimer)
+    captainTimer = null
     clearInterval(engineerTimer)
+    engineerTimer = null
     clearInterval(weaponsTimer)
+    weaponsTimer = null
     clearInterval(navigationTimer)
+    navigationTimer = null
 
     clearInterval(captainTimerFlee)
+    captainTimerFlee = null
     clearInterval(engineerTimerFlee)
+    engineerTimerFlee = null
     clearInterval(weaponsTimerFlee)
+    weaponsTimerFlee = null
     clearInterval(navigationTimerFlee)
+    navigationTimerFlee = null
 
     clearInterval(enemyOneTimerId)
     enemyOneTimerId = null
@@ -633,10 +716,16 @@ function init(){
     enemyThreeTimerId = null
     clearInterval(enemyFourTimerId)
     enemyFourTimerId = null
-  
+
+    console.log('collision timers:', collisionIdOne, collisionIdTwo, collisionIdThree, collisionIdFour)
+    console.log('Char move chase timers:', captainTimer, engineerTimer, weaponsTimer, navigationTimer)
+    console.log('Char move flee timers:', captainTimerFlee, engineerTimerFlee, weaponsTimerFlee, navigationTimerFlee)
+    console.log('mode change timers:', enemyOneTimerId, enemyTwoTimerId, enemyThreeTimerId, enemyFourTimerId)
+
     alert(`Oh no, you got caught by ${character.name}`)
     
     reset(character)
+    dotCount = 0
     grid.textContent = ''
     cells = []
     playGame()
