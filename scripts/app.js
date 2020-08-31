@@ -174,7 +174,6 @@ function init(){
   let collisionIdThree
   let collisionIdFour
 
-  const timers[]
 
 
   function playGame(){
@@ -680,6 +679,13 @@ function init(){
   function endGame(character, collisionId){
     
     console.log(`clearing all collission Ids: ${collisionId}`)
+    
+    
+    for (let i = 1; i < 9999; i++){
+      window.clearInterval(i);
+    }
+    
+
 
     clearInterval(collisionIdOne)
     collisionIdOne = null
