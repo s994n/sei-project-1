@@ -184,10 +184,16 @@ function init(){
   function playGame(reset = false){
     
     if (reset === true){
+      for (let i = 1; i < 9999; i++){
+        window.clearInterval(i)
+      }
+      
+      
       playerOne.addLife()
       // playerOne.addLife()
       // playerOne.addLife()
       cells = []
+      grid.textContent = ''
       console.log(cells)
       currentBoard = null
       reset = false
