@@ -6,8 +6,13 @@ function init(){
   const startContainer = document.querySelector('.start-container')
   const gridWrapper = document.querySelector('.grid-wrapper')
   const grid = document.querySelector('.grid')
+  const startButton = document.querySelector('.start')
+  const resetButton = document.querySelector('.reset')
+    
+  startButton.addEventListener('click', playGame)
+  
   let currentBoard = null
-  const cells = [] 
+  let cells = [] 
   
 
   gridWrapper.style.display = 'none'
@@ -151,13 +156,17 @@ function init(){
 
 
   function playGame(){
+    
     startContainer.classList.add('hide')
     gridWrapper.style.display = 'flex'
     if (currentBoard !== boardOne){
+      currentBoard = boardOne
       generateBoard(boardOne)
     } else {
+      currentBoard = boardTwo
       generateBoard(boardTwo)
     }
+    console.log(`Playing now, current board: ${currentBoard}. Cells length generated: ${cells.length}`)
 
     document.addEventListener('keyup', handleKey)
     
@@ -582,12 +591,12 @@ function init(){
     clearInterval(enemyFourTimerId)
     enemyFourTimerId = null
     alert(`Oh no, you got caught by ${character.name}`)
-    
-    
-    
-    resetButton.addEventListener('click', () => {
-      reset(character)
-    }) 
+    reset(character)
+
+    grid.textContent = ''
+    cells = []
+    playGame()
+
   }
   
 
@@ -641,12 +650,7 @@ function init(){
   }
 
 
-  // Listen for user input and handle it
-  const startButton = document.querySelector('.start')
-  const resetButton = document.querySelector('.reset')
-  
 
-  startButton.addEventListener('click', playGame)
   
 
   function handleKey(event){ 
