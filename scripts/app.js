@@ -175,6 +175,8 @@ function init(){
   let collisionIdFour
 
 
+  const collisionIdArr = []
+
 
   function playGame(){
     
@@ -212,8 +214,7 @@ function init(){
     collisionIdTwo = detectCollision(enemyTwo)
     collisionIdThree = detectCollision(enemyThree)
     collisionIdFour = detectCollision(enemyFour)
-    
-
+    collisionIdArr.push(collisionIdOne, collisionIdTwo, collisionIdThree, collisionIdFour)
 
     // console.log(`collisionId, for ${enemyOne.name}: ${collisionIdOne}`)
     // console.log(`collisionId, for ${enemyTwo.name}: ${collisionIdTwo}`)
@@ -337,7 +338,7 @@ function init(){
           if (character.yPos === character.locateCharacter(playerOne)[0] &&
             character.xPos === character.locateCharacter(playerOne)[1]){
             if (character.mode === 'flee'){
-              console.error('wrong detection happening!')
+              // console.error('wrong detection happening!')
             } else {
               return
             }
@@ -449,7 +450,7 @@ function init(){
           this.moveDown(true)
           this.lastMove = 'down'
         } else {
-          console.error('throwing error?')
+          // console.error('throwing error?')
         }
         count++
 
@@ -490,7 +491,7 @@ function init(){
 
 
   function detectCollision(enemy){
-    const collisionId = setInterval(() => {
+    return setInterval(() => {
       if (enemy.locateCharacter(playerOne)[0] === enemy.yPos && enemy.locateCharacter(playerOne)[1] === enemy.xPos){
         if (enemy.mode === 'flee'){
           if (enemy === enemyOne){
@@ -532,7 +533,6 @@ function init(){
 
       }   
     }, 40)
-    return collisionId
   }
 
   function detectModeChange(enemy){
@@ -541,8 +541,9 @@ function init(){
     const enemyCheckerId = setInterval(() => {
       if (currentEnemyMode !== enemy.mode){
         if (enemy.mode === 'flee'){
+          console.log('enemy started fleeing')
           if (enemy === enemyOne){
-            console.log(captainTimerFlee)
+            
             clearInterval(captainTimer)
           } else if (enemy === enemyTwo){
             clearInterval(engineerTimer)
@@ -552,6 +553,7 @@ function init(){
             clearInterval(navigationTimer)
           }
         } else if (enemy.mode === 'chase') {
+          console.log('enemy started chasing')
           if (enemy === enemyOne){
             clearInterval(captainTimerFlee)
           } else if (enemy === enemyTwo){
@@ -582,11 +584,9 @@ function init(){
 
   function runGameFlee(enemy){
     if (enemy === enemyOne){
-      console.log(captainTimerFlee)
       captainTimerFlee = setInterval(() => {
         enemy.decideDirection(playerOne)
       }, 1000)
-      console.log(captainTimerFlee)
     } else if (enemy === enemyTwo){
       engineerTimerFlee = setInterval(() => {
         enemy.decideDirection(playerOne)
@@ -638,9 +638,7 @@ function init(){
 
 
   function endGame(character, collisionId){
-    
-    console.log(`clearing all collission Ids: ${collisionId}`)
-    
+        
     for (let i = 1; i < 9999; i++){
       window.clearInterval(i)
     }
@@ -666,8 +664,8 @@ function init(){
     enemy.xPos = 13
     setTimeout(() => {
       enemy.appear()
-      enemy.mode = 'chase'
-      runGameChase(enemy)
+      enemy.mode = 'flee'
+      runGameFlee(enemy)
       if (enemy === enemyOne){
         enemyOneTimerId = detectModeChange(enemy)
       } else if (enemy === enemyTwo){
