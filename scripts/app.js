@@ -460,8 +460,7 @@ function init(){
             resetDrugged(enemy)
           }
         } else {
-          clearInterval(collisionId)
-          endGame(enemy)
+          endGame(enemy, collisionId)
         }
 
       } 
@@ -557,7 +556,9 @@ function init(){
   }
 
 
-  function endGame(character){
+  function endGame(character, collisionId){
+    clearInterval(collisionId)
+    
     clearInterval(captainTimer)
     clearInterval(engineerTimer)
     clearInterval(weaponsTimer)
