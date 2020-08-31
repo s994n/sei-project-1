@@ -1,4 +1,4 @@
-/* eslint-disable indent */
+
 
 
 function init(){
@@ -81,7 +81,7 @@ function init(){
 ]
 
 
-//map the input array to a new array with each letter of inputArr as an individual array element
+  //map the input array to a new array with each letter of inputArr as an individual array element
   function generateBoard(inputBoard){
     const splitInputArr = inputBoard.map(subArr => subArr.join('').split('')) 
     for (let y = 0; y < splitInputArr.length; y++){
@@ -105,19 +105,19 @@ function init(){
             } else if (inputBoard === boardTwo){
               // eslint-disable-next-line quotes
               cell.innerHTML = "<span class='big-dot'></span>"
-              } 
+            } 
           } else if (x === 0 || x === splitInputArr[0].length - 1) {
             // eslint-disable-next-line quotes
             cell.innerHTML = "<span class='service-tunnel'></span>"
           } else {
-              if (inputBoard === boardOne){
-                // eslint-disable-next-line quotes
-                  cell.innerHTML = "<span class='dot'></span>"
-                }
+            if (inputBoard === boardOne){
+              // eslint-disable-next-line quotes
+              cell.innerHTML = "<span class='dot'></span>"
+            }
             if (inputBoard === boardTwo){
             // eslint-disable-next-line quotes
               cell.innerHTML = "<span class='emergency-dot'></span>"
-              }
+            }
           }
 
           if (inputBoard === boardOne){
@@ -139,7 +139,7 @@ function init(){
   //generateBoard(boardTwo.reverse())
 
 
-// Declare timers
+  // Declare timers
   let captainTimer
   let engineerTimer
   let weaponsTimer
@@ -195,8 +195,8 @@ function init(){
 
 
 
-// define a class of Player, which will be instantiated as playerOne
-// Player will be parent class of Enemy class
+  // define a class of Player, which will be instantiated as playerOne
+  // Player will be parent class of Enemy class
   class Player {
     constructor(yPos, xPos, name, score = 0){
       this.xPos = xPos
@@ -255,8 +255,8 @@ function init(){
       this.mover(this, 'down', tempXPosition, tempYPosition, isEnemy)
       this.checkEatDot(isEnemy)
     }
-//A method to check whether the cell that the player inhabits contains either a dot or a big-dot class
-// if dot or big-dot classes are present, score is increased accordingly
+    //A method to check whether the cell that the player inhabits contains either a dot or a big-dot class
+    // if dot or big-dot classes are present, score is increased accordingly
     checkEatDot(isEnemy){
       if ((isEnemy === false && cells[this.yPos][this.xPos].children[0].classList.contains('dot')) ||
       (isEnemy === false && cells[this.yPos][this.xPos].children[0].classList.contains('emergency-dot'))){
@@ -275,18 +275,18 @@ function init(){
     }
 
     //helper function responsible for moving (disappearing and appearing) all characters
-// Includes some logic for collision handling, under conditions of chase vs flee for enemies  
+    // Includes some logic for collision handling, under conditions of chase vs flee for enemies  
     mover(character, direction, tempXPosition, tempYPosition, isEnemy){
       if (cells[character.yPos][character.xPos].dataset.appearance === 'o'){
         //this checks whether the character (either playerOne or an enemy) has encountered an enemy
         if (isEnemy){
           if (character.yPos === character.locateCharacter(playerOne)[0] &&
             character.xPos === character.locateCharacter(playerOne)[1]){
-              if (character.mode === 'flee'){
-                console.error('wrong detection happening!')
-              } else {
-                return
-              }
+            if (character.mode === 'flee'){
+              console.error('wrong detection happening!')
+            } else {
+              return
+            }
           }           
         } 
         character.disappear(tempYPosition, tempXPosition)
@@ -299,7 +299,7 @@ function init(){
 
   }
 
-//END of Player class
+  //END of Player class
 
 
   class Enemy extends Player {
@@ -405,7 +405,7 @@ function init(){
 
   }
 
-// END of Enemy class
+  // END of Enemy class
 
 
 
@@ -423,7 +423,7 @@ function init(){
     }
   }
 
-// Instantiate classes the game characters
+  // Instantiate classes the game characters
   const playerOne = new Player(1,1, 'playerOne')
   const enemyOne = new Enemy(14,13, 'Captain')
   const enemyTwo = new Enemy(14,14, 'Engineer')
@@ -554,7 +554,7 @@ function init(){
     }
   }
 
-//helper function that will be called by playerOne when encountering a big dot, triggers all enemies to flee for set time
+  //helper function that will be called by playerOne when encountering a big dot, triggers all enemies to flee for set time
   function bigDotTriggerFlee(){
     enemyOne.mode = 'flee'
     enemyTwo.mode = 'flee'
@@ -590,9 +590,10 @@ function init(){
     enemyThreeTimerId = null
     clearInterval(enemyFourTimerId)
     enemyFourTimerId = null
+  
     alert(`Oh no, you got caught by ${character.name}`)
+    
     reset(character)
-
     grid.textContent = ''
     cells = []
     playGame()
@@ -600,7 +601,7 @@ function init(){
   }
   
 
-// reset enemy caught when player has big-dot power. Enemy sent back to home position. Score increased
+  // reset enemy caught when player has big-dot power. Enemy sent back to home position. Score increased
   function resetDrugged(enemy){
     playerOne.score += 400
     scoreDisplay.textContent = playerOne.score
@@ -672,7 +673,7 @@ function init(){
   }
 
   // score display
- const scoreDisplay = document.querySelector('.score')
+  const scoreDisplay = document.querySelector('.score')
 
 
     
