@@ -203,9 +203,7 @@ function init(){
       this.score = score
     }
     appear(){
-      cells[this.yPos][this.xPos].classList.add(`${this.name}`)
-      console.log(cells)
-      
+      cells[this.yPos][this.xPos].classList.add(`${this.name}`)      
     }
     disappear(yPos, xPos){
       cells[yPos][xPos].classList.remove(`${this.name}`)
@@ -365,9 +363,7 @@ function init(){
       
       let orderToChoose
       if (this.mode !== 'flee'){
-        // console.log('chasing!', [rightWeight, leftWeight, upWeight, downWeight])
         orderToChoose = [rightWeight, leftWeight, upWeight, downWeight].sort((a, b) => {
-          // console.log(a, b, a[0] - b[0])
           if (a[0] - b[0] === 0){
             const optionsToChoose = [-1, 1]
             return optionsToChoose[Math.floor(Math.random() * optionsToChoose.length)]
@@ -375,9 +371,7 @@ function init(){
             return a[0] - b[0]
           } 
         })
-        // console.log('Chasing smart!', orderToChoose)
       } else {
-        // console.log('fleeing!', [rightWeight, leftWeight, upWeight, downWeight])
         orderToChoose = [rightWeight, leftWeight, upWeight, downWeight].sort((a, b) => b[0] - a[0] )
       }
       
@@ -385,7 +379,6 @@ function init(){
       const tempYPosition = this.yPos
       let count = 0
       while (tempXPosition === this.xPos && tempYPosition === this.yPos){
-        console.log('mover:', this.name, 'count:', count)
         const directionToCheck = orderToChoose[count][1]
         if (directionToCheck === 'right' && this.lastMove !== 'left'){
           this.moveRight(true)
@@ -400,12 +393,11 @@ function init(){
           this.moveDown(true)
           this.lastMove = 'down'
         } else {
-          console.log('throwing error?')
+          console.error('throwing error?')
         }
         count++
 
       }
-      console.log('count outside while loop:', count)
 
     }
 
@@ -442,19 +434,16 @@ function init(){
 
 
   function detectCollision(enemy){
-    console.log('running detect collision and setting interval!')
     const collisionId = setInterval(() => {
       if (enemy.locateCharacter(playerOne)[0] === enemy.yPos && enemy.locateCharacter(playerOne)[1] === enemy.xPos){
         if (enemy.mode === 'flee'){
           if (enemy === enemyOne){
-            // console.log(`caught ${enemy}, clearing timer IDs. decideDirection: ${captainTimer}, detectModeChange: ${enemyOneTimerId}`)
             clearInterval(captainTimer)
             captainTimer = null            
             clearInterval(captainTimerFlee)
             captainTimerFlee = null
             clearInterval(enemyOneTimerId)
             enemyOneTimerId = null
-            // console.log(`CLEARED timer IDs. decideDirection: ${captainTimer}, detectModeChange: ${enemyOneTimerId}`)
             resetDrugged(enemy)
           } else if (enemy === enemyTwo) {
             clearInterval(engineerTimer)
@@ -494,7 +483,6 @@ function init(){
     
     let currentEnemyMode = enemy.mode
     const enemyCheckerId = setInterval(() => {
-      // console.log('should show:', enemy.mode)
       if (currentEnemyMode !== enemy.mode){
         if (enemy.mode === 'flee'){
           clearInterval(captainTimer)
@@ -502,7 +490,6 @@ function init(){
           clearInterval(weaponsTimer)
           clearInterval(navigationTimer)
         } else if (enemy.mode === 'chase') {
-          // console.log(enemy.mode, 'clearing flee timers')
           clearInterval(captainTimerFlee)
           clearInterval(engineerTimerFlee)
           clearInterval(weaponsTimerFlee)
@@ -619,7 +606,6 @@ function init(){
 
 // reset enemy caught when player has big-dot power. Enemy sent back to home position. Score increased
   function resetDrugged(enemy){
-    console.log(`resetting ${enemy.name} with drug!`)
     playerOne.score += 400
     scoreDisplay.textContent = playerOne.score
     enemy.disappear(enemy.yPos, enemy.xPos)
@@ -642,13 +628,6 @@ function init(){
     }, 2000)
     
 
-    // setTimeout(() => {
-
-    //   enemy.appear()
-    //   enemyOneTimerId = detectModeChange(enemyOne)
-    //   console.log(`${enemy.name} reset! Mode: ${enemy.mode}. TimerId: ${enemyOneTimerId}`)
-    //   runGameChase(enemy)
-    // }, 3000)
   }
 
 
