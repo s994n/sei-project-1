@@ -11,6 +11,7 @@ function init(){
   const startButton = document.querySelector('.start')
   const lives = document.querySelector('.lives')
   const gameOver = document.querySelector('.game-over')
+  const restartBtn = document.querySelector('.restart-btn')
   const resetButton = document.querySelector('.reset')
     
   startButton.addEventListener('click', playGame)
@@ -180,11 +181,22 @@ function init(){
   const collisionIdArr = []
 
 
-  function playGame(){
+  function playGame(reset = false){
     
+    if (reset === true){
+      playerOne.addLife()
+      // playerOne.addLife()
+      // playerOne.addLife()
+      cells = []
+      console.log(cells)
+      currentBoard = null
+      reset = false
+    }
+
     startContainer.classList.add('hide')
     gridWrapper.style.display = 'flex'
     newBoard = true
+    gameOver.classList.remove('display')
     
     if (currentBoard !== boardOne){
       currentBoard = boardOne
@@ -311,6 +323,12 @@ function init(){
     loseLife(){
       this.lives--
       lives.removeChild(lives.firstElementChild)
+    }
+    addLife(){
+      this.lives++
+      const lifeIcon = document.createElement('div')
+      lifeIcon.classList.add('life')
+      lives.appendChild(lifeIcon)
     }
     //A method to check whether the cell that the player inhabits contains either a dot or a big-dot class
     // if dot or big-dot classes are present, score is increased accordingly
@@ -654,16 +672,18 @@ function init(){
     alert(`Oh no, you got caught by ${character.name}`)
     
     if (currentBoard === boardTwo) {
-      console.log(playerOne.lives)
       playerOne.loseLife()
       if (playerOne.lives === 0){
-        console.log('game over!')
         reset(character)
         dotCount = 0
         gridWrapper.style.display = 'none'
         grid.textContent = ''
         cells = []
+        console.log(cells)
         gameOver.classList.add('display')
+        restartBtn.addEventListener('click', () => {
+          playGame(true)
+        })
         return
       }
     }

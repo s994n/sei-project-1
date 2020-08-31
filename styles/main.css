@@ -1,4 +1,20 @@
+:root {
+	--green:rgba(98,210,141,0.88);
+	--yellow: rgba(234,245,45,0.79);
+	--purple: rgb(164,14,176);
+	--pink: rgb(254,101,101);
 
+	--light-grey: #eee;
+	--grey: #999;
+	--dark-grey: #666;
+	--black:#222;
+	--black-50:rgba(0, 0, 0, 0.5);
+
+	--brand-font:'Baloo 2', sans-serif;
+
+	--pink-gradient:linear-gradient( -45deg,  var(--purple), var(--pink) 90% );
+	--green-gradient:linear-gradient( -45deg, var(--green) 10%,  var(--yellow) 90% );
+}
 
 * {
   box-sizing: border-box;
@@ -145,17 +161,70 @@ div.life{
 
 
 
-
+/* Game over section */
 .game-over{
   height: 100vh;
   background-color: black;
   color: chartreuse;
 
   display: none;
-  justify-content: center;
-  align-items: center;
+
 }
 
 div.game-over.display{
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
+
+.restart-btn {
+	display: inline-block;
+	margin-bottom:80px;
+	padding:15px 50px 15px 90px;
+
+	color:#fff;
+	font-size:25px;
+	font-family: var(--brand-font);
+	text-shadow:1px 1px 1px var(--dark-grey);
+	text-transform: uppercase;
+
+	background-image: var(--pink-gradient);
+	border:1px solid var(--grey);
+	box-shadow:4px 4px 10px var(--black-50);
+	border-radius:40px;
+	cursor: pointer;
+
+	transition:all 0.5s ease-in-out;
+}
+.restart-btn:hover {
+	color:var(--black);
+	text-shadow:1px 1px 1px var(--light-grey);
+
+	background-image: var(--green-gradient);
+	box-shadow: 6px 6px 50px var(--green);
+	border-color:var(--light-grey);
+	transform:scale(1.25);
+}
+.restart-btn:focus {
+	outline:0;
+}
+
+.icon {
+	display: inline-block;
+	opacity:0.5;
+}
+.restart-btn:hover .icon {
+	color:rgb(52, 51, 73);
+	opacity:0.7;
+	animation:pulse 1s infinite ease-in-out;
+}
+@keyframes pulse {
+	0%, 100% {
+		transform:translate(0, 0);
+	}
+	50% {
+		transform:translate(20px, 0);
+	}
+}
+
