@@ -579,15 +579,25 @@ function init(){
     const enemyCheckerId = setInterval(() => {
       if (currentEnemyMode !== enemy.mode){
         if (enemy.mode === 'flee'){
-          clearInterval(captainTimer)
-          clearInterval(engineerTimer)
-          clearInterval(weaponsTimer)
-          clearInterval(navigationTimer)
+          if (enemy === enemyOne){
+            clearInterval(captainTimer)
+          } else if (enemy === enemyTwo){
+            clearInterval(engineerTimer)
+          } else if (enemy === enemyThree){
+            clearInterval(weaponsTimer)
+          } else if (enemy === enemyFour){
+            clearInterval(navigationTimer)
+          }
         } else if (enemy.mode === 'chase') {
-          clearInterval(captainTimerFlee)
-          clearInterval(engineerTimerFlee)
-          clearInterval(weaponsTimerFlee)
-          clearInterval(navigationTimerFlee)
+          if (enemy === enemyOne){
+            clearInterval(captainTimerFlee)
+          } else if (enemy === enemyTwo){
+            clearInterval(engineerTimerFlee)
+          } else if (enemy === enemyThree){
+            clearInterval(weaponsTimerFlee)
+          } else if (enemy === enemyFour){
+            clearInterval(navigationTimerFlee)
+          }
         }
         handleModeChange(enemy)
       }
@@ -691,7 +701,7 @@ function init(){
     clearInterval(weaponsTimerFlee)
     weaponsTimerFlee = null
     clearInterval(navigationTimerFlee)
-    navigationTimer = null
+    navigationTimerFlee = null
 
     clearInterval(enemyOneTimerId)
     enemyOneTimerId = null
