@@ -181,6 +181,7 @@ function init(){
 
 
   // Declare timers
+ 
   let captainTimer
   let engineerTimer
   let weaponsTimer
@@ -194,6 +195,7 @@ function init(){
   let enemyThreeTimerId
   let enemyFourTimerId
 
+  const timers[]
 
 
   function playGame(){
