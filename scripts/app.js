@@ -6,11 +6,13 @@ function init(){
   const startContainer = document.querySelector('.start-container')
   const gridWrapper = document.querySelector('.grid-wrapper')
   const grid = document.querySelector('.grid')
+  let currentBoard = null
+  const cells = [] 
   
 
   gridWrapper.style.display = 'none'
 
-  const cells = [] 
+
 
   const boardOne =
 [
@@ -120,7 +122,6 @@ function init(){
             cell.classList.add('passageway-dark')
           }
 
-
         }
         grid.appendChild(cell)
         cellsSubArray.push(cell)
@@ -152,7 +153,11 @@ function init(){
   function playGame(){
     startContainer.classList.add('hide')
     gridWrapper.style.display = 'flex'
-    generateBoard(boardOne)
+    if (currentBoard !== boardOne){
+      generateBoard(boardOne)
+    } else {
+      generateBoard(boardTwo)
+    }
 
     document.addEventListener('keyup', handleKey)
     
@@ -171,7 +176,6 @@ function init(){
     enemyTwoTimerId = detectModeChange(enemyTwo)
     enemyThreeTimerId = detectModeChange(enemyThree)
     enemyFourTimerId = detectModeChange(enemyFour)
-
 
     detectCollision(enemyOne)
     detectCollision(enemyTwo)
@@ -578,6 +582,9 @@ function init(){
     clearInterval(enemyFourTimerId)
     enemyFourTimerId = null
     alert(`Oh no, you got caught by ${character.name}`)
+    
+    
+    
     resetButton.addEventListener('click', () => {
       reset(character)
     }) 
