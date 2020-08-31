@@ -143,7 +143,54 @@ function init(){
     }
   }
   
-  generateBoard(boardTwo.reverse())
+  generateBoard(boardOne)
+  //generateBoard(boardTwo.reverse())
+
+
+// Declare timers
+  let captainTimer
+  let engineerTimer
+  let weaponsTimer
+  let navigationTimer
+  let captainTimerFlee
+  let engineerTimerFlee
+  let weaponsTimerFlee
+  let navigationTimerFlee
+  let enemyOneTimerId
+  let enemyTwoTimerId
+  let enemyThreeTimerId
+  let enemyFourTimerId
+
+
+
+  function playGame(){
+
+    document.addEventListener('keyup', handleKey)
+    
+    playerOne.appear()
+    enemyOne.appear()
+    enemyTwo.appear()
+    enemyThree.appear()
+    enemyFour.appear()
+
+    runGameChase(enemyOne)
+    runGameChase(enemyTwo)
+    runGameChase(enemyThree)
+    runGameChase(enemyFour)
+
+    enemyOneTimerId = detectModeChange(enemyOne)
+    enemyTwoTimerId = detectModeChange(enemyTwo)
+    enemyThreeTimerId = detectModeChange(enemyThree)
+    enemyFourTimerId = detectModeChange(enemyFour)
+
+
+    detectCollision(enemyOne)
+    detectCollision(enemyTwo)
+    detectCollision(enemyThree)
+    detectCollision(enemyFour)
+    
+  }
+
 
 
 // define a class of Player, which will be instantiated as playerOne
@@ -391,77 +438,16 @@ function init(){
     }
   }
 
-
+// Instantiate classes the game characters
   const playerOne = new Player(1,1, 'playerOne')
   const enemyOne = new Enemy(14,13, 'Captain')
   const enemyTwo = new Enemy(14,14, 'Engineer')
   const enemyThree = new Enemy(15,13, 'Weapons')
   const enemyFour = new Enemy(15,14, 'Navigation')
   
-  let captainTimer
-  let engineerTimer
-  let weaponsTimer
-  let navigationTimer
-  let captainTimerFlee
-  let engineerTimerFlee
-  let weaponsTimerFlee
-  let navigationTimerFlee
-  let enemyOneTimerId
-  let enemyTwoTimerId
-  let enemyThreeTimerId
-  let enemyFourTimerId
-
-  function playGame(){
-
-    document.addEventListener('keyup', handleKey)
-    
-    playerOne.appear()
-    enemyOne.appear()
-    enemyTwo.appear()
-    enemyThree.appear()
-    enemyFour.appear()
-
-    runGameChase(enemyOne)
-    runGameChase(enemyTwo)
-    runGameChase(enemyThree)
-    runGameChase(enemyFour)
-
-      // captainTimer = setInterval(() => {
-      //   enemyOne.decideDirection(playerOne)
-      // }, 700)
-      // engineerTimer = setInterval(() => {
-      // enemyTwo.decideDirection(playerOne)
-      // }, 1000)
-      // weaponsTimer = setInterval(() => {
-      // enemyThree.decideDirection(playerOne)
-      // }, 1500)
-      // navigationTimer = setInterval(() => {
-      // enemyFour.decideDirection(playerOne)
-      // }, 2000)
-      
-
-    // setTimeout(() => {
-    //   enemyOne.mode = 'flee'
-    //   enemyTwo.mode = 'flee'
-    //   enemyThree.mode = 'flee'
-    //   enemyFour.mode = 'flee'
-    // }, 4000)
-
-    console.log(cells)
+  
 
 
-    enemyOneTimerId = detectModeChange(enemyOne)
-    enemyTwoTimerId = detectModeChange(enemyTwo)
-    enemyThreeTimerId = detectModeChange(enemyThree)
-    enemyFourTimerId = detectModeChange(enemyFour)
-
-
-    detectCollision(enemyOne)
-    detectCollision(enemyTwo)
-    detectCollision(enemyThree)
-    detectCollision(enemyFour)
-    
-  }
 
 
   function detectCollision(enemy){
@@ -534,7 +520,7 @@ function init(){
         handleModeChange(enemy)
       }
       currentEnemyMode = enemy.mode
-       
+
     }, 50)
     return enemyCheckerId
   }
