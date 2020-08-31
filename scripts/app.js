@@ -9,6 +9,8 @@ function init(){
   const gridWrapper = document.querySelector('.grid-wrapper')
   const grid = document.querySelector('.grid')
   const startButton = document.querySelector('.start')
+  const lives = document.querySelector('.lives')
+  const gameOver = document.querySelector('.game-over')
   const resetButton = document.querySelector('.reset')
     
   startButton.addEventListener('click', playGame)
@@ -253,6 +255,7 @@ function init(){
       this.yPos = yPos
       this.name = name
       this.score = score
+      this.lives = 1
     }
     appear(){
       cells[this.yPos][this.xPos].classList.add(`${this.name}`)      
@@ -304,6 +307,10 @@ function init(){
       this.yPos = this.yPos + 1
       this.mover(this, 'down', tempXPosition, tempYPosition, isEnemy)
       this.checkEatDot(isEnemy)
+    }
+    loseLife(){
+      this.lives--
+      lives.removeChild(lives.firstElementChild)
     }
     //A method to check whether the cell that the player inhabits contains either a dot or a big-dot class
     // if dot or big-dot classes are present, score is increased accordingly
@@ -646,6 +653,22 @@ function init(){
 
     alert(`Oh no, you got caught by ${character.name}`)
     
+    if (currentBoard === boardTwo) {
+      console.log(playerOne.lives)
+      playerOne.loseLife()
+      if (playerOne.lives === 0){
+        console.log('game over!')
+        reset(character)
+        dotCount = 0
+        gridWrapper.style.display = 'none'
+        grid.textContent = ''
+        cells = []
+        gameOver.classList.add('display')
+        return
+      }
+    }
+
+
     reset(character)
     dotCount = 0
     grid.textContent = ''
