@@ -4,6 +4,55 @@ function init(){
 
 
 
+  // Start-view section
+
+  setTimeout(addLetter, 500)
+  // message to add
+  const inputMessage = "Star-date: 2159. Location: very far. Rank: Ensign. Shirt: Red"
+  let currentMessage = ''
+  const currentDiv = document.querySelector('.hero')
+  let firstCall = true
+
+  // function to type message
+  function addLetter(letterIndexToAdd = 0){
+    if (currentMessage.length === inputMessage.length) {
+      currentDiv.removeChild(currentDiv.lastChild)
+      return
+    }
+    currentMessage = currentMessage + `${inputMessage[letterIndexToAdd]}`
+
+    const newLetter = document.createElement('span')
+    newLetter.innerHTML = `${inputMessage[letterIndexToAdd]}`
+    newLetter.classList.add('cursor')
+    const newCursor = document.createElement('span')
+
+
+    if (firstCall === true) {
+      currentDiv.removeChild(document.querySelector('.cursor'))
+    } else {
+      currentDiv.removeChild(currentDiv.lastChild)
+    }
+    currentDiv.appendChild(newLetter)
+    currentDiv.appendChild(newCursor)
+
+    firstCall = false
+
+    setTimeout(function (){
+      addLetter(letterIndexToAdd + 1)
+    }, 150)
+
+  }
+
+
+
+
+
+
+
+
+
+
+
 
   const startContainer = document.querySelector('.start-container')
   const gridWrapper = document.querySelector('.grid-wrapper')
