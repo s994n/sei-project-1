@@ -1,28 +1,15 @@
 /* eslint-disable indent */
 
 
-
 function init(){
 
 
+  const gridWrapper = document.querySelector('.grid-wrapper')
   const grid = document.querySelector('.grid')
-  const cells = []
-  
 
-  // const inputArr = 
-  // [['XXXXXXXXXX'],
-  //  ['XooooooooX'],
-  //  ['XooooooooX'],
-  //  ['XooooooooX'],
-  //  ['XooooooooX'],
-  //  ['XooooooooX'],
-  //  ['XooooooooX'],
-  //  ['XooooooooX'],
-  //  ['XooooooooX'],
-  //  ['XooooooooX'],
-  //  ['XXXXXXXXXX']
-  // ]
-  
+  gridWrapper.style.display = 'none'
+
+  const cells = [] 
 
   const boardOne =
 [
@@ -49,8 +36,6 @@ function init(){
   ['XoooooooooooooooooX'],
   ['XXXXXXXXXXXXXXXXXXX']
 ]
-
-
 
   const boardTwo =
 [
@@ -143,7 +128,7 @@ function init(){
     }
   }
   
-  generateBoard(boardOne)
+  
   //generateBoard(boardTwo.reverse())
 
 
@@ -164,6 +149,8 @@ function init(){
 
 
   function playGame(){
+    gridWrapper.style.display = 'flex'
+    generateBoard(boardOne)
 
     document.addEventListener('keyup', handleKey)
     
@@ -503,21 +490,6 @@ function init(){
     return enemyCheckerId
   }
 
-
-
-  // function determineTimerId(enemy){
-  //   let timerId
-  //   if (enemy === enemyOne){
-  //     timerId = captainTimer
-  //   } else if (enemy === enemyTwo){
-  //     timerId = engineerTimer
-  //   } else if (enemy === enemyThree){
-  //     timerId = weaponsTimer
-  //   } else if (enemy === enemyFour){
-  //     timerId = navigationTimer
-  //   }
-  //   return timerId
-  // }
 
 
   function handleModeChange(enemy){
