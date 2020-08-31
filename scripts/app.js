@@ -564,6 +564,11 @@ function init(){
     clearInterval(weaponsTimer)
     clearInterval(navigationTimer)
 
+    clearInterval(captainTimerFlee)
+    clearInterval(engineerTimerFlee)
+    clearInterval(weaponsTimerFlee)
+    clearInterval(navigationTimerFlee)
+
     clearInterval(enemyOneTimerId)
     enemyOneTimerId = null
     clearInterval(enemyTwoTimerId)
