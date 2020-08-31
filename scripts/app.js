@@ -95,30 +95,30 @@ function init(){
         if (cell.dataset.appearance === 'o'){
           
           //To include dots, big dots, pills and service passages
-          if ((y === 1 && x === 1) ||
-          (y === 1 && x === splitInputArr[0].length - 2) || 
-          (y === splitInputArr.length - 2 && x === 1) ||
-          (y === splitInputArr.length - 2 && x === splitInputArr[0].length - 2)){
-            if (inputBoard === boardOne){
-            // eslint-disable-next-line quotes
-              cell.innerHTML = "<span class='pill-dot'></span>"
-            } else if (inputBoard === boardTwo){
-              // eslint-disable-next-line quotes
-              cell.innerHTML = "<span class='big-dot'></span>"
-            } 
-          } else if (x === 0 || x === splitInputArr[0].length - 1) {
-            // eslint-disable-next-line quotes
-            cell.innerHTML = "<span class='service-tunnel'></span>"
-          } else {
-            if (inputBoard === boardOne){
-              // eslint-disable-next-line quotes
-              cell.innerHTML = "<span class='dot'></span>"
-            }
-            if (inputBoard === boardTwo){
-            // eslint-disable-next-line quotes
-              cell.innerHTML = "<span class='emergency-dot'></span>"
-            }
-          }
+          // if ((y === 1 && x === 1) ||
+          // (y === 1 && x === splitInputArr[0].length - 2) || 
+          // (y === splitInputArr.length - 2 && x === 1) ||
+          // (y === splitInputArr.length - 2 && x === splitInputArr[0].length - 2)){
+          //   if (inputBoard === boardOne){
+          //   // eslint-disable-next-line quotes
+          //     cell.innerHTML = "<span class='pill-dot'></span>"
+          //   } else if (inputBoard === boardTwo){
+          //     // eslint-disable-next-line quotes
+          //     cell.innerHTML = "<span class='big-dot'></span>"
+          //   } 
+          // } else if (x === 0 || x === splitInputArr[0].length - 1) {
+          //   // eslint-disable-next-line quotes
+          //   cell.innerHTML = "<span class='service-tunnel'></span>"
+          // } else {
+          //   if (inputBoard === boardOne){
+          //     // eslint-disable-next-line quotes
+          //     cell.innerHTML = "<span class='dot'></span>"
+          //   }
+          //   if (inputBoard === boardTwo){
+          //   // eslint-disable-next-line quotes
+          //     cell.innerHTML = "<span class='emergency-dot'></span>"
+          //   }
+          // }
 
           if (inputBoard === boardOne){
             cell.classList.add('passageway-light')
@@ -133,10 +133,51 @@ function init(){
       }
       cells.push(cellsSubArray)
     }
+    addDots(inputBoard)
   }
   
   
   //generateBoard(boardTwo.reverse())
+
+
+  function addDots(inputBoard){
+
+    for (let y = 0; y < cells.length; y++){
+      for (let x = 0; x < cells[1].length; x++){
+
+        //To allow styling and behavior of all passageways
+        if (cells[y][x].dataset.appearance === 'o'){
+          console.log(cells[y][x])
+          //To include dots, big dots, pills and service passages
+          if ((y === 1 && x === 1) ||
+          (y === 1 && x === cells[0].length - 2) || 
+          (y === cells.length - 2 && x === 1) ||
+          (y === cells.length - 2 && x === cells[0].length - 2)){
+            if (inputBoard === boardOne){
+            // eslint-disable-next-line quotes
+              cells[y][x].innerHTML = "<span class='pill-dot'></span>"
+            } else if (inputBoard === boardTwo){
+              // eslint-disable-next-line quotes
+              cells[y][x].innerHTML = "<span class='big-dot'></span>"
+            } 
+          } else if (x === 0 || x === cells[0].length - 1) {
+            // eslint-disable-next-line quotes
+            cells[y][x].innerHTML = "<span class='service-tunnel'></span>"
+          } else {
+            if (inputBoard === boardOne){
+              // eslint-disable-next-line quotes
+              cells[y][x].innerHTML = "<span class='dot'></span>"
+            }
+            if (inputBoard === boardTwo){
+            // eslint-disable-next-line quotes
+              cells[y][x].innerHTML = "<span class='emergency-dot'></span>"
+            }
+          }
+        }
+      }
+    }
+  }
+
 
 
   // Declare timers
