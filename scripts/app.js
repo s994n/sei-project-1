@@ -3,9 +3,10 @@
 
 function init(){
 
-
+  const startContainer = document.querySelector('.start-container')
   const gridWrapper = document.querySelector('.grid-wrapper')
   const grid = document.querySelector('.grid')
+  
 
   gridWrapper.style.display = 'none'
 
@@ -149,6 +150,7 @@ function init(){
 
 
   function playGame(){
+    startContainer.classList.add('hide')
     gridWrapper.style.display = 'flex'
     generateBoard(boardOne)
 

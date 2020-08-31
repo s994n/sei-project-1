@@ -10,6 +10,20 @@ body {
   margin: 0;
 }
 
+.start-container{
+  height: 100vh;
+  background-color: black;
+  color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.start-container.hide{
+  display: none;
+}
+
 
 .grid-wrapper {
   height: 100vh;
