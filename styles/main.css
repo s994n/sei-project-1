@@ -2,15 +2,7 @@
   --green: rgb(88, 206, 15);
   --dark-green: rgb(50, 116, 9);
 	--red: rgb(230, 12, 12);
-	--dark-red: rgb(116, 3, 3);
-
-	--light-grey: #eee;
-	--grey: #999;
-	--dark-grey: #666;
-	--black:#222;
-	--black-50:rgba(0, 0, 0, 0.5);
-
-	/* --font:'Courier New', Courier, monospace; */
+  --dark-red: rgb(116, 3, 3);
 
 	--red-gradient:linear-gradient( -45deg,  var(--red), var(--dark-red) 90% );
 	--green-gradient:linear-gradient( -45deg, var(--green) 10%,  var(--dark-green) 75% );
@@ -29,7 +21,8 @@ body {
 
 .start-container{
   height: 100vh;
-  background-color: black;
+  background-image: url('./galaxy-full.jpg');
+  background-size: cover;
   color: white;
 
   display: flex;
@@ -64,6 +57,10 @@ body {
   max-width: 60%;
   font-size: 1rem;
   text-align: center;
+  background-color: black;
+  opacity: 0.75;
+  border-radius: 10px;
+  padding: 10px;
 }
 
 
