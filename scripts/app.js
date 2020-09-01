@@ -55,15 +55,18 @@ function init(){
 
 
   const startContainer = document.querySelector('.start-container')
+  const gameSurround = document.querySelector('.game-surround')
   const gridWrapper = document.querySelector('.grid-wrapper')
   const grid = document.querySelector('.grid')
   const startButton = document.querySelector('.start')
   const lives = document.querySelector('.lives')
   const gameOver = document.querySelector('.game-over')
   const restartBtn = document.querySelector('.restart-btn')
-  const resetButton = document.querySelector('.reset')
+  const scoreDisplay = document.querySelector('.score')
     
   startButton.addEventListener('click', playGame)
+  startButton.addEventListener('click', displayGameSurround)
+  gridWrapper.style.display = 'none'
   
   let currentBoard = null
   let newBoard = null
@@ -72,7 +75,12 @@ function init(){
 
   
 
-  gridWrapper.style.display = 'none'
+  function displayGameSurround(){
+    gameSurround.classList.add('display')
+  }
+
+
+
 
 
 
@@ -236,11 +244,9 @@ function init(){
       for (let i = 1; i < 9999; i++){
         window.clearInterval(i)
       }
-      
-      
       playerOne.addLife()
-      // playerOne.addLife()
-      // playerOne.addLife()
+      playerOne.addLife()
+      playerOne.addLife()
       cells = []
       grid.textContent = ''
       console.log(cells)
@@ -322,7 +328,7 @@ function init(){
       this.yPos = yPos
       this.name = name
       this.score = score
-      this.lives = 1
+      this.lives = 3
     }
     appear(){
       cells[this.yPos][this.xPos].classList.add(`${this.name}`)      
@@ -824,8 +830,6 @@ function init(){
 
   }
 
-  // score display
-  const scoreDisplay = document.querySelector('.score')
 
 
     

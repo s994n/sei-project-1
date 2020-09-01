@@ -14,9 +14,11 @@
   font-family: 'Courier New', Courier, monospace;
 }
 
+html,
 body {
-  height: 100vh;
+  height: 100%;
   margin: 0;
+  
 }
 
 .start-container{
@@ -93,9 +95,43 @@ body {
 	transform:scale(1.1);
 }
 
+/* main{
+ 
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+.outer-container{
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.game-surround{
+  display: none;
+}
+
+.game-surround.display{
+  /* width: 70%;
+  height: 100%; */
+  margin: auto;
+
+  border: 1px solid red;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 
 .grid-wrapper {
-  height: 100vh;
+  /* height: 100vh; */
   
   /* disply set in js to either none or flex */
   justify-content: center;
@@ -204,6 +240,12 @@ div.passageway-dark{
   background-color: black;
 }
 
+
+.lives{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 div.life{
   width: 50px;
