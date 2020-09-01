@@ -121,6 +121,9 @@ body {
   flex-direction: column;
 } */
 
+.score-container{
+  color: chartreuse;
+}
 
 .grid-wrapper {
   /* height: 100vh; */
@@ -224,7 +227,7 @@ div span.dot{
   height: 75%; */
   height: 7px;
   width: 7px;
-  background-color: black;
+  /* background-color: black; */
   border-radius: 50%;
   display: inline-block;
 }
@@ -260,7 +263,9 @@ div span.big-dot{
 div span.service-tunnel {
   height: 100%;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: black;
+  background-image: url('./wormhole.gif');
+  background-size: cover;
 }
 
 div.passageway-light{

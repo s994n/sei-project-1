@@ -201,7 +201,7 @@ function init(){
           } else {
             if (inputBoard === boardOne){
               // eslint-disable-next-line quotes
-              cells[y][x].innerHTML = "<span class='dot'></span>"
+              cells[y][x].innerHTML = `<span class='dot' style="background-color: hsl(${x * y}, 90%, 50%)"></span>`
               dotCount++
             }
             if (inputBoard === boardTwo){
@@ -265,9 +265,29 @@ function init(){
     
     if (currentBoard !== boardOne){
       currentBoard = boardOne
+      playerOne.yPos = 3
+      playerOne.xPos = 9
+      enemyOne.yPos = 9
+      enemyOne.xPos = 8
+      enemyTwo.yPos = 9
+      enemyTwo.xPos = 10
+      enemyThree.yPos = 10
+      enemyThree.xPos = 8
+      enemyFour.yPos = 10
+      enemyFour.xPos = 10
       generateBoard(boardOne, newBoard)
     } else {
       currentBoard = boardTwo
+      playerOne.yPos = 5
+      playerOne.xPos = 14
+      enemyOne.yPos = 14
+      enemyOne.xPos = 13
+      enemyTwo.yPos = 15
+      enemyTwo.xPos = 13
+      enemyThree.yPos = 14
+      enemyThree.xPos = 14
+      enemyFour.yPos = 15
+      enemyFour.xPos = 14
       generateBoard(boardTwo, newBoard)
     }
 
