@@ -238,10 +238,15 @@ function init(){
 
 
   const collisionIdArr = []
+  const modeChangeIdArr = []
 
+
+  let numsOfBoards = 0;
 
   function playGame(reset = false){
     
+    console.log(cells.length, 'in board:', numsOfBoards)
+
     if (reset === true){
       for (let i = 1; i < 9999; i++){
         window.clearInterval(i)
@@ -314,6 +319,7 @@ function init(){
     enemyTwoTimerId = detectModeChange(enemyTwo)
     enemyThreeTimerId = detectModeChange(enemyThree)
     enemyFourTimerId = detectModeChange(enemyFour)
+    modeChangeIdArr.push(enemyOneTimerId, enemyTwoTimerId, enemyThreeTimerId, enemyFourTimerId)
 
     collisionIdOne = detectCollision(enemyOne)
     collisionIdTwo = detectCollision(enemyTwo)
@@ -344,8 +350,10 @@ function init(){
     // enemyThreeTimerId = null
     // clearInterval(enemyFourTimerId)
     // enemyFourTimerId = null
-
-
+    numsOfBoards++
+    console.log('timers for mode change:', modeChangeIdArr)
+    console.log('timers for collision detection:', collisionIdArr)
+    console.log(`playing with board: ${numsOfBoards}`)
   }
 
 
@@ -788,7 +796,7 @@ function init(){
 
 
   function endGame(character, collisionId){
-        
+    console.log('endGame called!')    
     for (let i = 1; i < 9999; i++){
       window.clearInterval(i)
     }
@@ -809,6 +817,7 @@ function init(){
         gameOver.classList.add('display')
         finalScore.textContent = playerOne.score
         restartBtn.addEventListener('click', () => {
+          console.log('playGame called in zero lives state')
           playGame(true)
         })
         return
@@ -820,6 +829,7 @@ function init(){
       cells = []
       
       // console.log(`ending board Two. All reset? Cells: ${cells.length}, Grid: ${grid.textContent}`)
+      console.log('playGame called in endGame, boardTwo state')
       playGame()
       return
     }
@@ -833,9 +843,10 @@ function init(){
         reset(character)
         dotCount = 0
         grid.textContent = ''
+        console.log(cells.length)
         cells = []
 
-        console.log(`ending board One. All reset? Cells: ${cells.length}, Grid: ${grid.textContent}`)
+        console.log('playGame called in endGame, boardOne state')
         playGame()
         return
       })
