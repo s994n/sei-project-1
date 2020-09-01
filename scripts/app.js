@@ -741,6 +741,7 @@ function init(){
         grid.textContent = ''
         cells = []
         console.log(cells)
+        gameSurround.classList.remove('display')
         gameOver.classList.add('display')
         restartBtn.addEventListener('click', () => {
           playGame(true)
