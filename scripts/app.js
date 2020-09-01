@@ -246,6 +246,9 @@ function init(){
   function playGame(reset = false){
     
     console.log(cells.length, 'in board:', numsOfBoards)
+    for (let i = 1; i < 9999; i++){
+      window.clearInterval(i)
+    }
 
     if (reset === true){
       for (let i = 1; i < 9999; i++){
@@ -280,6 +283,7 @@ function init(){
       enemyThree.xPos = 8
       enemyFour.yPos = 10
       enemyFour.xPos = 10
+      console.log('generating board one')
       generateBoard(boardOne, newBoard)
     } else {
       currentBoard = boardTwo
@@ -293,6 +297,7 @@ function init(){
       enemyThree.xPos = 14
       enemyFour.yPos = 15
       enemyFour.xPos = 14
+      console.log('generating board two')
       generateBoard(boardTwo, newBoard)
     }
 
@@ -843,7 +848,7 @@ function init(){
         reset(character)
         dotCount = 0
         grid.textContent = ''
-        console.log(cells.length)
+        console.log('length of cells before clearing, board one: ', cells.length)
         cells = []
 
         console.log('playGame called in endGame, boardOne state')
