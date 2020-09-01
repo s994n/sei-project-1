@@ -55,7 +55,7 @@ function init(){
 
 
   const startContainer = document.querySelector('.start-container')
-  const gameSurround = document.querySelector('.game-surround')
+  const gameSurround = document.querySelector('.outer-container')
   const gridWrapper = document.querySelector('.grid-wrapper')
   const grid = document.querySelector('.grid')
   const startButton = document.querySelector('.start')

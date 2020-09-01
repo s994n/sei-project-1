@@ -95,33 +95,25 @@ body {
 	transform:scale(1.1);
 }
 
-/* main{
- 
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
-
 .outer-container{
+  display: none;
   height: 100vh;
 
+
+}
+
+.outer-container.display{
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-
-.game-surround{
-  display: none;
-}
+/* .game-surround{
+  
+} */
 
 .game-surround.display{
-  /* width: 70%;
-  height: 100%; */
   margin: auto;
-
-  border: 1px solid red;
 
   display: flex;
   justify-content: center;
