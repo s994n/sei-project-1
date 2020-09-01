@@ -279,6 +279,12 @@ function init(){
     enemyThree.appear()
     enemyFour.appear()
 
+    playerOne.putDotInMouth()
+    enemyOne.putDotInMouth()
+    enemyTwo.putDotInMouth()
+    enemyThree.putDotInMouth()
+    enemyFour.putDotInMouth()
+
     runGameChase(enemyOne)
     runGameChase(enemyTwo)
     runGameChase(enemyThree)
@@ -334,6 +340,7 @@ function init(){
       this.score = score
       this.lives = 3
       this._mode = null
+      this.dotInMouth = false
     }
     appear(){
       cells[this.yPos][this.xPos].classList.add(`${this.name}`)
@@ -424,6 +431,26 @@ function init(){
       }
     }
 
+    putDotInMouth(){
+      if (cells[this.yPos][this.xPos].children[0].classList.contains('dot') 
+        || cells[this.yPos][this.xPos].children[0].classList.contains('emergeny-dot')){
+        cells[this.yPos][this.xPos].children[0].classList.remove('dot')
+        cells[this.yPos][this.xPos].children[0].classList.remove('emergency-dot')
+        this.dotInMouth = true
+      } 
+    }
+
+    spitOutDot(tempYPosition, tempXPosition){
+      if (this.dotInMouth === true){
+        cells[tempYPosition][tempXPosition].children[0].classList.add('dot')
+        this.dotInMouth = false
+      } else {
+        return
+      }
+    }
+
+
+
     //helper function responsible for moving (disappearing and appearing) all characters
     // Includes some logic for collision handling, under conditions of chase vs flee for enemies  
     mover(character, direction, tempXPosition, tempYPosition, isEnemy){
@@ -440,6 +467,12 @@ function init(){
           }           
         } 
         character.disappear(tempYPosition, tempXPosition)
+        if (isEnemy){
+          if (character.dotInMouth === true){
+            character.spitOutDot(tempYPosition, tempXPosition)
+          }
+          character.putDotInMouth()
+        }
         character.appear()
       } else {
         adjustCoords(direction, character)
@@ -458,6 +491,7 @@ function init(){
       this._lastMove = null
       this._mode = 'chase'
       this.onBridge = true
+      this.dotInMouth = false
     }
 
     set lastMove(lastMove){
@@ -574,11 +608,11 @@ function init(){
   }
 
   // Instantiate classes the game characters
-  const playerOne = new Player(1,1, 'playerOne')
-  const enemyOne = new Enemy(14,13, 'Captain')
-  const enemyTwo = new Enemy(14,14, 'Engineer')
-  const enemyThree = new Enemy(15,13, 'Weapons')
-  const enemyFour = new Enemy(15,14, 'Navigation')
+  const playerOne = new Player(3,9, 'playerOne')
+  const enemyOne = new Enemy(9,8, 'Captain')
+  const enemyTwo = new Enemy(9,10, 'Engineer')
+  const enemyThree = new Enemy(10,8, 'Weapons')
+  const enemyFour = new Enemy(10,10, 'Navigation')
   
   
 
