@@ -159,8 +159,8 @@ div[data-appearance='o']{
 
 div.passageway-light.playerOne,
 div.passageway-dark.playerOne{
-  background-color: blue;
-
+  background-image: url('./playerOne.png');
+  background-size: cover;
 }
 
 div.passageway-light.Captain,
@@ -176,18 +176,41 @@ div.passageway-light.Captain.fleeing{
 
 div.passageway-light.Engineer,
 div.passageway-dark.Engineer{
-  background-color: rgb(0, 250, 100)
+  background-image: url('./engineer_normal.png');
+  background-size: cover;
+}
+
+div.passageway-light.Engineer.fleeing,
+div.passageway-dark.Engineer.fleeing{
+  background-image: url('./engineer_drugged.png');
+  background-size: cover;
 }
 
 div.passageway-light.Weapons,
 div.passageway-dark.Weapons{
-  background-color: rgb(250, 129, 0)
+  background-image: url('./weapons_normal.png');
+  background-size: cover;
+}
+
+div.passageway-light.Weapons.fleeing,
+div.passageway-dark.Weapons.fleeing{
+  background-image: url('./weapons_drugged.png');
+  background-size: cover;
 }
 
 div.passageway-light.Navigation,
 div.passageway-dark.Navigation{
-  background-color: rgb(250, 0, 129)
+  background-image: url('./navigation_normal.png');
+  background-size: cover;
 }
+
+div.passageway-light.Navigation.fleeing,
+div.passageway-dark.Navigation.fleeing{
+  background-image: url('./navigation_drugged.png');
+  background-size: cover;
+}
+
+
 
 div span.dot{
   height: 7px;
