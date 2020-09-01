@@ -60,6 +60,7 @@ function init(){
   const grid = document.querySelector('.grid')
   const startButton = document.querySelector('.start')
   const lives = document.querySelector('.lives')
+  const slideInMission = document.querySelector('.slide-in')
   const gameOver = document.querySelector('.game-over')
   const restartBtn = document.querySelector('.restart-btn')
   const scoreDisplay = document.querySelector('.score')
@@ -253,7 +254,6 @@ function init(){
       playerOne.addLife()
       cells = []
       grid.textContent = ''
-      console.log(cells)
       currentBoard = null
       reset = false
     }
@@ -262,7 +262,7 @@ function init(){
     gridWrapper.style.display = 'flex'
     newBoard = true
     gameOver.classList.remove('display')
-    
+
     if (currentBoard !== boardOne){
       currentBoard = boardOne
       playerOne.yPos = 3
@@ -688,7 +688,7 @@ function init(){
     const enemyCheckerId = setInterval(() => {
       if (currentEnemyMode !== enemy.mode){
         if (enemy.mode === 'flee'){
-          console.log('enemy started fleeing')
+
           if (enemy === enemyOne){
             
             clearInterval(captainTimer)
@@ -700,7 +700,7 @@ function init(){
             clearInterval(navigationTimer)
           }
         } else if (enemy.mode === 'chase') {
-          console.log('enemy started chasing')
+
           if (enemy === enemyOne){
             clearInterval(captainTimerFlee)
           } else if (enemy === enemyTwo){
@@ -813,14 +813,36 @@ function init(){
         })
         return
       }
+      
+      reset(character)
+      dotCount = 0
+      grid.textContent = ''
+      cells = []
+      
+      // console.log(`ending board Two. All reset? Cells: ${cells.length}, Grid: ${grid.textContent}`)
+      playGame()
+      return
     }
 
+    if (currentBoard === boardOne){
+      console.log('ending board one')
+      slideInMission.classList.add('active')
+      document.querySelector('.commence-mission').addEventListener('click', () =>{
+        slideInMission.classList.remove('active')
+        
+        reset(character)
+        dotCount = 0
+        grid.textContent = ''
+        cells = []
 
-    reset(character)
-    dotCount = 0
-    grid.textContent = ''
-    cells = []
-    playGame()
+        console.log(`ending board One. All reset? Cells: ${cells.length}, Grid: ${grid.textContent}`)
+        playGame()
+        return
+      })
+      return
+    }
+
+    return
 
   }
   
@@ -862,16 +884,16 @@ function init(){
     enemyThree.disappear(enemyThree.yPos, enemyThree.xPos)
     enemyFour.disappear(enemyFour.yPos, enemyFour.xPos)
 
-    playerOne.xPos = 1
-    playerOne.yPos = 1
-    enemyOne.xPos = 13
-    enemyOne.yPos = 14
-    enemyTwo.xPos = 14
-    enemyTwo.yPos = 14
-    enemyThree.xPos = 13
-    enemyThree.yPos = 15
-    enemyFour.xPos = 14
-    enemyFour.yPos = 14
+    // playerOne.xPos = 1
+    // playerOne.yPos = 1
+    // enemyOne.xPos = 13
+    // enemyOne.yPos = 14
+    // enemyTwo.xPos = 14
+    // enemyTwo.yPos = 14
+    // enemyThree.xPos = 13
+    // enemyThree.yPos = 15
+    // enemyFour.xPos = 14
+    // enemyFour.yPos = 14
   }
 
 
