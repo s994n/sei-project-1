@@ -63,6 +63,7 @@ function init(){
   const gameOver = document.querySelector('.game-over')
   const restartBtn = document.querySelector('.restart-btn')
   const scoreDisplay = document.querySelector('.score')
+  const finalScore = document.querySelector('.final-score')
     
   startButton.addEventListener('click', playGame)
   startButton.addEventListener('click', displayGameSurround)
@@ -244,6 +245,9 @@ function init(){
       for (let i = 1; i < 9999; i++){
         window.clearInterval(i)
       }
+      displayGameSurround()
+      playerOne.score = 0
+      scoreDisplay.textContent = playerOne.score
       playerOne.addLife()
       playerOne.addLife()
       playerOne.addLife()
@@ -735,14 +739,15 @@ function init(){
     if (currentBoard === boardTwo) {
       playerOne.loseLife()
       if (playerOne.lives === 0){
+        //Game over
         reset(character)
         dotCount = 0
         gridWrapper.style.display = 'none'
         grid.textContent = ''
         cells = []
-        console.log(cells)
         gameSurround.classList.remove('display')
         gameOver.classList.add('display')
+        finalScore.textContent = playerOne.score
         restartBtn.addEventListener('click', () => {
           playGame(true)
         })
