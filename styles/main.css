@@ -160,11 +160,18 @@ div[data-appearance='o']{
 div.passageway-light.playerOne,
 div.passageway-dark.playerOne{
   background-color: blue;
+
 }
 
 div.passageway-light.Captain,
 div.passageway-dark.Captain{
-  background-color: rgb(187, 0, 250)
+  background-image: url('./captain_normal.png');
+  background-size: cover;
+}
+
+div.passageway-light.Captain.fleeing{
+  background-image: url('./captain_drugged.png');
+  background-size: cover;
 }
 
 div.passageway-light.Engineer,

@@ -333,12 +333,17 @@ function init(){
       this.name = name
       this.score = score
       this.lives = 3
+      this._mode = null
     }
     appear(){
-      cells[this.yPos][this.xPos].classList.add(`${this.name}`)      
+      cells[this.yPos][this.xPos].classList.add(`${this.name}`)
+      if (this.mode === 'flee'){
+        cells[this.yPos][this.xPos].classList.add('fleeing')
+      } 
     }
     disappear(yPos, xPos){
       cells[yPos][xPos].classList.remove(`${this.name}`)
+      cells[yPos][xPos].classList.remove('fleeing')
     }
     moveRight(isEnemy = false){
       const tempXPosition = this.xPos
@@ -578,8 +583,6 @@ function init(){
   
 
 
-
-
   function detectCollision(enemy){
     return setInterval(() => {
       if (enemy.locateCharacter(playerOne)[0] === enemy.yPos && enemy.locateCharacter(playerOne)[1] === enemy.xPos){
@@ -718,6 +721,9 @@ function init(){
     enemyTwo.mode = 'flee'
     enemyThree.mode = 'flee'
     enemyFour.mode = 'flee'
+    
+
+
     setTimeout(() => {
       enemyOne.mode = 'chase'
       enemyTwo.mode = 'chase'
