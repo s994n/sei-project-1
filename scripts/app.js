@@ -201,7 +201,6 @@ function init(){
             if (newBoard){
             // eslint-disable-next-line quotes
               cells[y][x].innerHTML = "<span class='pill-dot'></span>"
-            
             } 
           } else if (x === 0 || x === cells[0].length - 1) {
             // eslint-disable-next-line quotes
@@ -839,51 +838,50 @@ function init(){
         return
       }
       
-      reset(character)
-      dotCount = 0
-      grid.textContent = ''
-      cells = []
-      
       // console.log(`ending board Two. All reset? Cells: ${cells.length}, Grid: ${grid.textContent}`)
       console.log('playGame called in endGame, boardTwo state')
-      playGame()
+      handleBoardChange(character)
       return
     }
 
     if (currentBoard === boardOne){
       console.log('ending board one')
-      const crewImage = document.createElement('img')
-      crewImage.style.width = '200px'
-      if (character.name === 'Captain'){
-        crewImage.setAttribute('src', './styles/captain_normal.png')
-      } else if (character.name === 'Engineer'){
-        crewImage.setAttribute('src', './styles/engineer_normal.png')
-      } else if (character.name === 'Weapons'){
-        crewImage.setAttribute('src', './styles/weapons_normal.png')
-      } else if (character.name === 'Navigation'){
-        crewImage.setAttribute('src', './styles/navigation_normal.png')
-      } 
-      slideInMission.appendChild(crewImage)
-      slideInMission.classList.add('active')
-
-      document.querySelector('.commence-mission').addEventListener('click', () =>{
-        slideInMission.classList.remove('active')
-        slideInMission.removeChild(crewImage)
-        reset(character)
-        dotCount = 0
-        grid.textContent = ''
-        console.log('length of cells before clearing, board one: ', cells.length)
-        cells = []
-
-        console.log('playGame called in endGame, boardOne state')
-        playGame()
-        return
-      })
+      handleBoardChange(character)
       return
     }
 
     return
 
+  }
+
+  function handleBoardChange(character){
+    const crewImage = document.createElement('img')
+    crewImage.style.width = '200px'
+    if (character.name === 'Captain'){
+      crewImage.setAttribute('src', './styles/captain_normal.png')
+    } else if (character.name === 'Engineer'){
+      crewImage.setAttribute('src', './styles/engineer_normal.png')
+    } else if (character.name === 'Weapons'){
+      crewImage.setAttribute('src', './styles/weapons_normal.png')
+    } else if (character.name === 'Navigation'){
+      crewImage.setAttribute('src', './styles/navigation_normal.png')
+    } 
+    slideInMission.appendChild(crewImage)
+    slideInMission.classList.add('active')
+
+    document.querySelector('.commence-mission').addEventListener('click', () =>{
+      slideInMission.classList.remove('active')
+      slideInMission.removeChild(crewImage)
+      reset(character)
+      dotCount = 0
+      grid.textContent = ''
+      // console.log('length of cells before clearing, board one: ', cells.length)
+      cells = []
+
+      // console.log('playGame called in endGame, boardOne state')
+      playGame()
+      return
+    })
   }
   
 
