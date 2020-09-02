@@ -252,7 +252,7 @@ function init(){
   const modeChangeIdArr = []
 
 
-  let numsOfBoards = 0;
+  let numsOfBoards = 0
 
   function playGame(reset = false){
     
@@ -633,7 +633,7 @@ function init(){
           this.moveDown(true)
           this.lastMove = 'down'
         } else {
-          // console.error('throwing error?')
+          return
         }
         count++
 
