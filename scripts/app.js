@@ -468,6 +468,7 @@ function init(){
         scoreDisplay.textContent = playerOne.score
         bigDotTriggerFlee()
       }
+      
     }
 
     putDotInMouth(){
@@ -801,6 +802,7 @@ function init(){
     
     const druggedMessage = document.createElement('div')
     druggedMessage.innerText = 'CREW DRUGGED! Grab them to send back to the Bridge.'
+    druggedMessage.style.display = 'inline-block'
     druggedMessage.style.color = 'chartreuse'
     lives.appendChild(druggedMessage)
     setTimeout(() => {
