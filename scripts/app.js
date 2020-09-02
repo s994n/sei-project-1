@@ -112,40 +112,43 @@ function init(){
   ['XXXXXXXXXXXXXXXXXXX']
 ]
 
-  const boardTwo =
-[
-  ['XXXXXXXXXXXXXXXXXXXXXXXXXXXX'],
-  ['XooooooooooooXXooooooooooooX'],
-  ['XoXXXXoXXXXXoXXoXXXXXoXXXXoX'],
-  ['XoXXXXoXXXXXoXXoXXXXXoXXXXoX'],
-  ['XoXXXXoXXXXXoXXoXXXXXoXXXXoX'],
-  ['XooooooooooooooooooooooooooX'],
-  ['XoXXXXoXXoXXXXXXXXoXXoXXXXoX'],
-  ['XoXXXXoXXoXXXXXXXXoXXoXXXXoX'],
-  ['XooooooXXooooXXooooXXooooooX'],
-  ['XXXXXXoXXXXXoXXoXXXXXoXXXXXX'],
-  ['XXXXXXoXXXXXoXXoXXXXXoXXXXXX'],
-  ['XXXXXXoXXooooooooooXXoXXXXXX'],
-  ['XXXXXXoXXoXXXooXXXoXXoXXXXXX'],
-  ['XXXXXXoXXoXooooooXoXXoXXXXXX'],
-  ['ooooooooooXooooooXoooooooooo'],
-  ['XXXXXXoXXoXooooooXoXXoXXXXXX'],
-  ['XXXXXXoXXoXXXXXXXXoXXoXXXXXX'],
-  ['XXXXXXoXXooooooooooXXoXXXXXX'],
-  ['XXXXXXoXXoXXXXXXXXoXXoXXXXXX'],
-  ['XXXXXXoXXoXXXXXXXXoXXoXXXXXX'],
-  ['XooooooooooooXXooooooooooooX'],
-  ['XoXXXXoXXXXXoXXoXXXXXoXXXXoX'],
-  ['XoXXXXoXXXXXoXXoXXXXXoXXXXoX'],
-  ['XoooXXooooooooooooooooXXoooX'],
-  ['XXXoXXoXXoXXXXXXXXoXXoXXoXXX'],
-  ['XXXoXXoXXoXXXXXXXXoXXoXXoXXX'],
-  ['XooooooXXooooXXooooXXooooooX'],
-  ['XoXXXXXXXXXXoXXoXXXXXXXXXXoX'],
-  ['XoXXXXXXXXXXoXXoXXXXXXXXXXoX'],
-  ['XooooooooooooooooooooooooooX'],
-  ['XXXXXXXXXXXXXXXXXXXXXXXXXXXX']
-]
+  const boardTwo = [...boardOne].reverse()
+  
+
+  //   const boardTwo =
+  // [
+  //   ['XXXXXXXXXXXXXXXXXXXXXXXXXXXX'],
+  //   ['XooooooooooooXXooooooooooooX'],
+  //   ['XoXXXXoXXXXXoXXoXXXXXoXXXXoX'],
+  //   ['XoXXXXoXXXXXoXXoXXXXXoXXXXoX'],
+  //   ['XoXXXXoXXXXXoXXoXXXXXoXXXXoX'],
+  //   ['XooooooooooooooooooooooooooX'],
+  //   ['XoXXXXoXXoXXXXXXXXoXXoXXXXoX'],
+  //   ['XoXXXXoXXoXXXXXXXXoXXoXXXXoX'],
+  //   ['XooooooXXooooXXooooXXooooooX'],
+  //   ['XXXXXXoXXXXXoXXoXXXXXoXXXXXX'],
+  //   ['XXXXXXoXXXXXoXXoXXXXXoXXXXXX'],
+  //   ['XXXXXXoXXooooooooooXXoXXXXXX'],
+  //   ['XXXXXXoXXoXXXooXXXoXXoXXXXXX'],
+  //   ['XXXXXXoXXoXooooooXoXXoXXXXXX'],
+  //   ['ooooooooooXooooooXoooooooooo'],
+  //   ['XXXXXXoXXoXooooooXoXXoXXXXXX'],
+  //   ['XXXXXXoXXoXXXXXXXXoXXoXXXXXX'],
+  //   ['XXXXXXoXXooooooooooXXoXXXXXX'],
+  //   ['XXXXXXoXXoXXXXXXXXoXXoXXXXXX'],
+  //   ['XXXXXXoXXoXXXXXXXXoXXoXXXXXX'],
+  //   ['XooooooooooooXXooooooooooooX'],
+  //   ['XoXXXXoXXXXXoXXoXXXXXoXXXXoX'],
+  //   ['XoXXXXoXXXXXoXXoXXXXXoXXXXoX'],
+  //   ['XoooXXooooooooooooooooXXoooX'],
+  //   ['XXXoXXoXXoXXXXXXXXoXXoXXoXXX'],
+  //   ['XXXoXXoXXoXXXXXXXXoXXoXXoXXX'],
+  //   ['XooooooXXooooXXooooXXooooooX'],
+  //   ['XoXXXXXXXXXXoXXoXXXXXXXXXXoX'],
+  //   ['XoXXXXXXXXXXoXXoXXXXXXXXXXoX'],
+  //   ['XooooooooooooooooooooooooooX'],
+  //   ['XXXXXXXXXXXXXXXXXXXXXXXXXXXX']
+  // ]
 
 
   //map the input array to a new array with each letter of inputArr as an individual array element
