@@ -251,14 +251,6 @@ div span.pill-dot{
   display: inline-block;
 }
 
-div span.big-dot{
-
-  height: 10px;
-  width: 10px;
-  background-color: green;
-  border-radius: 50%;
-  display: inline-block;
-}
 
 div span.service-tunnel {
   height: 100%;
