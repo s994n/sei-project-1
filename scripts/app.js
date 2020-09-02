@@ -64,8 +64,9 @@ function init(){
   const gameOver = document.querySelector('.game-over')
   const restartBtn = document.querySelector('.restart-btn')
   const scoreDisplay = document.querySelector('.score')
+  const smallDotSound = document.querySelector('#smalldot-sound')
   const finalScore = document.querySelector('.final-score')
-  const winScore = 100
+  const winScore = 500
     
   startButton.addEventListener('click', playGame)
   startButton.addEventListener('click', displayGameSurround)
@@ -456,7 +457,8 @@ function init(){
         cells[this.yPos][this.xPos].children[0].classList.remove('emergency-dot')
         this.score += 10
         scoreDisplay.textContent = playerOne.score
-
+        smallDotSound.currentTime = 0
+        smallDotSound.play()        
         dotCount--
         if (dotCount === 0){
           addDots(currentBoard, false)
