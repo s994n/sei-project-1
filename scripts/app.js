@@ -198,12 +198,10 @@ function init(){
           (y === 1 && x === cells[0].length - 2) || 
           (y === cells.length - 2 && x === 1) ||
           (y === cells.length - 2 && x === cells[0].length - 2)){
-            if (inputBoard === boardOne && newBoard){
+            if (newBoard){
             // eslint-disable-next-line quotes
               cells[y][x].innerHTML = "<span class='pill-dot'></span>"
-            } else if (inputBoard === boardTwo && newBoard){
-              // eslint-disable-next-line quotes
-              cells[y][x].innerHTML = "<span class='big-dot'></span>"
+            
             } 
           } else if (x === 0 || x === cells[0].length - 1) {
             // eslint-disable-next-line quotes
