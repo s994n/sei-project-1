@@ -840,9 +840,11 @@ function init(){
     reset(character)
     dotCount = 0
     gridWrapper.style.display = 'none'
+    slideInMission.style.display = 'none'
     grid.textContent = ''
     cells = []
     gameSurround.classList.remove('display')
+    
     gameOver.childNodes[0].nextSibling.style.width = '50%'
     gameOver.childNodes[0].nextSibling.style.margin = '20px'
     if (win === true){
@@ -856,7 +858,6 @@ function init(){
     
     finalScore.textContent = playerOne.score
     restartBtn.addEventListener('click', () => {
-      // console.log('playGame called in zero lives state')
       playGame(true)
     })
   }
@@ -911,10 +912,7 @@ function init(){
       reset(character)
       dotCount = 0
       grid.textContent = ''
-      // console.log('length of cells before clearing, board one: ', cells.length)
       cells = []
-
-      // console.log('playGame called in endGame, boardOne state')
       playGame()
       return
     })

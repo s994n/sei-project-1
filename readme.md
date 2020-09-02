@@ -67,6 +67,8 @@ When this happens, a function, bigDogTriggerFlee is called. This function clears
 ## Game-play pause and end points
 When any collision is detected between the player and an enemy instance not in 'flee' mode, a function endGame is called. This endGame function is also called if the player reaches the winning score (stored in the constant winScore). 
 
-endGame clears all intervals that have been set during the previous game. If the winning score has not been reached
+endGame clears all intervals that have been set during the previous game. If the winning score has not been reached, the function checks which board the play is currently on:
+*  If play is on board two, the player loses a life. If player lives are subsequently equal to zero, then another function is run to display a game-over message and final score. Alternatively, if player lives remain above zero, a message is displayed indicating to the player that they have lost a life and will switch boards. 
+*  
 
 On the first game board, when the player collides with an enemy whose mode is not 'flee', game-play moves to a second board.
