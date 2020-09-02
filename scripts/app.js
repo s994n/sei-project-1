@@ -65,6 +65,7 @@ function init(){
   const restartBtn = document.querySelector('.restart-btn')
   const scoreDisplay = document.querySelector('.score')
   const smallDotSound = document.querySelector('#smalldot-sound')
+  const gameOverSound = document.querySelector('#gameover-sound')
   const finalScore = document.querySelector('.final-score')
   const winScore = 500
     
@@ -875,6 +876,7 @@ function init(){
       gameOver.childNodes[0].nextSibling.innerHTML = 'Congratulations! You survived long enough to be transfered off of the Nimitz. Good luck to the remaining redshirts onboard!'
       gameOver.classList.add('display')
     } else {
+      gameOverSound.play()
       gameOver.childNodes[0].nextSibling.innerHTML = 'Blast it all! Game over. If only you had hidden better'
       gameOver.classList.add('display')
     }
