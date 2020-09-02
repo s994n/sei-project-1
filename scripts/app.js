@@ -856,6 +856,18 @@ function init(){
 
   function handleBoardChange(character){
     const crewImage = document.createElement('img')
+    const missionMessage = document.createElement('p')
+    
+    if (currentBoard === boardOne){
+      missionMessage.style.color = 'chartreuse'
+      missionMessage.textContent = 'Ah, there you are, ensign. I need you for an away mission. Seems the crew on our sister ship, the Truman, has gone space-mad. Go over there and try to sort things out.'
+    } else {
+      missionMessage.style.color = 'red'
+      // eslint-disable-next-line quotes
+      missionMessage.textContent = "You've been injured by one of the blasted space-mad crew on the Truman! Get back to the Nimitz!."
+    }
+    slideInMission.appendChild(missionMessage)
+    
     crewImage.style.width = '200px'
     if (character.name === 'Captain'){
       if (currentBoard === boardOne) {
@@ -887,6 +899,7 @@ function init(){
 
     document.querySelector('.commence-mission').addEventListener('click', () =>{
       slideInMission.classList.remove('active')
+      slideInMission.removeChild(missionMessage)
       slideInMission.removeChild(crewImage)
       reset(character)
       dotCount = 0
