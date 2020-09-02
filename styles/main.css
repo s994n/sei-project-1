@@ -111,15 +111,6 @@ body {
   align-items: center;
 }
 
-/* 
-.game-surround.display{
-  margin: auto;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-} */
 
 .score-container{
   color: chartreuse;
@@ -274,6 +265,7 @@ div.passageway-dark{
   display: flex;
   justify-content: center;
   align-items: center;
+
 }
 
 div.life{

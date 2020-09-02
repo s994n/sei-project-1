@@ -799,7 +799,13 @@ function init(){
     enemyThree.mode = 'flee'
     enemyFour.mode = 'flee'
     
-
+    const druggedMessage = document.createElement('div')
+    druggedMessage.innerText = 'CREW DRUGGED! Grab them to send back to the Bridge.'
+    druggedMessage.style.color = 'chartreuse'
+    lives.appendChild(druggedMessage)
+    setTimeout(() => {
+      lives.removeChild(druggedMessage)
+    }, 2500)
 
     setTimeout(() => {
       enemyOne.mode = 'chase'
