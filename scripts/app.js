@@ -69,7 +69,7 @@ function init(){
   const gameOverSound = document.querySelector('#gameover-sound')
   const collisionSound = document.querySelector('#collision-sound')
   const finalScore = document.querySelector('.final-score')
-  const winScore = 500
+  const winScore = 3333360
     
   startButton.addEventListener('click', playGame)
   startButton.addEventListener('click', displayGameSurround)
