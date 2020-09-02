@@ -814,35 +814,26 @@ function init(){
 
     document.removeEventListener('keyup', handleKey)
     
-    if (character.score >= winScore){
-      //Game Win
+    if (character.score < winScore){
+      collisionSound.play()
+      if (currentBoard === boardTwo) {
+        playerOne.loseLife()
+        if (playerOne.lives === 0){
+          //Game over
+          gameOverOrWin(character, false)
+          return
+        }
+        handleBoardChange(character)
+        return
+      } else {
+        handleBoardChange(character)
+        return
+      }  
+    } else {
+      //Game won
       gameOverOrWin(character, true)
       return
     }
-
-    collisionSound.play()
-    
-    if (currentBoard === boardTwo) {
-      playerOne.loseLife()
-      if (playerOne.lives === 0){
-        //Game over
-        gameOverOrWin(character, false)
-        return
-      }
-      // console.log(`ending board Two. All reset? Cells: ${cells.length}, Grid: ${grid.textContent}`)
-      // console.log('playGame called in endGame, boardTwo state')
-      handleBoardChange(character)
-      return
-    }
-
-    if (currentBoard === boardOne){
-      // console.log('ending board one')
-      handleBoardChange(character)
-      return
-    }
-
-    return
-
   }
 
   function gameOverOrWin(character, win = false){

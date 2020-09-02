@@ -11,7 +11,10 @@ This game, inspired by Pacman (and Star Trek!) involves a player inside a maze, 
 * The player has an avatar on the board, in a red shirt
 * The player's avatar can be moved by the player using their arrow-up, arrow-down, arrow-left and arrow-right keyboard keys.
 * The player cannot move outside of passageways, which contain the dots, and therefore remains within the bounds of the game board. However, the player can pass through a teleportation tunnel, positioned roughly at the center of the far left and right walls of the board. Entering the tunnel makes the player avatar appear on the opposite side of the board.
-* Score increases as the player moves over dots on the game board.
+* Score increases as the player moves over dots on the game board, or moves over a pill (positioned at the four corners of the board), or collides with an enemy whose mode is in 'flee' (which occurs for a set period of time after the player landed on a pill)
+* When the player collides with an enemy whose mode is 'flee', that enemy's position is re-set to the center of the board, after a short delay
+* When the player collides with an enemy whose mode is not 'flee', game-play moves to a second board. On this second board, if/when the player again collides with an enemy not in 'flee' the player loses a life and is returned to the first board.
+*The game is over when the player looses all three of their starting lives, or when the player reaches a specified winning score
 
 
 ## Enemy chase and flee modes
@@ -58,3 +61,12 @@ decideDirection (and thereby, enemy movement) is called at slightly different ra
 ##  mode changes
 The enemy's mode changes when the player lands on a pill on the board.
 When this happens, a function, bigDogTriggerFlee is called. This function clears all timers (intervals) associated with enemy movement. It then sets all instantiated enemys' modes to 'flee', after which another function is called which re-starts game play, with appropriate timings and behavior (fleeing) for each enemy. After a few seconds, all movement timers are again cleared, enemy modes are re-set to 'chase' and new timers (intervals) are called to once again decide movement with enemies in chase mode.
+
+## Collision detection
+
+## Game-play pause and end points
+When any collision is detected between the player and an enemy instance not in 'flee' mode, a function endGame is called. This endGame function is also called if the player reaches the winning score (stored in the constant winScore). 
+
+endGame clears all intervals that have been set during the previous game. If the winning score has not been reached
+
+On the first game board, when the player collides with an enemy whose mode is not 'flee', game-play moves to a second board.
