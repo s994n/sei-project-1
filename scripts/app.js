@@ -694,32 +694,6 @@ function init(){
     }, 40)
   }
 
-  // function detectModeChange(enemy){
-    
-  //   let currentEnemyMode = enemy.mode
-  //   const enemyCheckerId = setInterval(() => {
-  //     if (currentEnemyMode !== enemy.mode){
-
-  //       chaseDirectionTimers.forEach(timer => {
-  //         clearInterval(timer)
-  //       })
-  //       chaseDirectionTimers.clear()
-
-  //       fleeDirectionTimers.forEach(timer => {
-  //         clearInterval(timer)
-  //       })
-  //       fleeDirectionTimers.clear()
-
-  //       handleModeChange(enemy)
-  //     }
-  //     currentEnemyMode = enemy.mode
-
-  //   }, 50)
-  //   return enemyCheckerId
-  // }
-
-
-
   function handleModeChange(enemy){
     if (enemy.mode === 'flee'){
       runGameFlee(enemy)
@@ -750,11 +724,9 @@ function init(){
       }, 1000)
       fleeDirectionTimers.add(navigationTimerFlee)
     }
-    console.log('>>>>> Adding a flee timer: ', fleeDirectionTimers)
   }
 
   function runGameChase(enemy){
-
     if (enemy === enemyOne){
       captainTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
@@ -776,9 +748,6 @@ function init(){
       }, 500)
       chaseDirectionTimers.add(navigationTimer)
     }
-
-    // console.log('>>>>> CHASE timers: ', chaseDirectionTimers)
-
   }
 
   //helper function that will be called by playerOne when encountering a big dot, triggers all enemies to flee for set time

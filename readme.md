@@ -40,11 +40,12 @@ When the enemy is in 'chase' mode, the sorting order results in the first move t
 
 Conversely, when the enemy is in 'flee' mode (after the player has landed on one of the pills on the board), the movement sorting order is reversed: the first move that the enemy will try is the move that will result in the greatest possible increase in straight-line distance from the player's current position.
 
-Now with a desired order of movement, the enemy will assess whether it is possible to move in each direction. The enemy will try (in the order of sorting, as described above) to move in each direction, , until it is able to successfully make a move (until its x-y coordinates change). If for any reason the enemy is unable to find a direction to successfully move in (which may very occassionally be the case if the enemy is in a corner), we simply return out of the method and await a new call to decideDirection.
+Now with a desired order of movement, the enemy will assess whether it is possible to move in each direction. The enemy will try (in the order of sorting, as described above) to move in each direction until it is able to successfully make a move (until its x and y position properties change). If for any reason the enemy is unable to find a direction to successfully move in (which may very occassionally be the case if the enemy is in a corner), we simply return out of the method and await a new call to decideDirection.
 
 ### Movement timing
 decideDirection (and thereby, enemy movement) is called at slightly different rates for different enemy instances in chase mode. Doing this means that over time enemies spread out across the board, thus providing more interesting gameplay.
 
 
-## detecting mode changes
-when playGame is called (and a game is being played), a function, detectModeChange, is subsequently called at regular intervals. This determines whether any enemy has changed mode (flee or chase - see also section on Deciding a direction). If a mode change is identified, detectModeChange will clear all current (decideDirection) timers, which are associated with enemies deciding a direction and moving. Having cleared these intervals, detectModeChange then calls a function that determines how to re-start the game (depending on whether enemies are in flee or chase mode). 
+##  mode changes
+The enemy's mode changes when the player lands on a pill on the board.
+When this happens, a function, bigDogTriggerFlee is called. This function clears all timers (intervals) associated with enemy movement. It then sets all instantiated enemys' modes to 'flee', after which another function is called which re-starts game play, with appropriate timings and behavior (fleeing) for each enemy. After a few seconds, all movement timers are again cleared, enemy modes are re-set to 'chase' and new timers (intervals) are made for deciding movement with enemies in chase mode.
