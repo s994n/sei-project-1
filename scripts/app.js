@@ -156,7 +156,6 @@ function init(){
   // ]
 
 
-  //map the input array to a new array with each letter of inputArr as an individual array element
   function generateBoard(inputBoard, newBoard){
     const splitInputArr = inputBoard.map(subArr => subArr.join('').split('')) 
     for (let y = 0; y < splitInputArr.length; y++){
@@ -166,7 +165,6 @@ function init(){
         cell.setAttribute('data-appearance',`${splitInputArr[y][x]}`)
         cell.style.height = `${100 / splitInputArr.length}%`
         cell.style.width = `${100 / splitInputArr[0].length}%`
-        //Allows for passageway styling
         if (cell.dataset.appearance === 'o'){
           if (inputBoard === boardOne){
             cell.classList.add('passageway-light')
@@ -189,16 +187,11 @@ function init(){
   }
   
   
-  //generateBoard(boardTwo.reverse())
-
-
   function addDots(inputBoard, newBoard){
-
+    console.log('calling for', inputBoard, 'newboard is:', newBoard)
     for (let y = 0; y < cells.length; y++){
       for (let x = 0; x < cells[1].length; x++){
-        //To allow styling and behavior of all passageways
         if (cells[y][x].dataset.appearance === 'o'){
-          //To include dots, big dots, pills and service passages
           if ((y === 1 && x === 1) ||
           (y === 1 && x === cells[0].length - 2) || 
           (y === cells.length - 2 && x === 1) ||
@@ -441,7 +434,7 @@ function init(){
         smallDotSound.currentTime = 0
         smallDotSound.play()        
         dotCount--
-        if (dotCount === 0){
+        if (dotCount <= 1){
           addDots(currentBoard, false)
         }
       } else if ((isEnemy === false && cells[this.yPos][this.xPos].children[0].classList.contains('big-dot')) ||
@@ -730,22 +723,22 @@ function init(){
     if (enemy === enemyOne){
       captainTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 400)
+      }, 4000)
       chaseDirectionTimers.add(captainTimer)
     } else if (enemy === enemyTwo){
       engineerTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 300)
+      }, 3000)
       chaseDirectionTimers.add(engineerTimer)
     } else if (enemy === enemyThree){
       weaponsTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 450)
+      }, 4500)
       chaseDirectionTimers.add(weaponsTimer)
     } else if (enemy === enemyFour){
       navigationTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 500)
+      }, 5000)
       chaseDirectionTimers.add(navigationTimer)
     }
   }
@@ -844,7 +837,7 @@ function init(){
     grid.textContent = ''
     cells = []
     gameSurround.classList.remove('display')
-    
+
     gameOver.childNodes[0].nextSibling.style.width = '50%'
     gameOver.childNodes[0].nextSibling.style.margin = '20px'
     if (win === true){
