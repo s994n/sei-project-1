@@ -65,6 +65,7 @@ function init(){
   const restartBtn = document.querySelector('.restart-btn')
   const scoreDisplay = document.querySelector('.score')
   const finalScore = document.querySelector('.final-score')
+  const winScore = 200
     
   startButton.addEventListener('click', playGame)
   startButton.addEventListener('click', displayGameSurround)
@@ -467,8 +468,11 @@ function init(){
         this.score += 50
         scoreDisplay.textContent = playerOne.score
         bigDotTriggerFlee()
+      } 
+
+      if (isEnemy === false && this.score >= winScore){
+        endGame(this)
       }
-      
     }
 
     putDotInMouth(){
@@ -825,24 +829,18 @@ function init(){
       window.clearInterval(i)
     }
     
-    // alert(`Oh no, you got caught by ${character.name}`)
+    console.log('>>>>>>>', character.score)
+    if (character.score >= winScore){
+      //Game Win
+      gameOverOrWin(character, true)
+    }
+
     
     if (currentBoard === boardTwo) {
       playerOne.loseLife()
       if (playerOne.lives === 0){
         //Game over
-        reset(character)
-        dotCount = 0
-        gridWrapper.style.display = 'none'
-        grid.textContent = ''
-        cells = []
-        gameSurround.classList.remove('display')
-        gameOver.classList.add('display')
-        finalScore.textContent = playerOne.score
-        restartBtn.addEventListener('click', () => {
-          console.log('playGame called in zero lives state')
-          playGame(true)
-        })
+        gameOverOrWin(character, false)
         return
       }
       
@@ -860,6 +858,27 @@ function init(){
 
     return
 
+  }
+
+  function gameOverOrWin(character, win = false){
+    reset(character)
+    dotCount = 0
+    gridWrapper.style.display = 'none'
+    grid.textContent = ''
+    cells = []
+    gameSurround.classList.remove('display')
+    if (win === true){
+      console.log('Won!')
+      gameOver.classList.add('display')
+    } else {
+      gameOver.classList.add('display')
+    }
+    
+    finalScore.textContent = playerOne.score
+    restartBtn.addEventListener('click', () => {
+      console.log('playGame called in zero lives state')
+      playGame(true)
+    })
   }
 
   function handleBoardChange(character){
