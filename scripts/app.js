@@ -65,7 +65,7 @@ function init(){
   const restartBtn = document.querySelector('.restart-btn')
   const scoreDisplay = document.querySelector('.score')
   const finalScore = document.querySelector('.final-score')
-  const winScore = 200
+  const winScore = 100
     
   startButton.addEventListener('click', playGame)
   startButton.addEventListener('click', displayGameSurround)
@@ -867,10 +867,13 @@ function init(){
     grid.textContent = ''
     cells = []
     gameSurround.classList.remove('display')
+    gameOver.childNodes[0].nextSibling.style.width = '50%'
+    gameOver.childNodes[0].nextSibling.style.margin = '20px'
     if (win === true){
-      console.log('Won!')
+      gameOver.childNodes[0].nextSibling.innerHTML = 'Congratulations! You survived long enough to be transfered off of the Nimitz. Good luck to the remaining redshirts onboard!'
       gameOver.classList.add('display')
     } else {
+      gameOver.childNodes[0].nextSibling.innerHTML = 'Blast it all! Game over. If only you had hidden better'
       gameOver.classList.add('display')
     }
     
