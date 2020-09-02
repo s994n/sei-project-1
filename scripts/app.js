@@ -469,7 +469,7 @@ function init(){
 
     putDotInMouth(){
       if (cells[this.yPos][this.xPos].children[0].classList.contains('dot') 
-        || cells[this.yPos][this.xPos].children[0].classList.contains('emergeny-dot')){
+        || cells[this.yPos][this.xPos].children[0].classList.contains('emergency-dot')){
         cells[this.yPos][this.xPos].children[0].classList.remove('dot')
         cells[this.yPos][this.xPos].children[0].classList.remove('emergency-dot')
         this.dotInMouth = true
@@ -478,7 +478,11 @@ function init(){
 
     spitOutDot(tempYPosition, tempXPosition){
       if (this.dotInMouth === true){
-        cells[tempYPosition][tempXPosition].children[0].classList.add('dot')
+        if (currentBoard === boardOne){
+          cells[tempYPosition][tempXPosition].children[0].classList.add('dot')
+        } else if (currentBoard === boardTwo){
+          cells[tempYPosition][tempXPosition].children[0].classList.add('emergency-dot')
+        }
         this.dotInMouth = false
       } else {
         return
