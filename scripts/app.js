@@ -248,6 +248,7 @@ function init(){
   let collisionIdFour
 
   const chaseDirectionTimers = new Set()
+  const fleeDirectionTimers = new Set()
   const collisionIdArr = []
   const modeChangeIdArr = []
 
@@ -343,29 +344,6 @@ function init(){
     collisionIdFour = detectCollision(enemyFour)
     collisionIdArr.push(collisionIdOne, collisionIdTwo, collisionIdThree, collisionIdFour)
 
-    // console.log(`collisionId, for ${enemyOne.name}: ${collisionIdOne}`)
-    // console.log(`collisionId, for ${enemyTwo.name}: ${collisionIdTwo}`)
-    // console.log(`collisionId, for ${enemyThree.name}: ${collisionIdThree}`)
-    // console.log(`collisionId, for ${enemyFour.name}: ${collisionIdFour}`)
-    // console.log(`captain timer, detecting captain move: ${captainTimer}`)
-    // clearInterval(captainTimer)
-    // clearInterval(engineerTimer)
-    // clearInterval(weaponsTimer)
-    // clearInterval(navigationTimer)
-
-    // clearInterval(captainTimerFlee)
-    // clearInterval(engineerTimerFlee)
-    // clearInterval(weaponsTimerFlee)
-    // clearInterval(navigationTimerFlee)
-
-    // clearInterval(enemyOneTimerId)
-    // enemyOneTimerId = null
-    // clearInterval(enemyTwoTimerId)
-    // enemyTwoTimerId = null
-    // clearInterval(enemyThreeTimerId)
-    // enemyThreeTimerId = null
-    // clearInterval(enemyFourTimerId)
-    // enemyFourTimerId = null
     numsOfBoards++
     // console.log('timers for mode change:', modeChangeIdArr)
     // console.log('timers for collision detection:', collisionIdArr)
@@ -728,27 +706,22 @@ function init(){
           })
           chaseDirectionTimers.clear()
 
-          // if (enemy === enemyOne){
-            
-          //   clearInterval(captainTimer)
-          // } else if (enemy === enemyTwo){
-          //   clearInterval(engineerTimer)
-          // } else if (enemy === enemyThree){
-          //   clearInterval(weaponsTimer)
-          // } else if (enemy === enemyFour){
-          //   clearInterval(navigationTimer)
-          // }
         } else if (enemy.mode === 'chase') {
 
-          if (enemy === enemyOne){
-            clearInterval(captainTimerFlee)
-          } else if (enemy === enemyTwo){
-            clearInterval(engineerTimerFlee)
-          } else if (enemy === enemyThree){
-            clearInterval(weaponsTimerFlee)
-          } else if (enemy === enemyFour){
-            clearInterval(navigationTimerFlee)
-          }
+          fleeDirectionTimers.forEach(timer => {
+            clearInterval(timer)
+          })
+          fleeDirectionTimers.clear()
+
+          // if (enemy === enemyOne){
+          //   clearInterval(captainTimerFlee)
+          // } else if (enemy === enemyTwo){
+          //   clearInterval(engineerTimerFlee)
+          // } else if (enemy === enemyThree){
+          //   clearInterval(weaponsTimerFlee)
+          // } else if (enemy === enemyFour){
+          //   clearInterval(navigationTimerFlee)
+          // }
         }
         handleModeChange(enemy)
       }
@@ -774,20 +747,24 @@ function init(){
       captainTimerFlee = setInterval(() => {
         enemy.decideDirection(playerOne)
       }, 1000)
+      fleeDirectionTimers.add(captainTimerFlee)
     } else if (enemy === enemyTwo){
       engineerTimerFlee = setInterval(() => {
         enemy.decideDirection(playerOne)
       }, 1000)
+      fleeDirectionTimers.add(engineerTimerFlee)
     } else if (enemy === enemyThree){
       weaponsTimerFlee = setInterval(() => {
         enemy.decideDirection(playerOne)
       }, 1000)
+      fleeDirectionTimers.add(weaponsTimerFlee)
     } else if (enemy === enemyFour){
       navigationTimerFlee = setInterval(() => {
         enemy.decideDirection(playerOne)
       }, 1000)
+      fleeDirectionTimers.add(navigationTimerFlee)
     }
-    
+    console.log('>>>>> Adding a flee timer: ', fleeDirectionTimers)
   }
 
   function runGameChase(enemy){
@@ -814,7 +791,7 @@ function init(){
       chaseDirectionTimers.add(navigationTimer)
     }
 
-    console.log('>>>>> CHASE timers: ', chaseDirectionTimers)
+    // console.log('>>>>> CHASE timers: ', chaseDirectionTimers)
 
   }
 

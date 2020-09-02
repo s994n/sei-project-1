@@ -35,6 +35,7 @@ Conditions are also added in decideDirection to avoid enemies back-tracking duri
 
 Before each move, each enemy iterates through directions (right, left, up or down - also taking into acount its last move, as described above), and using a simple sum of x and y grid cell coordinates, along with knowledge of the player's current cell coordinates, sorts the possible moves into an order of desired movement. 
 
+#### Movement behaviour depending on mode
 When the enemy is in 'chase' mode, the sorting order results in the first move to try (the most desirable move) being that which will minimise the straight-line distance to the player position. If there are two or more potential moves that offer equal reduction in distance to the player, a random choice is made between these desired moves.
 
 Conversely, when the enemy is in 'flee' mode (after the player has landed on one of the pills on the board), the movement sorting order is reversed: the first move that the enemy will try is the move that will result in the greatest possible increase in straight-line distance from the player's current position.
@@ -45,6 +46,5 @@ Now with a desired order of movement, the enemy will assess whether it is possib
 decideDirection (and thereby, enemy movement) is called at slightly different rates for different enemy instances in chase mode. Doing this means that over time enemies spread out across the board, thus providing more interesting gameplay.
 
 
-
 ## detecting mode changes
-when playGame is called (and a game is being played), a function, detectModeChange, is called at regular intervals. This determines whether any enemy has changed mode (flee or chase). If a mode change is identified, detectModeChange will clear all current (decideDirection) timers, which are associated with enemies deciding a direction and moving (see also section on Deciding a direction). Having cleared these intervals, detectModeChange then calls a function that determines how to re-start the game (depending on whether enemies are in flee or chase mode). 
+when playGame is called (and a game is being played), a function, detectModeChange, is subsequently called at regular intervals. This determines whether any enemy has changed mode (flee or chase - see also section on Deciding a direction). If a mode change is identified, detectModeChange will clear all current (decideDirection) timers, which are associated with enemies deciding a direction and moving. Having cleared these intervals, detectModeChange then calls a function that determines how to re-start the game (depending on whether enemies are in flee or chase mode). 
