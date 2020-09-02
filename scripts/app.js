@@ -247,7 +247,7 @@ function init(){
   let collisionIdThree
   let collisionIdFour
 
-
+  const chaseDirectionTimers = new Set()
   const collisionIdArr = []
   const modeChangeIdArr = []
 
@@ -764,6 +764,7 @@ function init(){
   }
 
   function runGameFlee(enemy){
+
     if (enemy === enemyOne){
       captainTimerFlee = setInterval(() => {
         enemy.decideDirection(playerOne)
@@ -781,26 +782,35 @@ function init(){
         enemy.decideDirection(playerOne)
       }, 1000)
     }
+    
   }
 
   function runGameChase(enemy){
+
     if (enemy === enemyOne){
       captainTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
       }, 400)
+      chaseDirectionTimers.add(captainTimer)
     } else if (enemy === enemyTwo){
       engineerTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
       }, 300)
+      chaseDirectionTimers.add(engineerTimer)
     } else if (enemy === enemyThree){
       weaponsTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
       }, 450)
+      chaseDirectionTimers.add(weaponsTimer)
     } else if (enemy === enemyFour){
       navigationTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
       }, 500)
+      chaseDirectionTimers.add(navigationTimer)
     }
+
+    console.log('>>>>> CHASE timers: ', chaseDirectionTimers)
+
   }
 
   //helper function that will be called by playerOne when encountering a big dot, triggers all enemies to flee for set time

@@ -13,11 +13,11 @@ The Enemy class has a mode -- with a value of either 'chase', or 'flee' -- that 
 
 The flee/chase modes alter the enemy behaviour:  
 
-*If a player collides with an enemy that has a mode of 'flee', the enemy will disappear from its current position and its position will be re-set to the center of the board (where the enemy will appear a short time later). Such a collision also results in an additional score being awarded to the player.
+* If a player collides with an enemy that has a mode of 'flee', the enemy will disappear from its current position and its position will be re-set to the center of the board (where the enemy will appear a short time later). Such a collision also results in an additional score being awarded to the player.
 
-*If a player collides with an enemy that is in 'chase' mode, a function (endGame) will be called to handle further game play, which could mean moving to a different board or completely ending the game, depending on other conditions (see also below).
+* If a player collides with an enemy that is in 'chase' mode, a function (endGame) will be called to handle further game play, which could mean moving to a different board or completely ending the game, depending on other conditions (see also below).
 
-*Whether an enemy is in flee or chase mode also alters its movement (see section on Enemy positioning and movement)
+* Whether an enemy is in flee or chase mode also alters its movement (see section on Enemy positioning and movement)
 
 
 
@@ -41,5 +41,6 @@ Conversely, when the enemy is in 'flee' mode (after the player has landed on one
 
 Now with a desired order of movement, the enemy will assess whether it is possible to move in each direction. The enemy will try (in the order of sorting, as described above) to move in each direction, , until it is able to successfully make a move (until its x-y coordinates change). If for any reason the enemy is unable to find a direction to successfully move in (which may very occassionally be the case if the enemy is in a corner), we simply return out of the method and await a new call to decideDirection.
 
-
+### Movement timing
+decideDirection (and thereby, enemy movement) is called at slightly different rates for different enemy instances in chase mode. Doing this means that over time enemies spread out across the board, thus providing more interesting gameplay.
 
