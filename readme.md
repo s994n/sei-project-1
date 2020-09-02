@@ -1,8 +1,17 @@
 
 
-## Redshirt's run
+# Redshirt's run
 
 This game, inspired by Pacman (and Star Trek!) involves a player inside a maze, being chased by a group of characters (refered to here as 'enemies').
+
+
+## General info on game-play
+
+* There is one player, who starts with a score of zero. 
+* The player has an avatar on the board, in a red shirt
+* The player's avatar can be moved by the player using their arrow-up, arrow-down, arrow-left and arrow-right keyboard keys.
+* The player cannot move outside of passageways, which contain the dots, and therefore remains within the bounds of the game board. However, the player can pass through a teleportation tunnel, positioned roughly at the center of the far left and right walls of the board. Entering the tunnel makes the player avatar appear on the opposite side of the board.
+* Score increases as the player moves over dots on the game board.
 
 
 ## Enemy chase and flee modes
@@ -48,4 +57,4 @@ decideDirection (and thereby, enemy movement) is called at slightly different ra
 
 ##  mode changes
 The enemy's mode changes when the player lands on a pill on the board.
-When this happens, a function, bigDogTriggerFlee is called. This function clears all timers (intervals) associated with enemy movement. It then sets all instantiated enemys' modes to 'flee', after which another function is called which re-starts game play, with appropriate timings and behavior (fleeing) for each enemy. After a few seconds, all movement timers are again cleared, enemy modes are re-set to 'chase' and new timers (intervals) are made for deciding movement with enemies in chase mode.
+When this happens, a function, bigDogTriggerFlee is called. This function clears all timers (intervals) associated with enemy movement. It then sets all instantiated enemys' modes to 'flee', after which another function is called which re-starts game play, with appropriate timings and behavior (fleeing) for each enemy. After a few seconds, all movement timers are again cleared, enemy modes are re-set to 'chase' and new timers (intervals) are called to once again decide movement with enemies in chase mode.

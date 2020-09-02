@@ -40,6 +40,18 @@ body {
 
 .start-container h1{
   font-size: 4rem;
+  margin: 1rem 0 1rem;
+}
+
+.move-instruction {
+  color: red;
+  font-weight: bold;
+}
+
+.intro-img {
+  position: relative;
+  top: 15px;
+  width: 40px;
 }
 
 /* Hero (texType) section */
