@@ -332,11 +332,11 @@ function init(){
     runGameChase(enemyThree)
     runGameChase(enemyFour)
 
-    enemyOneTimerId = detectModeChange(enemyOne)
-    enemyTwoTimerId = detectModeChange(enemyTwo)
-    enemyThreeTimerId = detectModeChange(enemyThree)
-    enemyFourTimerId = detectModeChange(enemyFour)
-    modeChangeIdArr.push(enemyOneTimerId, enemyTwoTimerId, enemyThreeTimerId, enemyFourTimerId)
+    // enemyOneTimerId = detectModeChange(enemyOne)
+    // enemyTwoTimerId = detectModeChange(enemyTwo)
+    // enemyThreeTimerId = detectModeChange(enemyThree)
+    // enemyFourTimerId = detectModeChange(enemyFour)
+    // modeChangeIdArr.push(enemyOneTimerId, enemyTwoTimerId, enemyThreeTimerId, enemyFourTimerId)
 
     collisionIdOne = detectCollision(enemyOne)
     collisionIdTwo = detectCollision(enemyTwo)
@@ -694,42 +694,29 @@ function init(){
     }, 40)
   }
 
-  function detectModeChange(enemy){
+  // function detectModeChange(enemy){
     
-    let currentEnemyMode = enemy.mode
-    const enemyCheckerId = setInterval(() => {
-      if (currentEnemyMode !== enemy.mode){
-        if (enemy.mode === 'flee'){
-         
-          chaseDirectionTimers.forEach(timer => {
-            clearInterval(timer)
-          })
-          chaseDirectionTimers.clear()
+  //   let currentEnemyMode = enemy.mode
+  //   const enemyCheckerId = setInterval(() => {
+  //     if (currentEnemyMode !== enemy.mode){
 
-        } else if (enemy.mode === 'chase') {
+  //       chaseDirectionTimers.forEach(timer => {
+  //         clearInterval(timer)
+  //       })
+  //       chaseDirectionTimers.clear()
 
-          fleeDirectionTimers.forEach(timer => {
-            clearInterval(timer)
-          })
-          fleeDirectionTimers.clear()
+  //       fleeDirectionTimers.forEach(timer => {
+  //         clearInterval(timer)
+  //       })
+  //       fleeDirectionTimers.clear()
 
-          // if (enemy === enemyOne){
-          //   clearInterval(captainTimerFlee)
-          // } else if (enemy === enemyTwo){
-          //   clearInterval(engineerTimerFlee)
-          // } else if (enemy === enemyThree){
-          //   clearInterval(weaponsTimerFlee)
-          // } else if (enemy === enemyFour){
-          //   clearInterval(navigationTimerFlee)
-          // }
-        }
-        handleModeChange(enemy)
-      }
-      currentEnemyMode = enemy.mode
+  //       handleModeChange(enemy)
+  //     }
+  //     currentEnemyMode = enemy.mode
 
-    }, 50)
-    return enemyCheckerId
-  }
+  //   }, 50)
+  //   return enemyCheckerId
+  // }
 
 
 
@@ -742,7 +729,6 @@ function init(){
   }
 
   function runGameFlee(enemy){
-
     if (enemy === enemyOne){
       captainTimerFlee = setInterval(() => {
         enemy.decideDirection(playerOne)
@@ -797,11 +783,26 @@ function init(){
 
   //helper function that will be called by playerOne when encountering a big dot, triggers all enemies to flee for set time
   function bigDotTriggerFlee(){
+    chaseDirectionTimers.forEach(timer => {
+      clearInterval(timer)
+    })
+    chaseDirectionTimers.clear()
+
+    fleeDirectionTimers.forEach(timer => {
+      clearInterval(timer)
+    })
+    fleeDirectionTimers.clear()
+    
     enemyOne.mode = 'flee'
     enemyTwo.mode = 'flee'
     enemyThree.mode = 'flee'
     enemyFour.mode = 'flee'
     
+    handleModeChange(enemyOne)
+    handleModeChange(enemyTwo)
+    handleModeChange(enemyThree)
+    handleModeChange(enemyFour)
+
     const druggedMessage = document.createElement('div')
     druggedMessage.innerText = 'CREW DRUGGED! Grab them to send back to the Bridge.'
     druggedMessage.style.display = 'inline-block'
@@ -812,10 +813,25 @@ function init(){
     }, 2500)
 
     setTimeout(() => {
+      chaseDirectionTimers.forEach(timer => {
+        clearInterval(timer)
+      })
+      chaseDirectionTimers.clear()
+  
+      fleeDirectionTimers.forEach(timer => {
+        clearInterval(timer)
+      })
+      fleeDirectionTimers.clear()
+      
       enemyOne.mode = 'chase'
       enemyTwo.mode = 'chase'
       enemyThree.mode = 'chase'
       enemyFour.mode = 'chase'
+
+      handleModeChange(enemyOne)
+      handleModeChange(enemyTwo)
+      handleModeChange(enemyThree)
+      handleModeChange(enemyFour)
     }, 5000)
   }
 
@@ -961,15 +977,15 @@ function init(){
       enemy.appear()
       enemy.mode = 'flee'
       runGameFlee(enemy)
-      if (enemy === enemyOne){
-        enemyOneTimerId = detectModeChange(enemy)
-      } else if (enemy === enemyTwo){
-        enemyTwoTimerId = detectModeChange(enemy)
-      } else if (enemy === enemyThree){
-        enemyThreeTimerId = detectModeChange(enemy)
-      } else if (enemy === enemyFour){
-        enemyFourTimerId = detectModeChange(enemy)
-      }
+      // if (enemy === enemyOne){
+      //   enemyOneTimerId = detectModeChange(enemy)
+      // } else if (enemy === enemyTwo){
+      //   enemyTwoTimerId = detectModeChange(enemy)
+      // } else if (enemy === enemyThree){
+      //   enemyThreeTimerId = detectModeChange(enemy)
+      // } else if (enemy === enemyFour){
+      //   enemyFourTimerId = detectModeChange(enemy)
+      // }
       
     }, 1000)
     
