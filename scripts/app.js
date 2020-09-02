@@ -168,6 +168,12 @@ function init(){
           } else if (inputBoard === boardTwo) {
             cell.classList.add('passageway-dark')
           }
+        } else {
+          if (inputBoard === boardOne){
+            cell.classList.add('wall-light')
+          } else if (inputBoard === boardTwo) {
+            cell.classList.add('wall-dark')
+          }
         }
         grid.appendChild(cell)
         cellsSubArray.push(cell)

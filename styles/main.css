@@ -156,12 +156,10 @@ body {
 div[data-appearance='X']{
   background-color: var(--dark-grey);
   opacity: 0.4;
-  /* background-image: var(--wall-gradient); */
 }
 
 div[data-appearance='o']{
   background-color: grey;
-  
 }
 
 div.passageway-light.playerOne,
@@ -217,17 +215,19 @@ div.passageway-dark.Navigation.fleeing{
   background-size: cover;
 }
 
+div.wall-light{
+  background-color: var(--dark-grey);
+  opacity: 0.4;
+}
 
+div.wall-dark{
+  background-color: var(--dark-red);
+  opacity: 0.6;
+}
 
 div span.dot{
-  /* background-image: url('./black_dot.png');
-  background-size: cover;
-  position: relative;
-  width: 75%;
-  height: 75%; */
   height: 7px;
   width: 7px;
-  /* background-color: black; */
   border-radius: 50%;
   display: inline-block;
 }
@@ -235,7 +235,7 @@ div span.dot{
 div span.emergency-dot{
   height: 7px;
   width: 7px;
-  background-color: chartreuse;
+  background-color: var(--dark-green);
   border-radius: 50%;
   display: inline-block;
 }
