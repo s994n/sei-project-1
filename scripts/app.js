@@ -66,6 +66,7 @@ function init(){
   const scoreDisplay = document.querySelector('.score')
   const smallDotSound = document.querySelector('#smalldot-sound')
   const gameOverSound = document.querySelector('#gameover-sound')
+  const collisionSound = document.querySelector('#collision-sound')
   const finalScore = document.querySelector('.final-score')
   const winScore = 500
     
@@ -836,8 +837,10 @@ function init(){
     if (character.score >= winScore){
       //Game Win
       gameOverOrWin(character, true)
+      return
     }
 
+    collisionSound.play()
     
     if (currentBoard === boardTwo) {
       playerOne.loseLife()
@@ -846,7 +849,6 @@ function init(){
         gameOverOrWin(character, false)
         return
       }
-      
       // console.log(`ending board Two. All reset? Cells: ${cells.length}, Grid: ${grid.textContent}`)
       console.log('playGame called in endGame, boardTwo state')
       handleBoardChange(character)
