@@ -65,6 +65,7 @@ function init(){
   const restartBtn = document.querySelector('.restart-btn')
   const scoreDisplay = document.querySelector('.score')
   const smallDotSound = document.querySelector('#smalldot-sound')
+  const pillPickUpSound = document.querySelector('#pill-sound')
   const gameOverSound = document.querySelector('#gameover-sound')
   const collisionSound = document.querySelector('#collision-sound')
   const finalScore = document.querySelector('.final-score')
@@ -471,6 +472,7 @@ function init(){
         cells[this.yPos][this.xPos].children[0].classList.remove('pill-dot')
         this.score += 50
         scoreDisplay.textContent = playerOne.score
+        pillPickUpSound.play()
         bigDotTriggerFlee()
       } 
 
