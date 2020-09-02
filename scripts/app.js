@@ -290,16 +290,16 @@ function init(){
       generateBoard(boardOne, newBoard)
     } else {
       currentBoard = boardTwo
-      playerOne.yPos = 5
-      playerOne.xPos = 14
-      enemyOne.yPos = 14
-      enemyOne.xPos = 13
-      enemyTwo.yPos = 15
-      enemyTwo.xPos = 13
-      enemyThree.yPos = 14
-      enemyThree.xPos = 14
-      enemyFour.yPos = 15
-      enemyFour.xPos = 14
+      playerOne.yPos = 18
+      playerOne.xPos = 9
+      enemyOne.yPos = 11
+      enemyOne.xPos = 9
+      enemyTwo.yPos = 12
+      enemyTwo.xPos = 9
+      enemyThree.yPos = 11
+      enemyThree.xPos = 10
+      enemyFour.yPos = 12
+      enemyFour.xPos = 10
       console.log('generating board two')
       generateBoard(boardTwo, newBoard)
     }
