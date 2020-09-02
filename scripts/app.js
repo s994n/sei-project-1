@@ -858,15 +858,31 @@ function init(){
     const crewImage = document.createElement('img')
     crewImage.style.width = '200px'
     if (character.name === 'Captain'){
-      crewImage.setAttribute('src', './styles/captain_normal.png')
+      if (currentBoard === boardOne) {
+        crewImage.setAttribute('src', './styles/captain_normal.png')
+      } else {
+        crewImage.setAttribute('src', './styles/captain_drugged.png')
+      }
     } else if (character.name === 'Engineer'){
-      crewImage.setAttribute('src', './styles/engineer_normal.png')
+      if (currentBoard === boardOne){
+        crewImage.setAttribute('src', './styles/engineer_normal.png')
+      } else {
+        crewImage.setAttribute('src', './styles/engineer_drugged.png')
+      }
     } else if (character.name === 'Weapons'){
-      crewImage.setAttribute('src', './styles/weapons_normal.png')
+      if (currentBoard === boardOne){
+        crewImage.setAttribute('src', './styles/weapons_normal.png')
+      } else {
+        crewImage.setAttribute('src', './styles/weapons_drugged.png')
+      }
     } else if (character.name === 'Navigation'){
-      crewImage.setAttribute('src', './styles/navigation_normal.png')
+      if (currentBoard === boardOne){
+        crewImage.setAttribute('src', './styles/navigation_normal.png')
+      } else {
+        crewImage.setAttribute('src', './styles/navigation_drugged.png')
+      }
     } 
-    slideInMission.appendChild(crewImage)
+    slideInMission.appendChild(crewImage)    
     slideInMission.classList.add('active')
 
     document.querySelector('.commence-mission').addEventListener('click', () =>{
