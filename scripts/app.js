@@ -723,22 +723,22 @@ function init(){
     if (enemy === enemyOne){
       captainTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 4000)
+      }, 400)
       chaseDirectionTimers.add(captainTimer)
     } else if (enemy === enemyTwo){
       engineerTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 3000)
+      }, 300)
       chaseDirectionTimers.add(engineerTimer)
     } else if (enemy === enemyThree){
       weaponsTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 4500)
+      }, 450)
       chaseDirectionTimers.add(weaponsTimer)
     } else if (enemy === enemyFour){
       navigationTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 5000)
+      }, 500)
       chaseDirectionTimers.add(navigationTimer)
     }
   }
