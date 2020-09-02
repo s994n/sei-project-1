@@ -99,7 +99,7 @@ function init(){
   ['XXXXoXoXXoXXoXoXXXX'],
   ['oooooooXoooXooooooo'],
   ['XXXXoXoXoooXoXoXXXX'],
-  ['XXXXoXoXXXXXoXoXXXX'],
+  ['XXXXoXoXXoXXoXoXXXX'],
   ['XXXXoXoooooooXoXXXX'],
   ['XXXXoXoXXXXXoXoXXXX'],
   ['XooooooooXooooooooX'],
@@ -919,8 +919,14 @@ function init(){
     playerOne.score += 400
     scoreDisplay.textContent = playerOne.score
     enemy.disappear(enemy.yPos, enemy.xPos)
-    enemy.yPos = 14
-    enemy.xPos = 13
+    
+    if (currentBoard === boardOne){
+      enemy.yPos = 9
+      enemy.xPos = 8
+    } else {
+      enemy.yPos = 11
+      enemy.xPos = 9
+    }
     setTimeout(() => {
       enemy.appear()
       enemy.mode = 'flee'
@@ -935,7 +941,7 @@ function init(){
         enemyFourTimerId = detectModeChange(enemy)
       }
       
-    }, 1500)
+    }, 1000)
     
 
   }
