@@ -350,10 +350,12 @@ div.game-over.display{
   color: chartreuse;
   font-weight: bold;
   border-radius: 5%;
-  padding: 10px;
+  border: 1px solid black;
+  box-shadow: 10px 10px 5px black;
+  padding: 10px 15px 30px;
 
   position: relative;
-  bottom: 50%;
+  bottom: 70%;
   margin-left: 50px;
   width: 30%;
 
@@ -362,8 +364,29 @@ div.game-over.display{
 }
 
 .slide-in.active{
-
   opacity: 1;
   transform: translateX(0%) scale(1);
 }
 
+.commence-mission{
+	display: inline-block;
+  padding: 15px;
+  position: relative;
+  bottom: 10px;
+
+  color:#fff;
+  font-weight: bold;
+
+	background-image: var(--red-gradient);
+	box-shadow:4px 4px 10px black;
+	border-radius:5px;
+	cursor: pointer;
+	transition:all 0.5s ease-in-out;
+}
+
+.commence-mission:hover {
+	color: black;
+	background-image: var(--green-gradient);
+	box-shadow: 6px 6px 50px var(--green);
+	transform:scale(1.1);
+}
