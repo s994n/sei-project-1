@@ -766,19 +766,19 @@ function init(){
     if (enemy === enemyOne){
       captainTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 350)
+      }, 400)
     } else if (enemy === enemyTwo){
       engineerTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 350)
+      }, 300)
     } else if (enemy === enemyThree){
       weaponsTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 350)
+      }, 450)
     } else if (enemy === enemyFour){
       navigationTimer = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 350)
+      }, 500)
     }
   }
 
@@ -801,13 +801,13 @@ function init(){
 
 
   function endGame(character, collisionId){
+    
     console.log('endGame called!')    
     for (let i = 1; i < 9999; i++){
       window.clearInterval(i)
     }
     
-
-    alert(`Oh no, you got caught by ${character.name}`)
+    // alert(`Oh no, you got caught by ${character.name}`)
     
     if (currentBoard === boardTwo) {
       playerOne.loseLife()
@@ -841,10 +841,23 @@ function init(){
 
     if (currentBoard === boardOne){
       console.log('ending board one')
+      const crewImage = document.createElement('img')
+      crewImage.style.width = '200px'
+      if (character.name === 'Captain'){
+        crewImage.setAttribute('src', './styles/captain_normal.png')
+      } else if (character.name === 'Engineer'){
+        crewImage.setAttribute('src', './styles/engineer_normal.png')
+      } else if (character.name === 'Weapons'){
+        crewImage.setAttribute('src', './styles/weapons_normal.png')
+      } else if (character.name === 'Navigation'){
+        crewImage.setAttribute('src', './styles/navigation_normal.png')
+      } 
+      slideInMission.appendChild(crewImage)
       slideInMission.classList.add('active')
+
       document.querySelector('.commence-mission').addEventListener('click', () =>{
         slideInMission.classList.remove('active')
-        
+        slideInMission.removeChild(crewImage)
         reset(character)
         dotCount = 0
         grid.textContent = ''

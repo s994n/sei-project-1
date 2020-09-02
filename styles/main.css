@@ -345,17 +345,24 @@ div.game-over.display{
 
 .slide-in{
   opacity: 0;
-  /* float: right; */
+  background-color: var(--dark-grey);
+  text-align: center;
+  color: chartreuse;
+  font-weight: bold;
+  border-radius: 5%;
+  padding: 10px;
+
   position: relative;
   bottom: 50%;
-  margin-left: 25px;
+  margin-left: 50px;
+  width: 30%;
 
   transition: all 0.5s;
   transform: translateX(-30%) scale(0.9);
 }
 
 .slide-in.active{
-  color: chartreuse;
+
   opacity: 1;
   transform: translateX(0%) scale(1);
 }
