@@ -44,3 +44,7 @@ Now with a desired order of movement, the enemy will assess whether it is possib
 ### Movement timing
 decideDirection (and thereby, enemy movement) is called at slightly different rates for different enemy instances in chase mode. Doing this means that over time enemies spread out across the board, thus providing more interesting gameplay.
 
+
+
+## detecting mode changes
+when playGame is called (and a game is being played), a function, detectModeChange, is called at regular intervals. This determines whether any enemy has changed mode (flee or chase). If a mode change is identified, detectModeChange will clear all current (decideDirection) timers, which are associated with enemies deciding a direction and moving (see also section on Deciding a direction). Having cleared these intervals, detectModeChange then calls a function that determines how to re-start the game (depending on whether enemies are in flee or chase mode). 

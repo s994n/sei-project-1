@@ -256,7 +256,7 @@ function init(){
 
   function playGame(reset = false){
     
-    console.log(cells.length, 'in board:', numsOfBoards)
+    // console.log(cells.length, 'in board:', numsOfBoards)
     for (let i = 1; i < 9999; i++){
       window.clearInterval(i)
     }
@@ -294,7 +294,7 @@ function init(){
       enemyThree.xPos = 8
       enemyFour.yPos = 10
       enemyFour.xPos = 10
-      console.log('generating board one')
+      // console.log('generating board one')
       generateBoard(boardOne, newBoard)
     } else {
       currentBoard = boardTwo
@@ -308,7 +308,7 @@ function init(){
       enemyThree.xPos = 10
       enemyFour.yPos = 12
       enemyFour.xPos = 10
-      console.log('generating board two')
+      // console.log('generating board two')
       generateBoard(boardTwo, newBoard)
     }
 
@@ -367,9 +367,9 @@ function init(){
     // clearInterval(enemyFourTimerId)
     // enemyFourTimerId = null
     numsOfBoards++
-    console.log('timers for mode change:', modeChangeIdArr)
-    console.log('timers for collision detection:', collisionIdArr)
-    console.log(`playing with board: ${numsOfBoards}`)
+    // console.log('timers for mode change:', modeChangeIdArr)
+    // console.log('timers for collision detection:', collisionIdArr)
+    // console.log(`playing with board: ${numsOfBoards}`)
   }
 
 
@@ -722,17 +722,22 @@ function init(){
     const enemyCheckerId = setInterval(() => {
       if (currentEnemyMode !== enemy.mode){
         if (enemy.mode === 'flee'){
+         
+          chaseDirectionTimers.forEach(timer => {
+            clearInterval(timer)
+          })
+          chaseDirectionTimers.clear()
 
-          if (enemy === enemyOne){
+          // if (enemy === enemyOne){
             
-            clearInterval(captainTimer)
-          } else if (enemy === enemyTwo){
-            clearInterval(engineerTimer)
-          } else if (enemy === enemyThree){
-            clearInterval(weaponsTimer)
-          } else if (enemy === enemyFour){
-            clearInterval(navigationTimer)
-          }
+          //   clearInterval(captainTimer)
+          // } else if (enemy === enemyTwo){
+          //   clearInterval(engineerTimer)
+          // } else if (enemy === enemyThree){
+          //   clearInterval(weaponsTimer)
+          // } else if (enemy === enemyFour){
+          //   clearInterval(navigationTimer)
+          // }
         } else if (enemy.mode === 'chase') {
 
           if (enemy === enemyOne){
@@ -840,12 +845,12 @@ function init(){
 
   function endGame(character, collisionId){
     
-    console.log('endGame called!')    
+    // console.log('endGame called!')    
     for (let i = 1; i < 9999; i++){
       window.clearInterval(i)
     }
     
-    console.log('>>>>>>>', character.score)
+
     if (character.score >= winScore){
       //Game Win
       gameOverOrWin(character, true)
@@ -862,13 +867,13 @@ function init(){
         return
       }
       // console.log(`ending board Two. All reset? Cells: ${cells.length}, Grid: ${grid.textContent}`)
-      console.log('playGame called in endGame, boardTwo state')
+      // console.log('playGame called in endGame, boardTwo state')
       handleBoardChange(character)
       return
     }
 
     if (currentBoard === boardOne){
-      console.log('ending board one')
+      // console.log('ending board one')
       handleBoardChange(character)
       return
     }
@@ -897,7 +902,7 @@ function init(){
     
     finalScore.textContent = playerOne.score
     restartBtn.addEventListener('click', () => {
-      console.log('playGame called in zero lives state')
+      // console.log('playGame called in zero lives state')
       playGame(true)
     })
   }
