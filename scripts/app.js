@@ -811,8 +811,9 @@ function init(){
     for (let i = 1; i < 9999; i++){
       window.clearInterval(i)
     }
-    
 
+    document.removeEventListener('keyup', handleKey)
+    
     if (character.score >= winScore){
       //Game Win
       gameOverOrWin(character, true)
