@@ -24,7 +24,7 @@ body {
 
 .start-container{
   height: 100vh;
-  background-image: url('./galaxy-full.jpg');
+  background-image: url('./galaxy-full_compressed.jpeg');
   background-size: cover;
   color: white;
 
