@@ -182,9 +182,13 @@ function init(){
 
   function playGame(reset = false){
     
+    console.log(reset)
+
     for (let i = 1; i < 9999; i++){
       window.clearInterval(i)
     }
+
+ 
 
     if (reset === true){
       console.log('firing reset! Player one has lifes: ', playerOne.lives)
@@ -802,11 +806,20 @@ function init(){
     }
     
     finalScore.textContent = playerOne.score
-    // restartBtn.addEventListener('click', () => {
+    
+    restartBtn.addEventListener('click', handleReset)
+    
+        // restartBtn.addEventListener('click', () => {
     //   playGame(true)
     // })
 
   }
+
+  function handleReset(){
+    playGame(true)
+  }
+
+
 
   function handleBoardChange(character){
     const crewImage = document.createElement('img')
