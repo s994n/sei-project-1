@@ -2,7 +2,7 @@
 
 # Redshirt's run
 
-This game, inspired by Pacman (and Star Trek!) involves a player inside a maze, being chased by a group of characters (refered to here as 'enemies').
+This game, inspired by Pacman (and Star Trek!) involves a player inside a maze, being chased by a group of characters ('enemies').
 
 This is my first project, built in one week, three weeks into my Software Engineering Immersive at General Assembly.
 
@@ -10,13 +10,16 @@ This is my first project, built in one week, three weeks into my Software Engine
 ## General info on game-play
 
 * There is one player, who starts with a score of zero. 
-* The player has an avatar on the board, in a red shirt
-* The player's avatar can be moved by the player using their arrow-up, arrow-down, arrow-left and arrow-right keyboard keys.
-* The player cannot move outside of passageways, which contain the dots, and therefore remains within the bounds of the game board. However, the player can pass through a teleportation tunnel, positioned roughly at the center of the far left and right walls of the board. Entering the tunnel makes the player avatar appear on the opposite side of the board.
-* Score increases as the player moves over dots on the game board, or moves over a pill (positioned at the four corners of the board), or collides with an enemy whose mode is in 'flee' (which occurs for a set period of time after the player landed on a pill)
+* The player has an avatar on the board, in a red shirt.
+* The player's avatar can be moved by the user, with their arrow-up, arrow-down, arrow-left and arrow-right keyboard keys.
+* The player cannot move outside of passageways, which contain the dots, and therefore remains within the bounds of the game board. However, the player can pass through a transportation tunnel, positioned roughly at the center of the far left and right walls of the board. Entering the tunnel makes the player avatar appear on the opposite side of the board.
+* enemies, whose movement is determined by the computer, will start the game in a 'chase' mode, and will hunt for the player.
+* Score increases as the player moves over dots on the game board, or moves over a pill (positioned at the four corners of the board), or collides with an enemy whose mode is in 'flee' (which occurs for a set period of time after the player landed on a pill).
+* When all dots on a current board have been removed, the dots are replenished (the player can then continue to increase their score, moving over the dots).
+* When a player moves over a pill, all enemys' modes are changed for a few seconds to 'flee', before reverting back to a 'chase' mode.
 * When the player collides with an enemy whose mode is 'flee', that enemy's position is re-set to the center of the board, after a short delay
-* When the player collides with an enemy whose mode is not 'flee', game-play moves to a second board. On this second board, if/when the player again collides with an enemy not in 'flee' the player loses a life and is returned to the first board.
-*The game is over when the player looses all three of their starting lives, or when the player reaches a specified winning score
+* When the player collides with an enemy whose mode is not 'flee', game-play moves to a second board. On this second board, if/when the player again collides with an enemy not in 'flee' mode, the player loses a life and is returned to the first board.
+*The game is over when the player looses all three of their starting lives, or when the player reaches a specified winning score (the same as that for original pacman, 3,333,360).
 
 
 ## Enemy chase and flee modes
