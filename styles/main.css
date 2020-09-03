@@ -70,7 +70,7 @@ body {
 }
 
 .instructions{
-  max-width: 60%;
+  max-width: 90%;
   font-size: 1rem;
   text-align: center;
   background-color: black;
@@ -109,6 +109,10 @@ body {
 	transform:scale(1.1);
 }
 
+/* End of start and instructions section */
+
+
+/* Game container and grid section */
 .outer-container{
   display: none;
   height: 100vh;
@@ -381,4 +385,17 @@ div.game-over.display{
 	background-image: var(--green-gradient);
 	box-shadow: 6px 6px 50px var(--green);
 	transform:scale(1.1);
+}
+
+
+@media only screen and (max-width: 760px){
+
+  .start-container h1{
+    font-size: 2.5rem;
+  }
+
+  .cursor{
+    font-size: 1.2rem;
+  }
+
 }
