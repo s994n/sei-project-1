@@ -187,6 +187,11 @@ function init(){
     }
 
     if (reset === true){
+      console.log('firing reset! Player one has lifes: ', playerOne.lives)
+      // restartBtn.removeEventListener('click', () => {
+      //   playGame(true)
+      // })
+      
       for (let i = 1; i < 9999; i++){
         window.clearInterval(i)
       }
@@ -260,7 +265,6 @@ function init(){
     collisionIdThree = detectCollision(enemyThree)
     collisionIdFour = detectCollision(enemyFour)
     collisionIdArr.push(collisionIdOne, collisionIdTwo, collisionIdThree, collisionIdFour)
-
 
   }
 
@@ -414,7 +418,7 @@ function init(){
       }
     }
 
-    
+
   }
 
   //END of Player class
@@ -761,7 +765,7 @@ function init(){
         playerOne.loseLife()
         if (playerOne.lives === 0){
           //Game over
-          gameOverOrWin(character, false)
+          gameOverOrWin(false)
           return
         }
         handleBoardChange(character)
@@ -772,13 +776,13 @@ function init(){
       }  
     } else {
       //Game won
-      gameOverOrWin(character, true)
+      gameOverOrWin(true)
       return
     }
   }
 
-  function gameOverOrWin(character, win = false){
-    reset(character)
+  function gameOverOrWin(win = false){
+    reset()
     dotCount = 0
     gridWrapper.style.display = 'none'
     slideInMission.style.display = 'none'
@@ -801,6 +805,7 @@ function init(){
     restartBtn.addEventListener('click', () => {
       playGame(true)
     })
+
   }
 
   function handleBoardChange(character){
@@ -850,7 +855,7 @@ function init(){
       slideInMission.classList.remove('active')
       slideInMission.removeChild(missionMessage)
       slideInMission.removeChild(crewImage)
-      reset(character)
+      reset()
       dotCount = 0
       grid.textContent = ''
       cells = []
@@ -861,28 +866,13 @@ function init(){
   
 
 
-
-
-  // reset all characters to original position. The character that caught the player will have y or x coord off by one, so needs to be 
-  // explicitly targeted in function 
-  function reset(characterThatCaught){
-    characterThatCaught.disappear(characterThatCaught.yPos, characterThatCaught.xPos)
+  // Removes all characters from view 
+  function reset(){
     playerOne.disappear(playerOne.yPos, playerOne.xPos)
     enemyOne.disappear(enemyOne.yPos, enemyOne.xPos)
     enemyTwo.disappear(enemyTwo.yPos, enemyTwo.xPos)
     enemyThree.disappear(enemyThree.yPos, enemyThree.xPos)
     enemyFour.disappear(enemyFour.yPos, enemyFour.xPos)
-
-    // playerOne.xPos = 1
-    // playerOne.yPos = 1
-    // enemyOne.xPos = 13
-    // enemyOne.yPos = 14
-    // enemyTwo.xPos = 14
-    // enemyTwo.yPos = 14
-    // enemyThree.xPos = 13
-    // enemyThree.yPos = 15
-    // enemyFour.xPos = 14
-    // enemyFour.yPos = 14
   }
 
 
