@@ -423,8 +423,8 @@ function init(){
       lifeIcon.classList.add('life')
       lives.appendChild(lifeIcon)
     }
-    //A method to check whether the cell that the player inhabits contains either a dot or a big-dot class
-    // if dot or big-dot classes are present, score is increased accordingly
+
+
     checkEatDot(isEnemy){
       if ((isEnemy === false && cells[this.yPos][this.xPos].children[0].classList.contains('dot')) ||
       (isEnemy === false && cells[this.yPos][this.xPos].children[0].classList.contains('emergency-dot'))){
@@ -687,8 +687,11 @@ function init(){
   }
 
   function handleModeChange(enemy){
+        
     if (enemy.mode === 'flee'){
       runGameFlee(enemy)
+
+
     } else if (enemy.mode === 'chase'){
       runGameChase(enemy)
     }
@@ -744,16 +747,8 @@ function init(){
 
   //helper function that will be called by playerOne when encountering a big dot, triggers all enemies to flee for set time
   function bigDotTriggerFlee(){
-    chaseDirectionTimers.forEach(timer => {
-      clearInterval(timer)
-    })
-    chaseDirectionTimers.clear()
+    clearMovementTimers()
 
-    fleeDirectionTimers.forEach(timer => {
-      clearInterval(timer)
-    })
-    fleeDirectionTimers.clear()
-    
     enemyOne.mode = 'flee'
     enemyTwo.mode = 'flee'
     enemyThree.mode = 'flee'
@@ -774,16 +769,7 @@ function init(){
     }, 2500)
 
     setTimeout(() => {
-      chaseDirectionTimers.forEach(timer => {
-        clearInterval(timer)
-      })
-      chaseDirectionTimers.clear()
-  
-      fleeDirectionTimers.forEach(timer => {
-        clearInterval(timer)
-      })
-      fleeDirectionTimers.clear()
-      
+      clearMovementTimers()  
       enemyOne.mode = 'chase'
       enemyTwo.mode = 'chase'
       enemyThree.mode = 'chase'
@@ -794,6 +780,18 @@ function init(){
       handleModeChange(enemyThree)
       handleModeChange(enemyFour)
     }, 5000)
+  }
+
+  function clearMovementTimers(){
+    chaseDirectionTimers.forEach(timer => {
+      clearInterval(timer)
+    })
+    chaseDirectionTimers.clear()
+
+    fleeDirectionTimers.forEach(timer => {
+      clearInterval(timer)
+    })
+    fleeDirectionTimers.clear()
   }
 
 
@@ -911,7 +909,6 @@ function init(){
   }
   
 
-  // reset enemy caught when player has big-dot power. Enemy sent back to home position. Score increased
   function resetDrugged(enemy){
     playerOne.score += 400
     scoreDisplay.textContent = playerOne.score
