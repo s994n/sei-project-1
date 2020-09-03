@@ -19,10 +19,6 @@ function init(){
   const finalScore = document.querySelector('.final-score')
   const winScore = 3333360
     
-  startButton.addEventListener('click', playGame)
-  startButton.addEventListener('click', displayGameSurround)
-  gridWrapper.style.display = 'none'
-  
   let currentBoard = null
   let newBoard = null
   let cells = []
@@ -30,6 +26,10 @@ function init(){
 
 
   // Start of Start-View and Instructions Section
+
+  startButton.addEventListener('click', playGame)
+  startButton.addEventListener('click', displayGameSurround)
+  gridWrapper.style.display = 'none'
 
   setTimeout(addLetter, 500)
   const inputMessage = "Stardate: 2354. Location: very far. Rank: Ensign. Shirt: Red"
@@ -54,21 +54,10 @@ function init(){
 
   }
 
-
   // End of Start-View and Instructions Section
 
 
-
-
-
-
-
-
-
-
-
-
-  
+  // Start of Board Generation Section
 
   function displayGameSurround(){
     gameSurround.classList.add('display')
@@ -101,7 +90,7 @@ function init(){
 ]
 
   const boardTwo = [...boardOne].reverse()
-  
+
 
   function generateBoard(inputBoard, newBoard){
     const splitInputArr = inputBoard.map(subArr => subArr.join('').split('')) 
@@ -133,9 +122,7 @@ function init(){
     addDots(inputBoard, newBoard)
   }
   
-  
   function addDots(inputBoard, newBoard){
-
     for (let y = 0; y < cells.length; y++){
       for (let x = 0; x < cells[1].length; x++){
         if (cells[y][x].dataset.appearance === 'o'){
@@ -154,11 +141,13 @@ function init(){
             if (inputBoard === boardOne){
               // eslint-disable-next-line quotes
               cells[y][x].innerHTML = `<span class='dot' style="background-color: hsl(${x * y}, 90%, 50%)"></span>`
+              
               dotCount++
             }
             if (inputBoard === boardTwo){
             // eslint-disable-next-line quotes
               cells[y][x].innerHTML = "<span class='emergency-dot'></span>"
+              console.log(dotCount)
               dotCount++
             }
           }
@@ -166,6 +155,8 @@ function init(){
       }
     }
   }
+
+  // End of Board Generation Section
 
 
   // Declare timers
@@ -366,7 +357,8 @@ function init(){
         smallDotSound.currentTime = 0
         smallDotSound.play()        
         dotCount--
-        if (dotCount <= 1){
+        console.log(dotCount)
+        if (dotCount <= 1){          
           addDots(currentBoard, false)
         }
       } else if (isEnemy === false && cells[this.yPos][this.xPos].children[0].classList.contains('pill-dot')){
