@@ -2,58 +2,6 @@
 function init(){
 
 
-
-
-  // Start-view section
-
-  setTimeout(addLetter, 500)
-  // message to add
-  const inputMessage = "Star-date: 2354. Location: very far. Rank: Ensign. Shirt: Red"
-  let currentMessage = ''
-  const currentDiv = document.querySelector('.hero')
-  let firstCall = true
-
-  // function to type message
-  function addLetter(letterIndexToAdd = 0){
-    if (currentMessage.length === inputMessage.length) {
-      currentDiv.removeChild(currentDiv.lastChild)
-      return
-    }
-    currentMessage = currentMessage + `${inputMessage[letterIndexToAdd]}`
-
-    const newLetter = document.createElement('span')
-    newLetter.innerHTML = `${inputMessage[letterIndexToAdd]}`
-    newLetter.classList.add('cursor')
-    const newCursor = document.createElement('span')
-
-
-    if (firstCall === true) {
-      currentDiv.removeChild(document.querySelector('.cursor'))
-    } else {
-      currentDiv.removeChild(currentDiv.lastChild)
-    }
-    currentDiv.appendChild(newLetter)
-    currentDiv.appendChild(newCursor)
-
-    firstCall = false
-
-    setTimeout(function (){
-      addLetter(letterIndexToAdd + 1)
-    }, 150)
-
-  }
-
-
-
-
-
-
-
-
-
-
-
-
   const startContainer = document.querySelector('.start-container')
   const gameSurround = document.querySelector('.outer-container')
   const gridWrapper = document.querySelector('.grid-wrapper')
@@ -80,16 +28,51 @@ function init(){
   let cells = []
   let dotCount = 0
 
+
+  // Start of Start-View and Instructions Section
+
+  setTimeout(addLetter, 500)
+  const inputMessage = "Stardate: 2354. Location: very far. Rank: Ensign. Shirt: Red"
+  let currentMessage = ''
+  const currentDiv = document.querySelector('.hero')
+
+  function addLetter(letterIndexToAdd = 0){
+    if (currentMessage.length === inputMessage.length) {
+      return
+    }
+    currentMessage = currentMessage + `${inputMessage[letterIndexToAdd]}`
+
+    const newLetter = document.createElement('span')
+    newLetter.innerHTML = `${inputMessage[letterIndexToAdd]}`
+    newLetter.classList.add('cursor')
+
+    currentDiv.appendChild(newLetter)
+
+    setTimeout(function (){
+      addLetter(letterIndexToAdd + 1)
+    }, 150)
+
+  }
+
+
+  // End of Start-View and Instructions Section
+
+
+
+
+
+
+
+
+
+
+
+
   
 
   function displayGameSurround(){
     gameSurround.classList.add('display')
   }
-
-
-
-
-
 
   const boardOne =
 [
@@ -119,42 +102,6 @@ function init(){
 
   const boardTwo = [...boardOne].reverse()
   
-
-  //   const boardTwo =
-  // [
-  //   ['XXXXXXXXXXXXXXXXXXXXXXXXXXXX'],
-  //   ['XooooooooooooXXooooooooooooX'],
-  //   ['XoXXXXoXXXXXoXXoXXXXXoXXXXoX'],
-  //   ['XoXXXXoXXXXXoXXoXXXXXoXXXXoX'],
-  //   ['XoXXXXoXXXXXoXXoXXXXXoXXXXoX'],
-  //   ['XooooooooooooooooooooooooooX'],
-  //   ['XoXXXXoXXoXXXXXXXXoXXoXXXXoX'],
-  //   ['XoXXXXoXXoXXXXXXXXoXXoXXXXoX'],
-  //   ['XooooooXXooooXXooooXXooooooX'],
-  //   ['XXXXXXoXXXXXoXXoXXXXXoXXXXXX'],
-  //   ['XXXXXXoXXXXXoXXoXXXXXoXXXXXX'],
-  //   ['XXXXXXoXXooooooooooXXoXXXXXX'],
-  //   ['XXXXXXoXXoXXXooXXXoXXoXXXXXX'],
-  //   ['XXXXXXoXXoXooooooXoXXoXXXXXX'],
-  //   ['ooooooooooXooooooXoooooooooo'],
-  //   ['XXXXXXoXXoXooooooXoXXoXXXXXX'],
-  //   ['XXXXXXoXXoXXXXXXXXoXXoXXXXXX'],
-  //   ['XXXXXXoXXooooooooooXXoXXXXXX'],
-  //   ['XXXXXXoXXoXXXXXXXXoXXoXXXXXX'],
-  //   ['XXXXXXoXXoXXXXXXXXoXXoXXXXXX'],
-  //   ['XooooooooooooXXooooooooooooX'],
-  //   ['XoXXXXoXXXXXoXXoXXXXXoXXXXoX'],
-  //   ['XoXXXXoXXXXXoXXoXXXXXoXXXXoX'],
-  //   ['XoooXXooooooooooooooooXXoooX'],
-  //   ['XXXoXXoXXoXXXXXXXXoXXoXXoXXX'],
-  //   ['XXXoXXoXXoXXXXXXXXoXXoXXoXXX'],
-  //   ['XooooooXXooooXXooooXXooooooX'],
-  //   ['XoXXXXXXXXXXoXXoXXXXXXXXXXoX'],
-  //   ['XoXXXXXXXXXXoXXoXXXXXXXXXXoX'],
-  //   ['XooooooooooooooooooooooooooX'],
-  //   ['XXXXXXXXXXXXXXXXXXXXXXXXXXXX']
-  // ]
-
 
   function generateBoard(inputBoard, newBoard){
     const splitInputArr = inputBoard.map(subArr => subArr.join('').split('')) 
@@ -323,7 +270,6 @@ function init(){
     collisionIdFour = detectCollision(enemyFour)
     collisionIdArr.push(collisionIdOne, collisionIdTwo, collisionIdThree, collisionIdFour)
 
-    numsOfBoards++
 
   }
 
