@@ -69,7 +69,7 @@ function init(){
   ['XooooooooXooooooooX'],
   ['XoXXoXXXoXoXXXoXXoX'],
   ['XoooooooooooooooooX'],
-  ['XoXXoXoXXXXXoXoXXoX'],
+  ['XoXXoXoXoXoXoXoXXoX'],
   ['XooooXoooXoooXooooX'],
   ['XXXXoXXXoXoXXXoXXXX'],
   ['XXXXoXoooooooXoXXXX'],
@@ -658,6 +658,7 @@ function init(){
     druggedMessage.innerText = 'CREW DRUGGED! Grab them to send back to the Bridge.'
     druggedMessage.style.display = 'inline-block'
     druggedMessage.style.color = 'chartreuse'
+    druggedMessage.style.fontWeight = 'bold'
     lives.appendChild(druggedMessage)
     setTimeout(() => {
       lives.removeChild(druggedMessage)
@@ -795,7 +796,7 @@ function init(){
       gameOver.classList.add('display')
     } else {
       gameOverSound.play()
-      gameOver.childNodes[0].nextSibling.innerHTML = 'Blast it all! Game over. If only you had hidden better'
+      gameOver.childNodes[0].nextSibling.innerHTML = 'Game over. It is possible to commit no errors and still lose. That is not a weakness. That is life ... But maybe run faster next time.'
       gameOver.classList.add('display')
     }
     
@@ -818,7 +819,7 @@ function init(){
     } else {
       missionMessage.style.color = 'red'
       // eslint-disable-next-line quotes
-      missionMessage.textContent = "You've been injured by one of the blasted space-mad crew on the Truman! Get back to the Nimitz!."
+      missionMessage.textContent = "You've been injured by one of the blasted space-mad crew on the Truman! Get back to the Nimitz!"
     }
     slideInMission.appendChild(missionMessage)
     
