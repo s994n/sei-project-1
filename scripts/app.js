@@ -188,7 +188,7 @@ function init(){
   
   
   function addDots(inputBoard, newBoard){
-    console.log('calling for', inputBoard, 'newboard is:', newBoard)
+
     for (let y = 0; y < cells.length; y++){
       for (let x = 0; x < cells[1].length; x++){
         if (cells[y][x].dataset.appearance === 'o'){
@@ -231,10 +231,7 @@ function init(){
   let engineerTimerFlee
   let weaponsTimerFlee
   let navigationTimerFlee
-  let enemyOneTimerId
-  let enemyTwoTimerId
-  let enemyThreeTimerId
-  let enemyFourTimerId
+
   let collisionIdOne
   let collisionIdTwo
   let collisionIdThree
@@ -243,14 +240,10 @@ function init(){
   const chaseDirectionTimers = new Set()
   const fleeDirectionTimers = new Set()
   const collisionIdArr = []
-  const modeChangeIdArr = []
 
-
-  let numsOfBoards = 0
 
   function playGame(reset = false){
     
-    // console.log(cells.length, 'in board:', numsOfBoards)
     for (let i = 1; i < 9999; i++){
       window.clearInterval(i)
     }
@@ -289,7 +282,6 @@ function init(){
       enemyThree.xPos = 8
       enemyFour.yPos = 10
       enemyFour.xPos = 10
-      // console.log('generating board one')
       generateBoard(boardOne, newBoard)
     } else {
       currentBoard = boardTwo
@@ -303,7 +295,6 @@ function init(){
       enemyThree.xPos = 10
       enemyFour.yPos = 12
       enemyFour.xPos = 10
-      // console.log('generating board two')
       generateBoard(boardTwo, newBoard)
     }
 
@@ -326,12 +317,6 @@ function init(){
     runGameChase(enemyThree)
     runGameChase(enemyFour)
 
-    // enemyOneTimerId = detectModeChange(enemyOne)
-    // enemyTwoTimerId = detectModeChange(enemyTwo)
-    // enemyThreeTimerId = detectModeChange(enemyThree)
-    // enemyFourTimerId = detectModeChange(enemyFour)
-    // modeChangeIdArr.push(enemyOneTimerId, enemyTwoTimerId, enemyThreeTimerId, enemyFourTimerId)
-
     collisionIdOne = detectCollision(enemyOne)
     collisionIdTwo = detectCollision(enemyTwo)
     collisionIdThree = detectCollision(enemyThree)
@@ -339,9 +324,7 @@ function init(){
     collisionIdArr.push(collisionIdOne, collisionIdTwo, collisionIdThree, collisionIdFour)
 
     numsOfBoards++
-    // console.log('timers for mode change:', modeChangeIdArr)
-    // console.log('timers for collision detection:', collisionIdArr)
-    // console.log(`playing with board: ${numsOfBoards}`)
+
   }
 
 
@@ -360,7 +343,9 @@ function init(){
     }
     appear(){
       cells[this.yPos][this.xPos].classList.add(`${this.name}`)
+      
       if (this.mode === 'flee'){
+        // console.log('adding flee appearance to: ', this.name)
         cells[this.yPos][this.xPos].classList.add('fleeing')
       } 
     }
@@ -650,32 +635,24 @@ function init(){
             captainTimer = null            
             clearInterval(captainTimerFlee)
             captainTimerFlee = null
-            clearInterval(enemyOneTimerId)
-            enemyOneTimerId = null
             resetDrugged(enemy)
           } else if (enemy === enemyTwo) {
             clearInterval(engineerTimer)
             engineerTimer = null            
             clearInterval(engineerTimerFlee)
             engineerTimerFlee = null
-            clearInterval(enemyTwoTimerId)
-            enemyTwoTimerId = null
             resetDrugged(enemy)
           } else if (enemy === enemyThree) {
             clearInterval(weaponsTimer)
             weaponsTimer = null            
             clearInterval(weaponsTimerFlee)
             weaponsTimerFlee = null
-            clearInterval(enemyThreeTimerId)
-            enemyThreeTimerId = null
             resetDrugged(enemy)
           } else if (enemy === enemyFour) {
             clearInterval(navigationTimer)
             navigationTimer = null            
             clearInterval(navigationTimerFlee)
             navigationTimerFlee = null
-            clearInterval(enemyFourTimerId)
-            enemyFourTimerId = null
             resetDrugged(enemy)
           }
         } else {
@@ -687,11 +664,8 @@ function init(){
   }
 
   function handleModeChange(enemy){
-        
     if (enemy.mode === 'flee'){
       runGameFlee(enemy)
-
-
     } else if (enemy.mode === 'chase'){
       runGameChase(enemy)
     }
@@ -701,22 +675,22 @@ function init(){
     if (enemy === enemyOne){
       captainTimerFlee = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 1000)
+      }, 500)
       fleeDirectionTimers.add(captainTimerFlee)
     } else if (enemy === enemyTwo){
       engineerTimerFlee = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 1000)
+      }, 500)
       fleeDirectionTimers.add(engineerTimerFlee)
     } else if (enemy === enemyThree){
       weaponsTimerFlee = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 1000)
+      }, 500)
       fleeDirectionTimers.add(weaponsTimerFlee)
     } else if (enemy === enemyFour){
       navigationTimerFlee = setInterval(() => {
         enemy.decideDirection(playerOne)
-      }, 1000)
+      }, 500)
       fleeDirectionTimers.add(navigationTimerFlee)
     }
   }
@@ -794,16 +768,11 @@ function init(){
     fleeDirectionTimers.clear()
   }
 
-
   function endGame(character, collisionId){
-    
-    // console.log('endGame called!')    
     for (let i = 1; i < 9999; i++){
       window.clearInterval(i)
     }
-
     document.removeEventListener('keyup', handleKey)
-    
     if (character.score < winScore){
       collisionSound.play()
       if (currentBoard === boardTwo) {
@@ -923,7 +892,7 @@ function init(){
     }
     setTimeout(() => {
       enemy.appear()
-      enemy.mode = 'flee'
+      // enemy.mode = 'flee'
       runGameFlee(enemy)
       // if (enemy === enemyOne){
       //   enemyOneTimerId = detectModeChange(enemy)
