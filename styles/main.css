@@ -279,7 +279,7 @@ div.passageway-dark{
 
 
 .lives{
-  height: 150px;
+  height: 100px;
 }
 
 div.life{
@@ -388,6 +388,17 @@ div.game-over.display{
 }
 
 
+@media only screen and (max-width: 1050px){
+  .slide-in{
+    bottom: 90%;
+  }
+
+  .lives{
+    height: 75px;
+  }
+}
+
+
 @media only screen and (max-width: 760px){
 
   .start-container h1{
@@ -397,5 +408,6 @@ div.game-over.display{
   .cursor{
     font-size: 1.2rem;
   }
+
 
 }

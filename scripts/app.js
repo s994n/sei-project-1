@@ -8,7 +8,7 @@ function init(){
 
   setTimeout(addLetter, 500)
   // message to add
-  const inputMessage = "Star-date: 2159. Location: very far. Rank: Ensign. Shirt: Red"
+  const inputMessage = "Star-date: 2354. Location: very far. Rank: Ensign. Shirt: Red"
   let currentMessage = ''
   const currentDiv = document.querySelector('.hero')
   let firstCall = true
