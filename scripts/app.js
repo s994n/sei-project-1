@@ -438,9 +438,7 @@ function init(){
         if (dotCount <= 1){
           addDots(currentBoard, false)
         }
-      } else if ((isEnemy === false && cells[this.yPos][this.xPos].children[0].classList.contains('big-dot')) ||
-      (isEnemy === false && cells[this.yPos][this.xPos].children[0].classList.contains('pill-dot'))){
-        cells[this.yPos][this.xPos].children[0].classList.remove('big-dot')
+      } else if (isEnemy === false && cells[this.yPos][this.xPos].children[0].classList.contains('pill-dot')){
         cells[this.yPos][this.xPos].children[0].classList.remove('pill-dot')
         this.score += 50
         scoreDisplay.textContent = playerOne.score
