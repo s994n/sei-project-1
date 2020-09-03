@@ -625,6 +625,7 @@ function init(){
   
   
 
+//Start of Collision Detection and Handling Section
 
   function detectCollision(enemy){
     return setInterval(() => {
@@ -661,6 +662,80 @@ function init(){
 
       }   
     }, 40)
+  }
+
+
+  function resetDrugged(enemy){
+    playerOne.score += 400
+    scoreDisplay.textContent = playerOne.score
+    enemy.disappear(enemy.yPos, enemy.xPos)
+    
+    if (currentBoard === boardOne){
+      enemy.yPos = 9
+      enemy.xPos = 8
+    } else {
+      enemy.yPos = 11
+      enemy.xPos = 9
+    }
+    setTimeout(() => {
+      enemy.appear()
+      runGameFlee(enemy)
+    }, 1000)
+  }
+
+  //End of Collision Detection and Handling Section
+  
+
+  //Start of Mode Change Section 
+
+  //Section dealing with player encountering pill, enemies changing mode, clearing movement timers
+  // and re-commencing game with enemies in either flee or chase modes
+  function bigDotTriggerFlee(){
+    clearMovementTimers()
+
+    enemyOne.mode = 'flee'
+    enemyTwo.mode = 'flee'
+    enemyThree.mode = 'flee'
+    enemyFour.mode = 'flee'
+    
+    handleModeChange(enemyOne)
+    handleModeChange(enemyTwo)
+    handleModeChange(enemyThree)
+    handleModeChange(enemyFour)
+
+    const druggedMessage = document.createElement('div')
+    druggedMessage.innerText = 'CREW DRUGGED! Grab them to send back to the Bridge.'
+    druggedMessage.style.display = 'inline-block'
+    druggedMessage.style.color = 'chartreuse'
+    lives.appendChild(druggedMessage)
+    setTimeout(() => {
+      lives.removeChild(druggedMessage)
+    }, 2500)
+
+    setTimeout(() => {
+      clearMovementTimers()  
+      enemyOne.mode = 'chase'
+      enemyTwo.mode = 'chase'
+      enemyThree.mode = 'chase'
+      enemyFour.mode = 'chase'
+
+      handleModeChange(enemyOne)
+      handleModeChange(enemyTwo)
+      handleModeChange(enemyThree)
+      handleModeChange(enemyFour)
+    }, 5000)
+  }
+
+  function clearMovementTimers(){
+    chaseDirectionTimers.forEach(timer => {
+      clearInterval(timer)
+    })
+    chaseDirectionTimers.clear()
+
+    fleeDirectionTimers.forEach(timer => {
+      clearInterval(timer)
+    })
+    fleeDirectionTimers.clear()
   }
 
   function handleModeChange(enemy){
@@ -719,54 +794,12 @@ function init(){
     }
   }
 
-  //helper function that will be called by playerOne when encountering a big dot, triggers all enemies to flee for set time
-  function bigDotTriggerFlee(){
-    clearMovementTimers()
 
-    enemyOne.mode = 'flee'
-    enemyTwo.mode = 'flee'
-    enemyThree.mode = 'flee'
-    enemyFour.mode = 'flee'
-    
-    handleModeChange(enemyOne)
-    handleModeChange(enemyTwo)
-    handleModeChange(enemyThree)
-    handleModeChange(enemyFour)
+// End of Mode Change Section
 
-    const druggedMessage = document.createElement('div')
-    druggedMessage.innerText = 'CREW DRUGGED! Grab them to send back to the Bridge.'
-    druggedMessage.style.display = 'inline-block'
-    druggedMessage.style.color = 'chartreuse'
-    lives.appendChild(druggedMessage)
-    setTimeout(() => {
-      lives.removeChild(druggedMessage)
-    }, 2500)
 
-    setTimeout(() => {
-      clearMovementTimers()  
-      enemyOne.mode = 'chase'
-      enemyTwo.mode = 'chase'
-      enemyThree.mode = 'chase'
-      enemyFour.mode = 'chase'
 
-      handleModeChange(enemyOne)
-      handleModeChange(enemyTwo)
-      handleModeChange(enemyThree)
-      handleModeChange(enemyFour)
-    }, 5000)
-  }
-
-  function clearMovementTimers(){
-    chaseDirectionTimers.forEach(timer => {
-      clearInterval(timer)
-    })
-    chaseDirectionTimers.clear()
-
-    fleeDirectionTimers.forEach(timer => {
-      clearInterval(timer)
-    })
-    fleeDirectionTimers.clear()
-  }
+//Start of End-Game Section (including switching between boards)
 
   function endGame(character, collisionId){
     for (let i = 1; i < 9999; i++){
@@ -878,36 +911,7 @@ function init(){
   }
   
 
-  function resetDrugged(enemy){
-    playerOne.score += 400
-    scoreDisplay.textContent = playerOne.score
-    enemy.disappear(enemy.yPos, enemy.xPos)
-    
-    if (currentBoard === boardOne){
-      enemy.yPos = 9
-      enemy.xPos = 8
-    } else {
-      enemy.yPos = 11
-      enemy.xPos = 9
-    }
-    setTimeout(() => {
-      enemy.appear()
-      // enemy.mode = 'flee'
-      runGameFlee(enemy)
-      // if (enemy === enemyOne){
-      //   enemyOneTimerId = detectModeChange(enemy)
-      // } else if (enemy === enemyTwo){
-      //   enemyTwoTimerId = detectModeChange(enemy)
-      // } else if (enemy === enemyThree){
-      //   enemyThreeTimerId = detectModeChange(enemy)
-      // } else if (enemy === enemyFour){
-      //   enemyFourTimerId = detectModeChange(enemy)
-      // }
-      
-    }, 1000)
-    
 
-  }
 
 
   // reset all characters to original position. The character that caught the player will have y or x coord off by one, so needs to be 
