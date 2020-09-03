@@ -181,20 +181,12 @@ function init(){
 
 
   function playGame(reset = false){
-    
-    console.log(reset)
 
     for (let i = 1; i < 9999; i++){
       window.clearInterval(i)
     }
 
- 
-
     if (reset === true){
-      console.log('firing reset! Player one has lifes: ', playerOne.lives)
-      // restartBtn.removeEventListener('click', () => {
-      //   playGame(true)
-      // })
       
       for (let i = 1; i < 9999; i++){
         window.clearInterval(i)
@@ -806,19 +798,12 @@ function init(){
     }
     
     finalScore.textContent = playerOne.score
-    
-    restartBtn.addEventListener('click', handleReset)
-    
-        // restartBtn.addEventListener('click', () => {
-    //   playGame(true)
-    // })
-
+    restartBtn.addEventListener('click', handleReset) 
   }
 
   function handleReset(){
     playGame(true)
   }
-
 
 
   function handleBoardChange(character){
@@ -872,8 +857,6 @@ function init(){
   }
   
   function handleCommenceMission(){
-    console.log('Doubles?')
-    
     slideInMission.classList.remove('active')
     reset()
     dotCount = 0
