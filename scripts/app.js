@@ -275,6 +275,7 @@ function init(){
     gridWrapper.style.display = 'flex'
     newBoard = true
     gameOver.classList.remove('display')
+    slideInMission.style.display = 'block'
 
     if (currentBoard !== boardOne){
       currentBoard = boardOne
