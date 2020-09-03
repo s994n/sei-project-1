@@ -194,9 +194,11 @@ function init(){
       displayGameSurround()
       playerOne.score = 0
       scoreDisplay.textContent = playerOne.score
+      lives.textContent = ''
       playerOne.addLife()
       playerOne.addLife()
       playerOne.addLife()
+      console.log(playerOne.lives)
       cells = []
       grid.textContent = ''
       currentBoard = null
