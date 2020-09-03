@@ -810,7 +810,9 @@ function init(){
 
 
   function handleBoardChange(character){
-    const crewImage = document.createElement('img')
+    const crewImage = new Image()
+    console.log(crewImage)
+    // const crewImage = document.createElement('img')
     const missionMessage = document.createElement('p')
     
     if (currentBoard === boardOne){
@@ -821,44 +823,62 @@ function init(){
       // eslint-disable-next-line quotes
       missionMessage.textContent = "You've been injured by one of the blasted space-mad crew on the Truman! Get back to the Nimitz!"
     }
-    slideInMission.appendChild(missionMessage)
     
+    slideInMission.appendChild(missionMessage)
+
+
     crewImage.style.width = '200px'
     if (character.name === 'Captain'){
       if (currentBoard === boardOne) {
-        crewImage.setAttribute('src', './styles/captain_normal.png')
+        crewImage.src = './styles/captain_normal.png'
       } else {
-        crewImage.setAttribute('src', './styles/captain_drugged.png')
+        crewImage.src = './styles/captain_drugged.png'
       }
     } else if (character.name === 'Engineer'){
       if (currentBoard === boardOne){
-        crewImage.setAttribute('src', './styles/engineer_normal.png')
+        crewImage.src = './styles/engineer_normal.png'
       } else {
-        crewImage.setAttribute('src', './styles/engineer_drugged.png')
+        crewImage.src = './styles/engineer_drugged.png'
       }
     } else if (character.name === 'Weapons'){
       if (currentBoard === boardOne){
-        crewImage.setAttribute('src', './styles/weapons_normal.png')
+        crewImage.src = './styles/weapons_normal.png'
       } else {
-        crewImage.setAttribute('src', './styles/weapons_drugged.png')
+        crewImage.src = './styles/weapons_drugged.png'
       }
     } else if (character.name === 'Navigation'){
       if (currentBoard === boardOne){
-        crewImage.setAttribute('src', './styles/navigation_normal.png')
+        crewImage.src = './styles/navigation_normal.png'
       } else {
-        crewImage.setAttribute('src', './styles/navigation_drugged.png')
+        crewImage.src = './styles/navigation_drugged.png'
       }
     } 
     slideInMission.appendChild(crewImage)    
+    // console.log('slideIn with para and img appended,', slideInMission)
     slideInMission.classList.add('active')
-
+    // console.log('OUTSIDE event listener should be all child nodes', slideInMission.childNodes)
+    
     document.querySelector('.commence-mission').addEventListener('click', () => {
-      slideInMission.removeChild(missionMessage)
-      slideInMission.removeChild(crewImage)
+      // console.log('should be image', slideInMission.childNodes[4])
+      // console.log('should be paragraph', slideInMission.childNodes[3])
+      // slideInMission.removeChild(missionMessage)
+      if (slideInMission.childNodes.length < 5){
+        return
+      } 
+      handleSlideInRemoval()
       handleCommenceMission()
     })
   }
-  
+
+  function handleSlideInRemoval(){
+    // console.log('should be all child nodes', slideInMission.childNodes)
+    // console.log('check nodelist length: ', slideInMission.childNodes.length)
+    
+    slideInMission.removeChild(slideInMission.childNodes[4])
+    slideInMission.removeChild(slideInMission.childNodes[3])
+
+  }
+
   function handleCommenceMission(){
     slideInMission.classList.remove('active')
     reset()
