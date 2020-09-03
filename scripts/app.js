@@ -395,10 +395,6 @@ function init(){
       }
     }
 
-
-
-    //helper function responsible for moving (disappearing and appearing) all characters
-    // Includes some logic for collision handling, under conditions of chase vs flee for enemies  
     mover(character, direction, tempXPosition, tempYPosition, isEnemy){
       if (cells[character.yPos][character.xPos].dataset.appearance === 'o'){
         if (isEnemy && character.yPos === character.locateCharacter(playerOne)[0] &&
@@ -413,14 +409,12 @@ function init(){
           character.putDotInMouth()
         }
         character.appear()
-
-
       } else {
         adjustCoords(direction, character)
       }
     }
 
-
+    
   }
 
   //END of Player class
@@ -534,6 +528,28 @@ function init(){
 
 
 
+  // Start of Movement Handling Section (both player and enemies)
+
+  //Player movement
+  function handleKey(event){ 
+    switch (event.code){
+      case 'ArrowRight':
+        playerOne.moveRight()  
+        break
+      case 'ArrowLeft':
+        playerOne.moveLeft()  
+        break  
+      case 'ArrowUp':
+        playerOne.moveUp()  
+        break
+      case 'ArrowDown':
+        playerOne.moveDown()  
+        break
+    }
+  }
+
+  
+
 
 
   function adjustCoords(direction, character){
@@ -617,6 +633,7 @@ function init(){
 
   //End of Collision Detection and Handling Section
   
+
 
   //Start of Mode Change Section 
 
@@ -872,23 +889,7 @@ function init(){
 
   
 
-  function handleKey(event){ 
-    switch (event.code){
-      case 'ArrowRight':
-        playerOne.moveRight()  
-        break
-      case 'ArrowLeft':
-        playerOne.moveLeft()  
-        break  
-      case 'ArrowUp':
-        playerOne.moveUp()  
-        break
-      case 'ArrowDown':
-        playerOne.moveDown()  
-        break
-    }
 
-  }
 
 
 
