@@ -802,9 +802,9 @@ function init(){
     }
     
     finalScore.textContent = playerOne.score
-    restartBtn.addEventListener('click', () => {
-      playGame(true)
-    })
+    // restartBtn.addEventListener('click', () => {
+    //   playGame(true)
+    // })
 
   }
 
@@ -851,19 +851,23 @@ function init(){
     slideInMission.appendChild(crewImage)    
     slideInMission.classList.add('active')
 
-    document.querySelector('.commence-mission').addEventListener('click', () =>{
-      slideInMission.classList.remove('active')
+    document.querySelector('.commence-mission').addEventListener('click', () => {
       slideInMission.removeChild(missionMessage)
       slideInMission.removeChild(crewImage)
-      reset()
-      dotCount = 0
-      grid.textContent = ''
-      cells = []
-      playGame()
-      return
+      handleCommenceMission()
     })
   }
   
+  function handleCommenceMission(){
+    console.log('Doubles?')
+    
+    slideInMission.classList.remove('active')
+    reset()
+    dotCount = 0
+    grid.textContent = ''
+    cells = []
+    playGame()
+  }
 
 
   // Removes all characters from view 
