@@ -4,6 +4,8 @@
 
 This game, inspired by Pacman (and Star Trek!) involves a player inside a maze, being chased by a group of characters (refered to here as 'enemies').
 
+This is my first project, built in one week, three weeks into my Software Engineering Immersive at General Assembly.
+
 
 ## General info on game-play
 
