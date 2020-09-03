@@ -147,7 +147,7 @@ function init(){
             if (inputBoard === boardTwo){
             // eslint-disable-next-line quotes
               cells[y][x].innerHTML = "<span class='emergency-dot'></span>"
-              console.log(dotCount)
+
               dotCount++
             }
           }
@@ -282,7 +282,6 @@ function init(){
       cells[this.yPos][this.xPos].classList.add(`${this.name}`)
       
       if (this.mode === 'flee'){
-        // console.log('adding flee appearance to: ', this.name)
         cells[this.yPos][this.xPos].classList.add('fleeing')
       } 
     }
@@ -356,8 +355,8 @@ function init(){
         scoreDisplay.textContent = playerOne.score
         smallDotSound.currentTime = 0
         smallDotSound.play()        
+
         dotCount--
-        console.log(dotCount)
         if (dotCount <= 1){          
           addDots(currentBoard, false)
         }
@@ -402,16 +401,9 @@ function init(){
     // Includes some logic for collision handling, under conditions of chase vs flee for enemies  
     mover(character, direction, tempXPosition, tempYPosition, isEnemy){
       if (cells[character.yPos][character.xPos].dataset.appearance === 'o'){
-        //this checks whether the character (either playerOne or an enemy) has encountered an enemy
-        if (isEnemy){
-          if (character.yPos === character.locateCharacter(playerOne)[0] &&
-            character.xPos === character.locateCharacter(playerOne)[1]){
-            if (character.mode === 'flee'){
-              // console.error('wrong detection happening!')
-            } else {
-              return
-            }
-          }           
+        if (isEnemy && character.yPos === character.locateCharacter(playerOne)[0] &&
+        character.xPos === character.locateCharacter(playerOne)[1]){
+          return
         } 
         character.disappear(tempYPosition, tempXPosition)
         if (isEnemy){
@@ -421,6 +413,8 @@ function init(){
           character.putDotInMouth()
         }
         character.appear()
+
+
       } else {
         adjustCoords(direction, character)
       }
@@ -563,7 +557,7 @@ function init(){
   
   
 
-//Start of Collision Detection and Handling Section
+  //Start of Collision Detection and Handling Section
 
   function detectCollision(enemy){
     return setInterval(() => {
@@ -733,11 +727,11 @@ function init(){
   }
 
 
-// End of Mode Change Section
+  // End of Mode Change Section
 
 
 
-//Start of End-Game Section (including switching between boards)
+  //Start of End-Game Section (including switching between boards)
 
   function endGame(character, collisionId){
     for (let i = 1; i < 9999; i++){
