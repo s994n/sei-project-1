@@ -141,7 +141,7 @@ function init(){
         smallDotSound.play()        
 
         dotCount--
-        console.log(dotCount)
+
         if (dotCount <= 2){          
           dotCount = 0
           addDots(currentBoard, false)
@@ -277,7 +277,6 @@ function init(){
       const checkedDown = this.checkDown()
       const characterPosition = this.locateCharacter(character)
       
-      //>>>>>>>>>>>>>>>> REFACTOR >>>>>>>>>>>>>>>>>
       const rightWeight = [Math.abs(characterPosition[0] - checkedRight[0]) + Math.abs(characterPosition[1] - checkedRight[1]), 'right']
       const leftWeight = [Math.abs(characterPosition[0] - checkedLeft[0]) + Math.abs(characterPosition[1] - checkedLeft[1]), 'left']
       const upWeight = [Math.abs(characterPosition[0] - checkedUp[0]) + Math.abs(characterPosition[1] - checkedUp[1]), 'up']
@@ -335,7 +334,7 @@ function init(){
   const enemyThree = new Enemy(10,8, 'Weapons')
   const enemyFour = new Enemy(10,10, 'Navigation')
   
-  
+  const enemyInstances = [enemyOne, enemyTwo, enemyThree, enemyFour]
 
   // Start of Start-View and Instructions Section
 
@@ -433,10 +432,15 @@ function init(){
     document.addEventListener('keyup', handleKey)
   
     playerOne.appear()
-    enemyOne.appear()
-    enemyTwo.appear()
-    enemyThree.appear()
-    enemyFour.appear()
+    
+    enemyInstances.forEach(enemyInstance => {
+      enemyInstance.appear()
+    })
+    
+    // enemyOne.appear()
+    // enemyTwo.appear()
+    // enemyThree.appear()
+    // enemyFour.appear()
 
     playerOne.putDotInMouth()
     enemyOne.putDotInMouth()
@@ -797,7 +801,8 @@ function init(){
       gameOver.classList.add('display')
     } else {
       gameOverSound.play()
-      gameOver.childNodes[0].nextSibling.innerHTML = 'Game over. It is possible to commit no errors and still lose. That is not a weakness. That is life ... But maybe run faster next time.'
+      // eslint-disable-next-line quotes
+      gameOver.childNodes[0].nextSibling.innerHTML = "Game over. 'It is possible to commit no errors and still lose. That is not a weakness. That is life.' Jean Luc Picard ... But maybe run faster next time."
       gameOver.classList.add('display')
     }
     
