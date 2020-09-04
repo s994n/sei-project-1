@@ -141,7 +141,9 @@ function init(){
         smallDotSound.play()        
 
         dotCount--
-        if (dotCount <= 1){          
+        console.log(dotCount)
+        if (dotCount <= 2){          
+          dotCount = 0
           addDots(currentBoard, false)
         }
       } else if (isEnemy === false && cells[this.yPos][this.xPos].children[0].classList.contains('pill-dot')){
@@ -203,7 +205,6 @@ function init(){
   }
 
   //END of Player class
-
 
   function adjustCoords(direction, character){
     if (direction === 'right'){
@@ -379,7 +380,6 @@ function init(){
     }
 
     if (reset === true){
-    
       for (let i = 1; i < 9999; i++){
         window.clearInterval(i)
       }
@@ -390,7 +390,6 @@ function init(){
       playerOne.addLife()
       playerOne.addLife()
       playerOne.addLife()
-      console.log(playerOne.lives)
       cells = []
       grid.textContent = ''
       currentBoard = null
@@ -560,8 +559,6 @@ function init(){
   // End of Play-Game and Board Generation Section
   
 
-  // Start of Movement Handling Section (both player and enemies)
-
   //Player movement
   function handleKey(event){ 
     switch (event.code){
@@ -579,12 +576,6 @@ function init(){
         break
     }
   }
-
-  
-
-
-
-
 
 
   //Start of Collision Detection and Handling Section
@@ -758,9 +749,7 @@ function init(){
     }
   }
 
-
   // End of Mode Change Section
-
 
 
   //Start of End-Game Section (including switching between boards)
@@ -820,11 +809,9 @@ function init(){
     playGame(true)
   }
 
-
+  //Handles what happense when player has collided with an enemy not in flee mode. Slide-in appears and disappears after click, and play re-starts on a new board.
   function handleBoardChange(character){
     const crewImage = new Image()
-    console.log(crewImage)
-    // const crewImage = document.createElement('img')
     const missionMessage = document.createElement('p')
     
     if (currentBoard === boardOne){
@@ -837,7 +824,6 @@ function init(){
     }
     
     slideInMission.appendChild(missionMessage)
-
 
     crewImage.style.width = '200px'
     if (character.name === 'Captain'){
@@ -865,15 +851,11 @@ function init(){
         crewImage.src = './styles/navigation_drugged.png'
       }
     } 
+
     slideInMission.appendChild(crewImage)    
-    // console.log('slideIn with para and img appended,', slideInMission)
     slideInMission.classList.add('active')
-    // console.log('OUTSIDE event listener should be all child nodes', slideInMission.childNodes)
     
     document.querySelector('.commence-mission').addEventListener('click', () => {
-      // console.log('should be image', slideInMission.childNodes[4])
-      // console.log('should be paragraph', slideInMission.childNodes[3])
-      // slideInMission.removeChild(missionMessage)
       if (slideInMission.childNodes.length < 5){
         return
       } 
@@ -883,14 +865,10 @@ function init(){
   }
 
   function handleSlideInRemoval(){
-    // console.log('should be all child nodes', slideInMission.childNodes)
-    // console.log('check nodelist length: ', slideInMission.childNodes.length)
-    
     slideInMission.removeChild(slideInMission.childNodes[4])
     slideInMission.removeChild(slideInMission.childNodes[3])
-
   }
-
+  //clears current board and starts play on a new board (player has collided with an enemy but still has lives)
   function handleCommenceMission(){
     slideInMission.classList.remove('active')
     reset()
@@ -909,18 +887,6 @@ function init(){
     enemyThree.disappear(enemyThree.yPos, enemyThree.xPos)
     enemyFour.disappear(enemyFour.yPos, enemyFour.xPos)
   }
-
-
-
-  
-
-
-
-
-
-    
-
-
 
 
 
