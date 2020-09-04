@@ -374,16 +374,14 @@ function init(){
   // The function that, when called, kicks off generating the board and playing the game
   function playGame(reset = false){
 
-    // for (let i = 1; i < 9999; i++){
-    //   window.clearInterval(i)
-    // }
-    //clear any/all timers associated with detectCollision
+    //clear all timers associated with detectCollision from previous game
     collisionIdTimers.forEach(timer => {
       clearInterval(timer)
     })
     collisionIdTimers.clear()
 
     if (reset === true){
+      //reseting game after game completely over, make absolutely sure all previously set intervals are cleared
       for (let i = 1; i < 9999; i++){
         window.clearInterval(i)
       }
