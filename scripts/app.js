@@ -43,7 +43,7 @@ function init(){
 
   const chaseDirectionTimers = new Set()
   const fleeDirectionTimers = new Set()
-  const collisionIdArr = new Set()
+  const collisionIdTimers = new Set()
 
 
 
@@ -374,9 +374,14 @@ function init(){
   // The function that, when called, kicks off generating the board and playing the game
   function playGame(reset = false){
 
-    for (let i = 1; i < 9999; i++){
-      window.clearInterval(i)
-    }
+    // for (let i = 1; i < 9999; i++){
+    //   window.clearInterval(i)
+    // }
+    //clear any/all timers associated with detectCollision
+    collisionIdTimers.forEach(timer => {
+      clearInterval(timer)
+    })
+    collisionIdTimers.clear()
 
     if (reset === true){
       for (let i = 1; i < 9999; i++){
@@ -437,18 +442,10 @@ function init(){
     enemyInstances.forEach(enemyInstance => {
       enemyInstance.appear()
       enemyInstance.putDotInMouth()
-      runGameChase(enemyInstance)
-      
-      collisionIdArr.add(detectCollision(enemyInstance))
+      runGameChase(enemyInstance)    
+      collisionIdTimers.add(detectCollision(enemyInstance))
     })
-    
-    console.log(collisionIdArr)
-
-    // collisionIdOne = detectCollision(enemyOne)
-    // collisionIdTwo = detectCollision(enemyTwo)
-    // collisionIdThree = detectCollision(enemyThree)
-    // collisionIdFour = detectCollision(enemyFour)
-    // collisionIdArr.push(collisionIdOne, collisionIdTwo, collisionIdThree, collisionIdFour)
+  
 
   }
 
