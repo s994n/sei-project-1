@@ -25,141 +25,7 @@ function init(){
   let dotCount = 0
 
 
-  // Start of Start-View and Instructions Section
-
-  startButton.addEventListener('click', playGame)
-  startButton.addEventListener('click', displayGameSurround)
-  gridWrapper.style.display = 'none'
-
-  setTimeout(addLetter, 500)
-  const inputMessage = "Stardate: 2354. Location: very far. Rank: Ensign. Shirt: Red"
-  let currentMessage = ''
-  const currentDiv = document.querySelector('.hero')
-
-  function addLetter(letterIndexToAdd = 0){
-    if (currentMessage.length === inputMessage.length) {
-      return
-    }
-    currentMessage = currentMessage + `${inputMessage[letterIndexToAdd]}`
-
-    const newLetter = document.createElement('span')
-    newLetter.innerHTML = `${inputMessage[letterIndexToAdd]}`
-    newLetter.classList.add('cursor')
-
-    currentDiv.appendChild(newLetter)
-
-    setTimeout(function (){
-      addLetter(letterIndexToAdd + 1)
-    }, 150)
-
-  }
-
-  // End of Start-View and Instructions Section
-
-
-  // Start of Board Generation Section
-
-  function displayGameSurround(){
-    gameSurround.classList.add('display')
-  }
-
-  const boardOne =
-[
-  ['XXXXXXXXXXXXXXXXXXX'],
-  ['XooooooooXooooooooX'],
-  ['XoXXoXXXoXoXXXoXXoX'],
-  ['XoooooooooooooooooX'],
-  ['XoXXoXoXoXoXoXoXXoX'],
-  ['XooooXoooXoooXooooX'],
-  ['XXXXoXXXoXoXXXoXXXX'],
-  ['XXXXoXoooooooXoXXXX'],
-  ['XXXXoXoXXoXXoXoXXXX'],
-  ['oooooooXoooXooooooo'],
-  ['XXXXoXoXoooXoXoXXXX'],
-  ['XXXXoXoXXoXXoXoXXXX'],
-  ['XXXXoXoooooooXoXXXX'],
-  ['XXXXoXoXXXXXoXoXXXX'],
-  ['XooooooooXooooooooX'],
-  ['XoXXoXXXoXoXXXoXXoX'],
-  ['XooXoooooooooooXooX'],
-  ['XXoXoXoXXXXXoXoXoXX'],
-  ['XooooXoooXoooXooooX'],
-  ['XoXXXXXXoXoXXXXXXoX'],
-  ['XoooooooooooooooooX'],
-  ['XXXXXXXXXXXXXXXXXXX']
-]
-
-  const boardTwo = [...boardOne].reverse()
-
-
-  function generateBoard(inputBoard, newBoard){
-    const splitInputArr = inputBoard.map(subArr => subArr.join('').split('')) 
-    for (let y = 0; y < splitInputArr.length; y++){
-      const cellsSubArray = []
-      for (let x = 0; x < splitInputArr[1].length; x++){
-        const cell = document.createElement('div')
-        cell.setAttribute('data-appearance',`${splitInputArr[y][x]}`)
-        cell.style.height = `${100 / splitInputArr.length}%`
-        cell.style.width = `${100 / splitInputArr[0].length}%`
-        if (cell.dataset.appearance === 'o'){
-          if (inputBoard === boardOne){
-            cell.classList.add('passageway-light')
-          } else if (inputBoard === boardTwo) {
-            cell.classList.add('passageway-dark')
-          }
-        } else {
-          if (inputBoard === boardOne){
-            cell.classList.add('wall-light')
-          } else if (inputBoard === boardTwo) {
-            cell.classList.add('wall-dark')
-          }
-        }
-        grid.appendChild(cell)
-        cellsSubArray.push(cell)
-      }
-      cells.push(cellsSubArray)
-    }
-    addDots(inputBoard, newBoard)
-  }
-  
-  function addDots(inputBoard, newBoard){
-    for (let y = 0; y < cells.length; y++){
-      for (let x = 0; x < cells[1].length; x++){
-        if (cells[y][x].dataset.appearance === 'o'){
-          if ((y === 1 && x === 1) ||
-          (y === 1 && x === cells[0].length - 2) || 
-          (y === cells.length - 2 && x === 1) ||
-          (y === cells.length - 2 && x === cells[0].length - 2)){
-            if (newBoard){
-            // eslint-disable-next-line quotes
-              cells[y][x].innerHTML = "<span class='pill-dot'></span>"
-            } 
-          } else if (x === 0 || x === cells[0].length - 1) {
-            // eslint-disable-next-line quotes
-            cells[y][x].innerHTML = "<span class='service-tunnel'></span>"
-          } else {
-            if (inputBoard === boardOne){
-              // eslint-disable-next-line quotes
-              cells[y][x].innerHTML = `<span class='dot' style="background-color: hsl(${x * y}, 90%, 50%)"></span>`
-              
-              dotCount++
-            }
-            if (inputBoard === boardTwo){
-            // eslint-disable-next-line quotes
-              cells[y][x].innerHTML = "<span class='emergency-dot'></span>"
-
-              dotCount++
-            }
-          }
-        }
-      }
-    }
-  }
-
-  // End of Board Generation Section
-
-
-  // Declare timers
+  // Variables for later set intervals
  
   let captainTimer
   let engineerTimer
@@ -180,93 +46,8 @@ function init(){
   const collisionIdArr = []
 
 
-  function playGame(reset = false){
 
-    for (let i = 1; i < 9999; i++){
-      window.clearInterval(i)
-    }
-
-    if (reset === true){
-      
-      for (let i = 1; i < 9999; i++){
-        window.clearInterval(i)
-      }
-      displayGameSurround()
-      playerOne.score = 0
-      scoreDisplay.textContent = playerOne.score
-      lives.textContent = ''
-      playerOne.addLife()
-      playerOne.addLife()
-      playerOne.addLife()
-      console.log(playerOne.lives)
-      cells = []
-      grid.textContent = ''
-      currentBoard = null
-      reset = false
-    }
-
-    startContainer.classList.add('hide')
-    gridWrapper.style.display = 'flex'
-    newBoard = true
-    gameOver.classList.remove('display')
-    slideInMission.style.display = 'block'
-
-    if (currentBoard !== boardOne){
-      currentBoard = boardOne
-      playerOne.yPos = 3
-      playerOne.xPos = 9
-      enemyOne.yPos = 9
-      enemyOne.xPos = 8
-      enemyTwo.yPos = 9
-      enemyTwo.xPos = 10
-      enemyThree.yPos = 10
-      enemyThree.xPos = 8
-      enemyFour.yPos = 10
-      enemyFour.xPos = 10
-      generateBoard(boardOne, newBoard)
-    } else {
-      currentBoard = boardTwo
-      playerOne.yPos = 18
-      playerOne.xPos = 9
-      enemyOne.yPos = 11
-      enemyOne.xPos = 9
-      enemyTwo.yPos = 12
-      enemyTwo.xPos = 9
-      enemyThree.yPos = 11
-      enemyThree.xPos = 10
-      enemyFour.yPos = 12
-      enemyFour.xPos = 10
-      generateBoard(boardTwo, newBoard)
-    }
-
-    document.addEventListener('keyup', handleKey)
-    
-    playerOne.appear()
-    enemyOne.appear()
-    enemyTwo.appear()
-    enemyThree.appear()
-    enemyFour.appear()
-
-    playerOne.putDotInMouth()
-    enemyOne.putDotInMouth()
-    enemyTwo.putDotInMouth()
-    enemyThree.putDotInMouth()
-    enemyFour.putDotInMouth()
-
-    runGameChase(enemyOne)
-    runGameChase(enemyTwo)
-    runGameChase(enemyThree)
-    runGameChase(enemyFour)
-
-    collisionIdOne = detectCollision(enemyOne)
-    collisionIdTwo = detectCollision(enemyTwo)
-    collisionIdThree = detectCollision(enemyThree)
-    collisionIdFour = detectCollision(enemyFour)
-    collisionIdArr.push(collisionIdOne, collisionIdTwo, collisionIdThree, collisionIdFour)
-
-  }
-
-
+  // Start of Player class
 
   // define a class of Player, which will be instantiated as playerOne
   // Player will be parent class of Enemy class
@@ -347,7 +128,8 @@ function init(){
       lives.appendChild(lifeIcon)
     }
 
-
+    // to determine whether character has landed on a dot, emergency-dot (on board two), or a pill. And adjust board appearance, score, sound and count of dots appropriately.
+    // also to determine whether player has reached the winning score when eating a dot
     checkEatDot(isEnemy){
       if ((isEnemy === false && cells[this.yPos][this.xPos].children[0].classList.contains('dot')) ||
       (isEnemy === false && cells[this.yPos][this.xPos].children[0].classList.contains('emergency-dot'))){
@@ -375,6 +157,7 @@ function init(){
       }
     }
 
+    // putDotInMouth and spitOutDot allow dot to be removed and re-added when any character moves onto and then off of a cell with a dot
     putDotInMouth(){
       if (cells[this.yPos][this.xPos].children[0].classList.contains('dot') 
         || cells[this.yPos][this.xPos].children[0].classList.contains('emergency-dot')){
@@ -383,7 +166,6 @@ function init(){
         this.dotInMouth = true
       } 
     }
-
     spitOutDot(tempYPosition, tempXPosition){
       if (this.dotInMouth === true){
         if (currentBoard === boardOne){
@@ -397,6 +179,7 @@ function init(){
       }
     }
 
+    //method to handle the appearance and disappearance of characters as they move on the grid
     mover(character, direction, tempXPosition, tempYPosition, isEnemy){
       if (cells[character.yPos][character.xPos].dataset.appearance === 'o'){
         if (isEnemy && character.yPos === character.locateCharacter(playerOne)[0] &&
@@ -421,6 +204,21 @@ function init(){
 
   //END of Player class
 
+
+  function adjustCoords(direction, character){
+    if (direction === 'right'){
+      character.xPos = character.xPos - 1
+    } else if (direction === 'left') {
+      character.xPos = character.xPos + 1
+    } else if (direction === 'up') {
+      character.yPos = character.yPos + 1
+    } else if (direction === 'down') {
+      character.yPos = character.yPos - 1
+    }
+  }
+
+
+  //Start of Enemy class
 
   class Enemy extends Player {
     constructor(xPos, yPos, name){
@@ -529,6 +327,238 @@ function init(){
   // END of Enemy class
 
 
+  // Instantiate the Player and Enemy classes for all game characters
+  const playerOne = new Player(3,9, 'playerOne')
+  const enemyOne = new Enemy(9,8, 'Captain')
+  const enemyTwo = new Enemy(9,10, 'Engineer')
+  const enemyThree = new Enemy(10,8, 'Weapons')
+  const enemyFour = new Enemy(10,10, 'Navigation')
+  
+  
+
+  // Start of Start-View and Instructions Section
+
+  startButton.addEventListener('click', playGame)
+  startButton.addEventListener('click', displayGameSurround)
+  gridWrapper.style.display = 'none'
+
+  setTimeout(addLetter, 500)
+  // eslint-disable-next-line quotes
+  const inputMessage = "Stardate: 2354. Location: very far. Rank: Ensign. Shirt: Red"
+  let currentMessage = ''
+  const currentDiv = document.querySelector('.hero')
+
+  function addLetter(letterIndexToAdd = 0){
+    if (currentMessage.length === inputMessage.length) {
+      return
+    }
+    currentMessage = currentMessage + `${inputMessage[letterIndexToAdd]}`
+
+    const newLetter = document.createElement('span')
+    newLetter.innerHTML = `${inputMessage[letterIndexToAdd]}`
+    newLetter.classList.add('cursor')
+
+    currentDiv.appendChild(newLetter)
+
+    setTimeout(function (){
+      addLetter(letterIndexToAdd + 1)
+    }, 150)
+
+  }
+
+  // End of Start-View and Instructions Section
+
+
+  // Start of Play-Game and Board Generation Section 
+
+  // The function that, when called, kicks off generating the board and playing the game
+  function playGame(reset = false){
+
+    for (let i = 1; i < 9999; i++){
+      window.clearInterval(i)
+    }
+
+    if (reset === true){
+    
+      for (let i = 1; i < 9999; i++){
+        window.clearInterval(i)
+      }
+      displayGameSurround()
+      playerOne.score = 0
+      scoreDisplay.textContent = playerOne.score
+      lives.textContent = ''
+      playerOne.addLife()
+      playerOne.addLife()
+      playerOne.addLife()
+      console.log(playerOne.lives)
+      cells = []
+      grid.textContent = ''
+      currentBoard = null
+      reset = false
+    }
+
+    startContainer.classList.add('hide')
+    gridWrapper.style.display = 'flex'
+    newBoard = true
+    gameOver.classList.remove('display')
+    slideInMission.style.display = 'block'
+
+    if (currentBoard !== boardOne){
+      currentBoard = boardOne
+      playerOne.yPos = 3
+      playerOne.xPos = 9
+      enemyOne.yPos = 9
+      enemyOne.xPos = 8
+      enemyTwo.yPos = 9
+      enemyTwo.xPos = 10
+      enemyThree.yPos = 10
+      enemyThree.xPos = 8
+      enemyFour.yPos = 10
+      enemyFour.xPos = 10
+      generateBoard(boardOne, newBoard)
+    } else {
+      currentBoard = boardTwo
+      playerOne.yPos = 18
+      playerOne.xPos = 9
+      enemyOne.yPos = 11
+      enemyOne.xPos = 9
+      enemyTwo.yPos = 12
+      enemyTwo.xPos = 9
+      enemyThree.yPos = 11
+      enemyThree.xPos = 10
+      enemyFour.yPos = 12
+      enemyFour.xPos = 10
+      generateBoard(boardTwo, newBoard)
+    }
+
+    document.addEventListener('keyup', handleKey)
+  
+    playerOne.appear()
+    enemyOne.appear()
+    enemyTwo.appear()
+    enemyThree.appear()
+    enemyFour.appear()
+
+    playerOne.putDotInMouth()
+    enemyOne.putDotInMouth()
+    enemyTwo.putDotInMouth()
+    enemyThree.putDotInMouth()
+    enemyFour.putDotInMouth()
+
+    runGameChase(enemyOne)
+    runGameChase(enemyTwo)
+    runGameChase(enemyThree)
+    runGameChase(enemyFour)
+
+    collisionIdOne = detectCollision(enemyOne)
+    collisionIdTwo = detectCollision(enemyTwo)
+    collisionIdThree = detectCollision(enemyThree)
+    collisionIdFour = detectCollision(enemyFour)
+    collisionIdArr.push(collisionIdOne, collisionIdTwo, collisionIdThree, collisionIdFour)
+
+  }
+
+
+  function displayGameSurround(){
+    gameSurround.classList.add('display')
+  }
+
+  const boardOne =
+[
+  ['XXXXXXXXXXXXXXXXXXX'],
+  ['XooooooooXooooooooX'],
+  ['XoXXoXXXoXoXXXoXXoX'],
+  ['XoooooooooooooooooX'],
+  ['XoXXoXoXoXoXoXoXXoX'],
+  ['XooooXoooXoooXooooX'],
+  ['XXXXoXXXoXoXXXoXXXX'],
+  ['XXXXoXoooooooXoXXXX'],
+  ['XXXXoXoXXoXXoXoXXXX'],
+  ['oooooooXoooXooooooo'],
+  ['XXXXoXoXoooXoXoXXXX'],
+  ['XXXXoXoXXoXXoXoXXXX'],
+  ['XXXXoXoooooooXoXXXX'],
+  ['XXXXoXoXXXXXoXoXXXX'],
+  ['XooooooooXooooooooX'],
+  ['XoXXoXXXoXoXXXoXXoX'],
+  ['XooXoooooooooooXooX'],
+  ['XXoXoXoXXXXXoXoXoXX'],
+  ['XooooXoooXoooXooooX'],
+  ['XoXXXXXXoXoXXXXXXoX'],
+  ['XoooooooooooooooooX'],
+  ['XXXXXXXXXXXXXXXXXXX']
+]
+
+
+  const boardTwo = [...boardOne].reverse()
+
+
+  function generateBoard(inputBoard, newBoard){
+    const splitInputArr = inputBoard.map(subArr => subArr.join('').split('')) 
+    for (let y = 0; y < splitInputArr.length; y++){
+      const cellsSubArray = []
+      for (let x = 0; x < splitInputArr[1].length; x++){
+        const cell = document.createElement('div')
+        cell.setAttribute('data-appearance',`${splitInputArr[y][x]}`)
+        cell.style.height = `${100 / splitInputArr.length}%`
+        cell.style.width = `${100 / splitInputArr[0].length}%`
+        if (cell.dataset.appearance === 'o'){
+          if (inputBoard === boardOne){
+            cell.classList.add('passageway-light')
+          } else if (inputBoard === boardTwo) {
+            cell.classList.add('passageway-dark')
+          }
+        } else {
+          if (inputBoard === boardOne){
+            cell.classList.add('wall-light')
+          } else if (inputBoard === boardTwo) {
+            cell.classList.add('wall-dark')
+          }
+        }
+        grid.appendChild(cell)
+        cellsSubArray.push(cell)
+      }
+      cells.push(cellsSubArray)
+    }
+    addDots(inputBoard, newBoard)
+  }
+  
+  function addDots(inputBoard, newBoard){
+    for (let y = 0; y < cells.length; y++){
+      for (let x = 0; x < cells[1].length; x++){
+        if (cells[y][x].dataset.appearance === 'o'){
+          if ((y === 1 && x === 1) ||
+          (y === 1 && x === cells[0].length - 2) || 
+          (y === cells.length - 2 && x === 1) ||
+          (y === cells.length - 2 && x === cells[0].length - 2)){
+            if (newBoard){
+            // eslint-disable-next-line quotes
+              cells[y][x].innerHTML = "<span class='pill-dot'></span>"
+            } 
+          } else if (x === 0 || x === cells[0].length - 1) {
+            // eslint-disable-next-line quotes
+            cells[y][x].innerHTML = "<span class='service-tunnel'></span>"
+          } else {
+            if (inputBoard === boardOne){
+              // eslint-disable-next-line quotes
+              cells[y][x].innerHTML = `<span class='dot' style="background-color: hsl(${x * y}, 90%, 50%)"></span>`
+              
+              dotCount++
+            }
+            if (inputBoard === boardTwo){
+            // eslint-disable-next-line quotes
+              cells[y][x].innerHTML = "<span class='emergency-dot'></span>"
+
+              dotCount++
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // End of Play-Game and Board Generation Section
+  
 
   // Start of Movement Handling Section (both player and enemies)
 
@@ -554,26 +584,8 @@ function init(){
 
 
 
-  function adjustCoords(direction, character){
-    if (direction === 'right'){
-      character.xPos = character.xPos - 1
-    } else if (direction === 'left') {
-      character.xPos = character.xPos + 1
-    } else if (direction === 'up') {
-      character.yPos = character.yPos + 1
-    } else if (direction === 'down') {
-      character.yPos = character.yPos - 1
-    }
-  }
 
-  // Instantiate classes the game characters
-  const playerOne = new Player(3,9, 'playerOne')
-  const enemyOne = new Enemy(9,8, 'Captain')
-  const enemyTwo = new Enemy(9,10, 'Engineer')
-  const enemyThree = new Enemy(10,8, 'Weapons')
-  const enemyFour = new Enemy(10,10, 'Navigation')
-  
-  
+
 
   //Start of Collision Detection and Handling Section
 
@@ -753,7 +765,7 @@ function init(){
 
   //Start of End-Game Section (including switching between boards)
 
-  function endGame(character, collisionId){
+  function endGame(character){
     for (let i = 1; i < 9999; i++){
       window.clearInterval(i)
     }
