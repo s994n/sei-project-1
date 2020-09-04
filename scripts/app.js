@@ -43,7 +43,7 @@ function init(){
 
   const chaseDirectionTimers = new Set()
   const fleeDirectionTimers = new Set()
-  const collisionIdArr = []
+  const collisionIdArr = new Set()
 
 
 
@@ -438,27 +438,17 @@ function init(){
       enemyInstance.appear()
       enemyInstance.putDotInMouth()
       runGameChase(enemyInstance)
+      
+      collisionIdArr.add(detectCollision(enemyInstance))
     })
     
+    console.log(collisionIdArr)
 
-
-
-    // enemyOne.putDotInMouth()
-    // enemyTwo.putDotInMouth()
-    // enemyThree.putDotInMouth()
-    // enemyFour.putDotInMouth()
-
-
-    // runGameChase(enemyOne)
-    // runGameChase(enemyTwo)
-    // runGameChase(enemyThree)
-    // runGameChase(enemyFour)
-
-    collisionIdOne = detectCollision(enemyOne)
-    collisionIdTwo = detectCollision(enemyTwo)
-    collisionIdThree = detectCollision(enemyThree)
-    collisionIdFour = detectCollision(enemyFour)
-    collisionIdArr.push(collisionIdOne, collisionIdTwo, collisionIdThree, collisionIdFour)
+    // collisionIdOne = detectCollision(enemyOne)
+    // collisionIdTwo = detectCollision(enemyTwo)
+    // collisionIdThree = detectCollision(enemyThree)
+    // collisionIdFour = detectCollision(enemyFour)
+    // collisionIdArr.push(collisionIdOne, collisionIdTwo, collisionIdThree, collisionIdFour)
 
   }
 
