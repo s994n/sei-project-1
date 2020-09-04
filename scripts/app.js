@@ -432,26 +432,27 @@ function init(){
     document.addEventListener('keyup', handleKey)
   
     playerOne.appear()
+    playerOne.putDotInMouth()
     
     enemyInstances.forEach(enemyInstance => {
       enemyInstance.appear()
+      enemyInstance.putDotInMouth()
+      runGameChase(enemyInstance)
     })
     
-    // enemyOne.appear()
-    // enemyTwo.appear()
-    // enemyThree.appear()
-    // enemyFour.appear()
 
-    playerOne.putDotInMouth()
-    enemyOne.putDotInMouth()
-    enemyTwo.putDotInMouth()
-    enemyThree.putDotInMouth()
-    enemyFour.putDotInMouth()
 
-    runGameChase(enemyOne)
-    runGameChase(enemyTwo)
-    runGameChase(enemyThree)
-    runGameChase(enemyFour)
+
+    // enemyOne.putDotInMouth()
+    // enemyTwo.putDotInMouth()
+    // enemyThree.putDotInMouth()
+    // enemyFour.putDotInMouth()
+
+
+    // runGameChase(enemyOne)
+    // runGameChase(enemyTwo)
+    // runGameChase(enemyThree)
+    // runGameChase(enemyFour)
 
     collisionIdOne = detectCollision(enemyOne)
     collisionIdTwo = detectCollision(enemyTwo)
