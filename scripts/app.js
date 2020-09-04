@@ -24,9 +24,7 @@ function init(){
   let cells = []
   let dotCount = 0
 
-
-  // Variables for later set intervals
- 
+  // Variables for later set intervals 
   let captainTimer
   let engineerTimer
   let weaponsTimer
@@ -35,16 +33,9 @@ function init(){
   let engineerTimerFlee
   let weaponsTimerFlee
   let navigationTimerFlee
-
-  let collisionIdOne
-  let collisionIdTwo
-  let collisionIdThree
-  let collisionIdFour
-
   const chaseDirectionTimers = new Set()
   const fleeDirectionTimers = new Set()
   const collisionIdTimers = new Set()
-
 
 
   // Start of Player class
