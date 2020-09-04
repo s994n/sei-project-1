@@ -79,7 +79,6 @@ body {
   padding: 20px;
 }
 
-
 .start{
   padding:10px;
   margin-top: 10px;
@@ -116,7 +115,6 @@ body {
 .outer-container{
   display: none;
   height: 100vh;
-
 }
 
 .outer-container.display{
@@ -128,14 +126,11 @@ body {
   align-items: center;
 }
 
-
 .score-container{
   color: chartreuse;
 }
 
 .grid-wrapper {
-  /* height: 100vh; */
-  
   /* disply set in js to either none or flex */
   justify-content: center;
   align-items: center;
@@ -153,9 +148,6 @@ body {
 }
 
 .grid div {
-  /* border: 1px solid lightgrey; */
-
-  /* flex-grow: 1; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -254,11 +246,8 @@ div span.pill-dot{
   
   height: 15px;
   width: 15px;
-  /* background-color: pink;
-  border-radius: 50%; */
   display: inline-block;
 }
-
 
 div span.service-tunnel {
   height: 100%;
@@ -270,13 +259,11 @@ div span.service-tunnel {
 
 div.passageway-light{
   background-color: white;
-  
 }
 
 div.passageway-dark{
   background-color: black;
 }
-
 
 .lives{
   height: 90px;
@@ -291,15 +278,16 @@ div.life{
   background-size: cover;
 }
 
+/* End of Game container and grid section */
 
 
-/* Game over section */
+/* Start of Game over section */
+
 .game-over{
   height: 100vh;
   background-color: black;
   color: chartreuse;
   display: none;
-  
 }
 
 div.game-over.display{
@@ -318,12 +306,9 @@ div.game-over.display{
 
 	color:#fff;
 	font-size:25px;
-	/* font-family: var(--brand-font); */
-	/* text-shadow:1px 1px 1px var(--dark-grey); */
 	text-transform: uppercase;
 
 	background-image: var(--red-gradient);
-	/* border:1px solid var(--grey); */
 	box-shadow:4px 4px 10px black;
 	border-radius:40px;
 	cursor: pointer;
@@ -342,6 +327,10 @@ div.game-over.display{
 .restart-btn:focus {
 	outline:0;
 }
+
+/* End of Game over section */
+
+/* Start of slide-in section */
 
 .slide-in{
   opacity: 0;
@@ -389,6 +378,9 @@ div.game-over.display{
 	transform:scale(1.1);
 }
 
+/* End of slide-in section */
+
+
 
 @media only screen and (max-height: 1000px){
   div.life{
@@ -398,7 +390,6 @@ div.game-over.display{
   }
 }
 
-
 @media only screen and (max-height: 900px){
   div.life{
     width: 35px;
@@ -406,8 +397,6 @@ div.game-over.display{
     margin: 5px;
   }
 }
-
-
 
 @media only screen and (max-width: 1100px){
   .slide-in{
@@ -420,7 +409,6 @@ div.game-over.display{
   }
 
 }
-
 
 @media only screen and (max-width: 760px){
 
