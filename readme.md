@@ -2,7 +2,8 @@
 
 # Redshirt's run
 
-This game, inspired by Pacman (and Star Trek!) involves a player inside a maze, being chased by a group of characters ('enemies').
+This game, inspired by Pacman and Star Trek involves a player inside a maze, being chased by a group of characters ('enemies').
+The player picks up points along their route. The aim is to pick up as many points as possible before being caught by the enemies.
 
 This is my first project, built in one week, three weeks into my Software Engineering Immersive at General Assembly.
 
@@ -12,14 +13,26 @@ This is my first project, built in one week, three weeks into my Software Engine
 * There is one player, who starts with a score of zero. 
 * The player has an avatar on the board, in a red shirt.
 * The player's avatar can be moved by the user, with their arrow-up, arrow-down, arrow-left and arrow-right keyboard keys.
-* The player cannot move outside of passageways, which contain the dots, and therefore remains within the bounds of the game board. However, the player can pass through a transportation tunnel, positioned roughly at the center of the far left and right walls of the board. Entering the tunnel makes the player avatar appear on the opposite side of the board.
-* enemies, whose movement is determined by the computer, will start the game in a 'chase' mode, and will hunt for the player.
+* The player cannot move outside of passageways, which contain the dots, and therefore remains within the bounds of the game board. However, the player can pass through a 'transporter tunnel', positioned roughly at the center of the far left and right walls of the board. Passing through the tunnel makes the player avatar appear on the opposite side of the board.
+* The player starts with three lives.
+* Enemies, whose movement is determined by the computer, will start the game in a 'chase' mode, and will hunt for the player.
 * Score increases as the player moves over dots on the game board, or moves over a pill (positioned at the four corners of the board), or collides with an enemy whose mode is in 'flee' (which occurs for a set period of time after the player landed on a pill).
-* When all dots on a current board have been removed, the dots are replenished (the player can then continue to increase their score, moving over the dots).
 * When a player moves over a pill, all enemys' modes are changed for a few seconds to 'flee', before reverting back to a 'chase' mode.
-* When the player collides with an enemy whose mode is 'flee', that enemy's position is re-set to the center of the board, after a short delay
-* When the player collides with an enemy whose mode is not 'flee', game-play moves to a second board. On this second board, if/when the player again collides with an enemy not in 'flee' mode, the player loses a life and is returned to the first board.
-*The game is over when the player looses all three of their starting lives, or when the player reaches a specified winning score (the same as that for original pacman, 3,333,360).
+* When all dots on a current board have been removed, the dots are replenished (the player can then continue to increase their score, moving over the dots). However, pills are not replenished in this way.
+* When the player collides with an enemy whose mode is 'flee', after a short delay that enemy's position is re-set to a point near the center of the board (representing the bridge on a starship).
+* Game play switches between two boards until the player loses all of their lives. On the first board, when the player collides with an enemy whose mode is not 'flee', the player does not lose a life but game-play moves to the second board. On this second board, if/when the player again collides with an enemy not in 'flee' mode, the player then loses one life and is returned to the first board, where game-play continues (all dots and pills are replenished).
+* The game is over when the player looses all three of their starting lives, or when the player reaches a specified winning score, which is the same as that for original pacman, 3,333,360.
+* On the game ending, the player is given their final score and the option to play again, starting the game from scratch.
+
+## Player and Enemy classes
+There is a Player class and an Enemy class, which extends the class of Player. Class properties and methods are outlined in various sections below.
+
+## Game grid
+Game-play takes place on a grid. The starting point for the grid is a 2-dimensional array of strings. This is a simple representation of what will be the rendered grid (the game board). Starting with an array allows easy manipulation of the board appearance. In the array, walls are represented by 'X', and passageways by an 'o'.  
+
+A function itterates over the array, creating a div for each 'X' and each 'o' and adding them to a rendered (grid) container. divs (i.e. cells within the grid) are also styled accordingly via this function -- including, with help from a seperate function, addition of html that will render appearance of dots and pills on the grid. In addition, the function builds up another 2D array ('cells'), containing information on all of the newly created divs and their attributes. Each element of the cells array can be thought of as referencing a y (vertical) and an x (horizontal) positon within the grid, such: cells[y][x] 
+
+An instance of Player is stored as 'playerOne', along with four instances of Enemy (enemyOne, enemyTwo, enemyThree, enemyFour). All instances of Player and Enemy are instantiated with y-x coordinates, to allow their positioning on the grid.
 
 
 ## Enemy chase and flee modes
