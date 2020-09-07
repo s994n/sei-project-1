@@ -774,12 +774,13 @@ function init(){
     gameOver.childNodes[0].nextSibling.style.width = '50%'
     gameOver.childNodes[0].nextSibling.style.margin = '20px'
     if (win === true){
-      gameOver.childNodes[0].nextSibling.innerHTML = 'Congratulations! You survived long enough to be transfered off of the Nimitz. Good luck to the remaining redshirts onboard!'
+      // eslint-disable-next-line quotes
+      gameOver.childNodes[0].nextSibling.innerHTML = "Congratulations! You survived long enough to be transfered off of the Nimitz. Good luck to the remaining redshirts onboard! <br/><br/><span style='color:blue;'> Image Credits: <br/>Space images: Nasa, and Nathan Anderson on Unsplash<br/> Avatars: Trekkietar.com </span>"
       gameOver.classList.add('display')
     } else {
       gameOverSound.play()
       // eslint-disable-next-line quotes
-      gameOver.childNodes[0].nextSibling.innerHTML = "Game over. 'It is possible to commit no errors and still lose. That is not a weakness. That is life.' Jean Luc Picard ... But maybe run faster next time."
+      gameOver.childNodes[0].nextSibling.innerHTML = "Game over.<br/> 'It is possible to commit no errors and still lose. That is not a weakness. That is life.' <br/>Jean Luc Picard ... <br/>But maybe run faster next time.<br/><br/><span style='color:blue;'> Image Credits: <br/>Space images: Nasa, and Nathan Anderson on Unsplash<br/> Avatars: Trekkietar.com </span>"
       gameOver.classList.add('display')
     }
     
