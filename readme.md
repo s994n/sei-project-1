@@ -68,12 +68,42 @@ The aim is to achieve the highest score possible before being killed by the ghos
 ### Player and Enemy classes
 There is a Player class and an Enemy class, which extends the class of Player. Class properties and methods are outlined in various sections below.
 
+An instance of Player is stored as 'playerOne', along with four instances of Enemy (enemyOne, enemyTwo, enemyThree, enemyFour).
+
 ### Game grid
-Game-play takes place on a grid. The starting point for the grid is a 2-dimensional array of strings. This is a simple representation of what will be the rendered grid (the game board). Starting with an array allows easy manipulation of the board appearance. In the array, walls are represented by 'X', and passageways by an 'o'.  
+Game-play takes place on a grid. The starting point for forming the grid is a nested array of strings:
 
-A function itterates over the array, creating a div for each 'X' and each 'o' and adding them to a rendered (grid) container. divs (i.e. cells within the grid) are also styled accordingly via this function -- including, with help from a seperate function, addition of html that will render appearance of dots and pills on the grid. In addition, the function builds up another 2D array ('cells'), containing information on all of the newly created divs and their attributes. Each element of the cells array can be thought of as referencing a y (vertical) and an x (horizontal) positon within the grid, such: cells[y][x] 
+      const boardOne =
+    [
+      ['XXXXXXXXXXXXXXXXXXX'],
+      ['XooooooooXooooooooX'],
+      ['XoXXoXXXoXoXXXoXXoX'],
+      ['XoooooooooooooooooX'],
+      ['XoXXoXoXoXoXoXoXXoX'],
+      ['XooooXoooXoooXooooX'],
+      ['XXXXoXXXoXoXXXoXXXX'],
+      ['XXXXoXoooooooXoXXXX'],
+      ['XXXXoXoXXoXXoXoXXXX'],
+      ['oooooooXoooXooooooo'],
+      ['XXXXoXoXoooXoXoXXXX'],
+      ['XXXXoXoXXoXXoXoXXXX'],
+      ['XXXXoXoooooooXoXXXX'],
+      ['XXXXoXoXXXXXoXoXXXX'],
+      ['XooooooooXooooooooX'],
+      ['XoXXoXXXoXoXXXoXXoX'],
+      ['XooXoooooooooooXooX'],
+      ['XXoXoXoXXXXXoXoXoXX'],
+      ['XooooXoooXoooXooooX'],
+      ['XoXXXXXXoXoXXXXXXoX'],
+      ['XoooooooooooooooooX'],
+      ['XXXXXXXXXXXXXXXXXXX']
+    ]
 
-An instance of Player is stored as 'playerOne', along with four instances of Enemy (enemyOne, enemyTwo, enemyThree, enemyFour). All instances of Player and Enemy are instantiated with y-x coordinates, to allow their positioning on the grid.
+ Starting with an array allows easy manipulation of the board appearance. In the array, walls are represented by 'X', and passageways by an 'o'.  
+
+A function itterates over the array, creating a div for each 'X' and each 'o' and adding them to a rendered (grid) container. The divs are also styled accordingly via this function -- including, with help from a seperate function, addition of html that will render appearance of dots and pills on the grid. In addition, the function builds up another array ('cells'), containing information on all of the newly created divs and their attributes. Each element (cell) of the cells array can be thought of as having a y (vertical) and an x (horizontal) positon within the grid, which can be accessed as such: 
+
+      cells[y][x] 
 
 
 ### Enemy chase and flee modes
@@ -94,34 +124,40 @@ The flee/chase modes alter the enemy behaviour:
 
 ### Enemy positioning and movement
 
+ All instances of Player and Enemy are instantiated with y and x coordinates that position their avatar on the grid (see Game Grid section above).
+
+
 #### Deciding a direction
 
 Before each enemy makes a move, it will decide which direction to move.  
 
 The Enemy class has a method, decideDirection that is repeatedly called (for each instantiated enemy) at intervals during gameplay. 
 
-The decideDirection method calls other methods (checkRight, checkLeft, checkUp and checkDown) that allow an enemy to determine the coordinates of the cells immediately to the right, left, up and down, around its position. With this information, each enemy can determine whether the cell in question is a passageway (allowing movement), or a wall (dissalowing movement). The enemy also has its own x and y position properties, as well as a method to determine the player's current x-y position on the grid. Using this information, the enemy can determine whether any given cell immediately around it is closer or further from the player's position (in terms of a straight line drawn from enemy to player).
+The decideDirection method calls other methods (checkRight, checkLeft, checkUp and checkDown) that allow an enemy to determine the coordinates of the cells immediately to the right, left, up and down, around its position. With this information, each enemy can determine whether the cell in question is a passageway (allowing movement), or a wall (dissalowing movement). The enemy also has its own x and y position properties, as well as a method to determine the player's current (x-y) position on the grid. Using this information, the enemy can determine whether any given cell immediately around it is closer or further from the player's position (in terms of a straight line drawn from enemy to player).
 
 Conditions are also added in decideDirection to avoid enemies back-tracking during their movement. Specifically, enemies have a property (lastMove) that stores information about their previous move. This is then used when deciding which move should be made next.
 
-Before each move, each enemy iterates through directions (right, left, up or down - also taking into acount its last move, as described above), and using a simple sum of x and y grid cell coordinates, along with knowledge of the player's current cell coordinates, sorts the possible moves into an order of desired movement. 
-
 ##### Movement behaviour depending on mode
+Before each move, each enemy iterates through directions (right, left, up or down) and, using knowledge of its current x-y position on the grid versus the player's current position, sorts the directions into a list with the first direction in the list being the most desirable move and the last being least desirable.  
+
+The enemy will work its way through the list and attempt to move first in the most desirable direction. If this direction is not possible (for example, there is a wall rather than passage in that direction), then a move in the next most desirable direction is attempted. The enemy continues to attempt to move until it is able to successfully make a move (until its x and y position properties change). If for any reason the enemy is unable to find a direction to successfully move in (which may occassionally be the case if the enemy is in a corner), we simply return out of the method and await a new call to decideDirection.
+
 When the enemy is in 'chase' mode, the sorting order results in the first move to try (the most desirable move) being that which will minimise the straight-line distance to the player position. If there are two or more potential moves that offer equal reduction in distance to the player, a random choice is made between these desired moves.
 
-Conversely, when the enemy is in 'flee' mode (after the player has landed on one of the pills on the board), the movement sorting order is reversed: the first move that the enemy will try is the move that will result in the greatest possible increase in straight-line distance from the player's current position.
+Conversely, when the enemy is in 'flee' mode (after the player has landed on one of the pills on the board), the movement sorting order is reversed: the most desirable (first) move will be that which results in the greatest possible increase in straight-line distance from the player's current position.
 
-Now with a desired order of movement, the enemy will assess whether it is possible to move in each direction. The enemy will try (in the order of sorting, as described above) to move in each direction until it is able to successfully make a move (until its x and y position properties change). If for any reason the enemy is unable to find a direction to successfully move in (which may very occassionally be the case if the enemy is in a corner), we simply return out of the method and await a new call to decideDirection.
 
 #### Movement timing
 decideDirection (and thereby, enemy movement) is called at slightly different rates for different enemy instances in chase mode. Doing this means that over time enemies spread out across the board, thus providing more interesting gameplay.
 
 
-### mode changes
+### Enemy mode changes
 The enemy's mode changes when the player lands on a pill on the board.
 When this happens, a function, bigDogTriggerFlee is called. This function clears all timers (intervals) associated with enemy movement. It then sets all instantiated enemys' modes to 'flee', after which another function is called which re-starts game play, with appropriate timings and behavior (fleeing) for each enemy. After a few seconds, all movement timers are again cleared, enemy modes are re-set to 'chase' and new timers (intervals) are called to once again decide movement with enemies in chase mode.
 
 ### Collision detection
+
+
 
 ### Game-play pause and game-end
 When any collision is detected between the player and an enemy instance not in 'flee' mode, a function endGame is called. This endGame function is also called if the player reaches the winning score (stored in the constant winScore). 
