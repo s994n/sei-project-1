@@ -7,15 +7,30 @@ The player picks up points along their route. The aim is to pick up as many poin
 
 This is my first project, built in one week, three weeks into my Software Engineering Immersive at General Assembly.
 
+## Goal and Brief
+
+* A grid-based, pacman-inspired game, renedered in the browser
+* Logic for losing and winning
+* The player should be able to clear at least one board
+* The player's score should be displayed at the end of the game
+* Deploy the game online
+
+### Timescale
+* 7 days
+
+### Technologies used
+* Vanilla JavaScript (ES6)
+* HTML5
+* CSS
+* Github
 
 ## The Game: Redshirt's run
 
-### Game-play demo
+### Game-play sample
 ![Gameplay demo](./styles/Readme_screenshots/Redshirts_run_demo_edits.gif)
 
 
-
-## General info on game-play
+## General information on game-play
 
 * There is one player, who starts with a score of zero. 
 * The player has an avatar on the board, in a red shirt.
