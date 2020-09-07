@@ -99,7 +99,9 @@ Game-play takes place on a grid. The starting point for forming the grid is a ne
       ['XXXXXXXXXXXXXXXXXXX']
     ]
 
- Starting with an array allows easy manipulation of the board appearance. In the array, walls are represented by 'X', and passageways by an 'o'.  
+ Starting with an array allows easy manipulation of the board appearance. One example of this is that a second board is also generated simply by reversing the array used above.
+ 
+ In the array, walls are represented by 'X', and passageways by an 'o'.  
 
 A function itterates over the array, creating a div for each 'X' and each 'o' and adding them to a rendered (grid) container. The divs are also styled accordingly via this function -- including, with help from a seperate function, addition of html that will render appearance of dots and pills on the grid. In addition, the function builds up another array ('cells'), containing information on all of the newly created divs and their attributes. Each element (cell) of the cells array can be thought of as having a y (vertical) and an x (horizontal) positon within the grid, which can be accessed as such: 
 
@@ -155,14 +157,21 @@ decideDirection (and thereby, enemy movement) is called at slightly different ra
 The enemy's mode changes when the player lands on a pill on the board.
 When this happens, a function, bigDogTriggerFlee is called. This function clears all timers (intervals) associated with enemy movement. It then sets all instantiated enemys' modes to 'flee', after which another function is called which re-starts game play, with appropriate timings and behavior (fleeing) for each enemy. After a few seconds, all movement timers are again cleared, enemy modes are re-set to 'chase' and new timers (intervals) are called to once again decide movement with enemies in chase mode.
 
-### Collision detection
-
-
-
-### Game-play pause and game-end
-When any collision is detected between the player and an enemy instance not in 'flee' mode, a function endGame is called. This endGame function is also called if the player reaches the winning score (stored in the constant winScore). 
+### Collision detection and end of game
+A function, detectCollision, handles detection of collisions between enemies and the player. At regular intervals of 40 ms, each enemy checks whether its current position on the grid matches that of the player. If it does, and if the enemy in question is in 'chase' mode, then another function, endGame, is called to handle ending the game (which could involve moving the gameplay to the alternate grid or involve completely ending the game). If the enemy that detected collision is in a 'flee' mode, then that enemy's position is re-set, via another function resetDrugged, to the center of the board. 
 
 endGame clears all intervals that have been set during the previous game. If the winning score has not been reached, the function checks which board the play is currently on:
 *  If play is on board two, the player loses a life. If player lives are subsequently equal to zero, then another function is run to display a game-over message and final score. Alternatively, if player lives remain above zero, a message is displayed indicating to the player that they have lost a life and will switch boards. 
 *  If play is on board one, when the player collides with an enemy whose mode is not 'flee', game-play moves to a second board: A message is displayed to let the player know they will switch boards (go on an away mission) 
+
+The endGame function (see above section) is also called if the player reaches the winning score, which is stored in the constant winScore.
+
+
+## Potential future improvements
+
+Possible improvements or additional features could include:
+
+
+
+
 
