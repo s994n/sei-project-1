@@ -33,7 +33,17 @@ The aim is to achieve the highest score possible before being killed by the ghos
 
 ## The Game: Redshirt's run
 
-### Game-play sample
+### Live version
+
+**A live version of the game can be [found here](https://simon994.github.io/sei-project-1/)**
+
+### Game screenshots and demo
+
+#### Starting screen with instructions
+![Start view and instructions](./styles/Readme_screenshots/start_view.jpg)
+
+
+#### Game-play sample
 ![Gameplay demo](./styles/Readme_screenshots/Redshirts_run_demo_edits.gif)
 
 
@@ -42,16 +52,18 @@ The aim is to achieve the highest score possible before being killed by the ghos
 * There is one player, who starts with a score of zero. 
 * The player has an avatar on the board, in a red shirt.
 * The player's avatar can be moved by the user, with their arrow-up, arrow-down, arrow-left and arrow-right keyboard keys.
-* The player cannot move outside of passageways, which contain the dots, and therefore remains within the bounds of the game board. However, the player can pass through a 'transporter tunnel', positioned roughly at the center of the far left and right walls of the board. Passing through the tunnel makes the player avatar appear on the opposite side of the board.
+* The player cannot move outside of passageways, which contain dots that the player can collect to increase score. The player can pass through a 'transporter tunnel', positioned roughly at the center of the far left and right walls of the board. Passing through the tunnel makes the player avatar appear on the opposite side of the board.
 * The player starts with three lives.
 * Enemies, whose movement is determined by the computer, will start the game in a 'chase' mode, and will hunt for the player.
-* Score increases as the player moves over dots on the game board, or moves over a pill (positioned at the four corners of the board), or collides with an enemy whose mode is in 'flee' (which occurs for a set period of time after the player landed on a pill).
-* When a player moves over a pill, all enemys' modes are changed for a few seconds to 'flee', before reverting back to a 'chase' mode.
-* When all dots on a current board have been removed, the dots are replenished (the player can then continue to increase their score, moving over the dots). However, pills are not replenished in this way.
+* When a player moves over a pill (pills are positioned near the four corners of the board), all enemys' modes are changed for a few seconds to 'flee', before reverting back to a 'chase' mode.
 * When the player collides with an enemy whose mode is 'flee', after a short delay that enemy's position is re-set to a point near the center of the board (representing the bridge on a starship).
+* Score increases as the player moves over dots on the game board, or moves over a pill, or collides with an enemy whose mode is in 'flee' (which occurs for a set period of time after the player landed on a pill).
+* When all dots on a current board have been removed, the dots are replenished (the player can then continue to increase their score, moving over the dots). However, pills are not replenished in this way.
 * Game play switches between two boards until the player loses all of their lives. On the first board, when the player collides with an enemy whose mode is not 'flee', the player does not lose a life but game-play moves to the second board. On this second board, if/when the player again collides with an enemy not in 'flee' mode, the player then loses one life and is returned to the first board, where game-play continues (all dots and pills are replenished).
-* The game is over when the player looses all three of their starting lives, or when the player reaches a specified winning score, which is the same as that for original pacman, 3,333,360.
+* The game is over when the player looses all three of their three starting lives, or when the player reaches a specified winning score, which is the same as that for original pacman, 3,333,360.
 * On the game ending, the player is given their final score and the option to play again, starting the game from scratch.
+
+
 
 ### Player and Enemy classes
 There is a Player class and an Enemy class, which extends the class of Player. Class properties and methods are outlined in various sections below.
