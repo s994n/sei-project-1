@@ -171,7 +171,11 @@ The endGame function (see above section) is also called if the player reaches th
 
 Possible improvements or additional features could include:
 
-
+* To further improve enemy movement, which could include:
+** Developing ways to ensure an enemy moves: currently, enemies can become stuck in corners or on the opposite side of walls to a stationary player. This happens because enemies repeatedly try to minimise distance to the player and give too-little weight to a longer but ultimately more appropriate route.  
+** Use a path-finding algorithm to allow enemies to determine a path(s) to the player, rather than just a distance, as is currently the case. 
+* To implement a persistent leaderboard using `localStorage`
+* Further (more difficult) boards
 
 
 
