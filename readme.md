@@ -24,13 +24,20 @@ This is my first project, built in one week, three weeks into my Software Engine
 * CSS
 * Github
 
+### Underlying inspiration, Pac Man:
+Pac Man is a classic arcade game from the 80s. The player aims eat all the food in a maze whilst being hunted by ghosts.
+
+If the player eats special flashing food the ghosts start to flash and can now be captured by the player, sending them back to their holding pen, from where they can once again start to hunt the player.
+
+The aim is to achieve the highest score possible before being killed by the ghosts.
+
 ## The Game: Redshirt's run
 
 ### Game-play sample
 ![Gameplay demo](./styles/Readme_screenshots/Redshirts_run_demo_edits.gif)
 
 
-## General information on game-play
+### General information on game-play
 
 * There is one player, who starts with a score of zero. 
 * The player has an avatar on the board, in a red shirt.
@@ -46,10 +53,10 @@ This is my first project, built in one week, three weeks into my Software Engine
 * The game is over when the player looses all three of their starting lives, or when the player reaches a specified winning score, which is the same as that for original pacman, 3,333,360.
 * On the game ending, the player is given their final score and the option to play again, starting the game from scratch.
 
-## Player and Enemy classes
+### Player and Enemy classes
 There is a Player class and an Enemy class, which extends the class of Player. Class properties and methods are outlined in various sections below.
 
-## Game grid
+### Game grid
 Game-play takes place on a grid. The starting point for the grid is a 2-dimensional array of strings. This is a simple representation of what will be the rendered grid (the game board). Starting with an array allows easy manipulation of the board appearance. In the array, walls are represented by 'X', and passageways by an 'o'.  
 
 A function itterates over the array, creating a div for each 'X' and each 'o' and adding them to a rendered (grid) container. divs (i.e. cells within the grid) are also styled accordingly via this function -- including, with help from a seperate function, addition of html that will render appearance of dots and pills on the grid. In addition, the function builds up another 2D array ('cells'), containing information on all of the newly created divs and their attributes. Each element of the cells array can be thought of as referencing a y (vertical) and an x (horizontal) positon within the grid, such: cells[y][x] 
@@ -57,11 +64,11 @@ A function itterates over the array, creating a div for each 'X' and each 'o' an
 An instance of Player is stored as 'playerOne', along with four instances of Enemy (enemyOne, enemyTwo, enemyThree, enemyFour). All instances of Player and Enemy are instantiated with y-x coordinates, to allow their positioning on the grid.
 
 
-## Enemy chase and flee modes
+### Enemy chase and flee modes
 
 The Enemy class has a mode -- with a value of either 'chase', or 'flee' -- that determines how it behaves with respect to the player. Upon instantiation of an enemy is set to chase. The mode is changed to flee when the player lands on a pill on the board (the mode of each enemy then remains in 'flee' for a set period of time, before reverting to 'chase').
 
-### character behaviour in different modes
+#### character behaviour in different modes
 
 The flee/chase modes alter the enemy behaviour:  
 
@@ -73,9 +80,9 @@ The flee/chase modes alter the enemy behaviour:
 
 
 
-## Enemy positioning and movement
+### Enemy positioning and movement
 
-### Deciding a direction
+#### Deciding a direction
 
 Before each enemy makes a move, it will decide which direction to move.  
 
@@ -87,24 +94,24 @@ Conditions are also added in decideDirection to avoid enemies back-tracking duri
 
 Before each move, each enemy iterates through directions (right, left, up or down - also taking into acount its last move, as described above), and using a simple sum of x and y grid cell coordinates, along with knowledge of the player's current cell coordinates, sorts the possible moves into an order of desired movement. 
 
-#### Movement behaviour depending on mode
+##### Movement behaviour depending on mode
 When the enemy is in 'chase' mode, the sorting order results in the first move to try (the most desirable move) being that which will minimise the straight-line distance to the player position. If there are two or more potential moves that offer equal reduction in distance to the player, a random choice is made between these desired moves.
 
 Conversely, when the enemy is in 'flee' mode (after the player has landed on one of the pills on the board), the movement sorting order is reversed: the first move that the enemy will try is the move that will result in the greatest possible increase in straight-line distance from the player's current position.
 
 Now with a desired order of movement, the enemy will assess whether it is possible to move in each direction. The enemy will try (in the order of sorting, as described above) to move in each direction until it is able to successfully make a move (until its x and y position properties change). If for any reason the enemy is unable to find a direction to successfully move in (which may very occassionally be the case if the enemy is in a corner), we simply return out of the method and await a new call to decideDirection.
 
-### Movement timing
+#### Movement timing
 decideDirection (and thereby, enemy movement) is called at slightly different rates for different enemy instances in chase mode. Doing this means that over time enemies spread out across the board, thus providing more interesting gameplay.
 
 
-##  mode changes
+### mode changes
 The enemy's mode changes when the player lands on a pill on the board.
 When this happens, a function, bigDogTriggerFlee is called. This function clears all timers (intervals) associated with enemy movement. It then sets all instantiated enemys' modes to 'flee', after which another function is called which re-starts game play, with appropriate timings and behavior (fleeing) for each enemy. After a few seconds, all movement timers are again cleared, enemy modes are re-set to 'chase' and new timers (intervals) are called to once again decide movement with enemies in chase mode.
 
-## Collision detection
+### Collision detection
 
-## Game-play pause and game-end
+### Game-play pause and game-end
 When any collision is detected between the player and an enemy instance not in 'flee' mode, a function endGame is called. This endGame function is also called if the player reaches the winning score (stored in the constant winScore). 
 
 endGame clears all intervals that have been set during the previous game. If the winning score has not been reached, the function checks which board the play is currently on:
