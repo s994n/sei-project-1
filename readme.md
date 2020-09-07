@@ -8,6 +8,13 @@ The player picks up points along their route. The aim is to pick up as many poin
 This is my first project, built in one week, three weeks into my Software Engineering Immersive at General Assembly.
 
 
+## The Game: Redshirt's run
+
+### Game-play demo
+![Gameplay demo](./styles/Readme_screenshots/Redshirts_run_demo_edits.gif)
+
+
+
 ## General info on game-play
 
 * There is one player, who starts with a score of zero. 
